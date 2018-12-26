@@ -1,17 +1,113 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button *ngIf="!toggled" ion-button icon-only menuToggle><ion-icon name="menu"></ion-icon></button>
+        <!-- Title -->
+        <ion-title *ngIf="!toggled">Creative Finder</ion-title>
+        <!-- Search Bar -->
+        <ion-searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (search)="searchQuery($event)"></ion-searchbar>
+        <!-- Search Icon -->
+        <ion-buttons end *ngIf="!toggled">
+            <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+
+<ion-content class='content'>
+
+
+    <ion-grid class='featured-maps'>
+        <ion-row>
+            <ion-col width-100>
+                <ion-slides pager width="300" spaceBetween="5" freeMode="true" class="slider">
+                    <ion-slide>
+                        <div class="parent">
+                            <img src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg">
+                            <div class="featured-text">Featured</div>
+                            <div class='code-text'>131-432-745-982</div>
+                            <ion-row class="overlay-text">
+                                <ion-col width-100>
+                                    <ion-row class="title">
+                                        Christmas Death Run
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col>
+                                            <div class="author">Author: Epic Games</div>
+                                            <div class="desc">This is a PVP Map where there is sme fighting and shit its pretty dope to be honest.</div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-col>
+                            </ion-row>
+                        </div>
+                    </ion-slide>
+                    <ion-slide>
+                        <div class="parent">
+                            <img src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg">
+                            <div class="featured-text">Featured</div>
+                            <div class='code-text'>131-432-745-982</div>
+                            <ion-row class="overlay-text">
+                                <ion-col width-100>
+                                    <ion-row class="title">
+                                        Christmas Death Run
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col>
+                                            <div class="author">Author: Epic Games</div>
+                                            <div class="desc">This is a PVP Map where there is sme fighting and shit its pretty dope to be honest.</div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-col>
+                            </ion-row>
+                        </div>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div class='top-maps-title'>Top Maps</div>
+
+    <ion-list>
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4 class="preview-img-container">
+                        <ion-img class="preview-img" src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg"></ion-img>
+                    </ion-col>
+                    <ion-col col-8>
+                        <div class="title">Christmas Death Run</div>
+                        <div class="author">Epic Games</div>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row text-wrap>
+                    <ion-col col-12>
+                        <div class="desc">This is the map that was replaced by the block and ...</div>
+                        <div class="code">131-432-745-982</div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+        <ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4 class="preview-img-container">
+                        <ion-img class="preview-img" src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg"></ion-img>
+                    </ion-col>
+                    <ion-col col-8>
+                        <div class="title" text-wrap>Lachlen's Hide and Seek</div>
+                        <div class="author">Lachlen</div>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row text-wrap>
+                    <ion-col col-12>
+                        <div class="desc">Play a classic game of hide and seek in this expertly designed map.</div>
+                        <div class="code">743-302-130-982</div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
 </ion-content>

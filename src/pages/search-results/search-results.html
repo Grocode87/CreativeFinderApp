@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Search Results</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <!-- Loading Indicator -->
+    <ion-item class='searching-indicator' no-lines *ngIf="!items">
+        <h4>Searching Results</h4>
+        <ion-spinner item-right name="bubbles"></ion-spinner>
+    </ion-item>
+
+    <!-- Number of search results -->
+    <div class="search-results-num" *ngIf="items">
+        {{ items.length }} Search Results for <b>{{query}}</b>
+    </div>
+
+    <!-- No results indicator  -->
+    <div class="no-results-indicator" *ngIf="items?.length == 0">
+        No results found
+    </div>
+
+    <!-- Results list -->
+    <ion-list>
+        <ion-item *ngFor="let item of items">
+            {{ item }}
+        </ion-item>
+    </ion-list>
+</ion-content>

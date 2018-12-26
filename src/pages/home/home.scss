@@ -1,3 +1,73 @@
 page-home {
-
+    .content {
+        background-color: #F5F5F5;
+    }
+    .welcome-card ion-img {
+        max-height: 35vh;
+        overflow: hidden;
+    }
+    .preview-img-container {}
+    .preview-img {
+        width: 100%;
+        height: 8vh;
+        border-radius: 7px;
+    }
+    .title {
+        padding-top: 3px;
+        font-size: 6vw;
+    }
+    .author {
+        padding-top: 2px;
+        font-size: 4vw;
+        color: darkgray;
+    }
+    .desc {
+        font-size: 4vw;
+        padding-top: 4px;
+    }
+    .code {
+        font-size: 6vw;
+        padding-top: 5px;
+        color: blue;
+        font-weight: bold;
+    }
+    .parent {
+        position: relative;
+        text-align: left;
+        background-color: white;
+        img {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+        }
+        .desc {
+            padding-bottom: 20px;
+        }
+        .featured-text {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            background-color: red;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .code-text {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: rgb(30, 30, 163);
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+        }
+    }
+    .featured-maps {
+        padding-bottom: 20px;
+    }
+    .top-maps-title {
+        padding-left: 10px;
+        padding-bottom: 10px;
+        font-weight: bold
+    }
 }
