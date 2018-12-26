@@ -27,6 +27,7 @@ export class HomePage {
     searchQuery(searchbar: any) {
       const val = searchbar.target.value;
 
+    
       if (val && val.trim() != '') {
         console.log(val)
         this.navCtrl.parent.parent.push(SearchResultsPage, {
