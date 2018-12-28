@@ -41,8 +41,8 @@
             No creations found
         </ion-item>
 
-        <ion-list class='maps-list' [virtualScroll]="otherMaps">
-            <ion-item (click)="mapClicked(map)" *virtualItem="let map">
+        <ion-list class='maps-list'>
+            <ion-item (click)="mapClicked(map)" *ngFor='let map of otherMaps'>
                 <ion-grid>
                     <ion-row>
                         <ion-col col-5>
