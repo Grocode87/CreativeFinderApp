@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SearchResultsPage } from '../search-results/search-results'
+import { ServerProvider } from '../../providers/server/server'
 
 /**
  * Generated class for the ExplorePage page.
@@ -17,14 +18,35 @@ import { SearchResultsPage } from '../search-results/search-results'
 export class ExplorePage {
     
     toggled: boolean;
-    filterTypeOne: any;
-    filterTypeTwo: any;
 
-    constructor( public navCtrl: NavController, public navParams: NavParams ) {
+    maps: any;
+
+    pop: any;
+    type: any;
+
+    pubFilters: any = [];
+    typeFilters: any = [];
+
+    constructor( public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
         this.toggled = false; 
 
-        this.filterTypeOne = ["Newest", "Popular", "Oldest", "Most Viewed"]
-        this.filterTypeTwo = ["All", "PVP", "Obstacle Course", "Race", "Hide and Seek", "The Block", "Free Play/Other"]
+        this.getFilterTypes()
+
+    }
+
+    getFilterTypes() {
+        /** Get the possible selection values from the server and set them */
+        this.serverProvider.getFilterTypes()
+        .then(data => {
+            console.log(data)
+            this.pubFilters = data['publishedFilters'];
+            this.typeFilters = data['typeFilters'];
+
+            this.pop = this.pubFilters[0]
+            this.type = this.typeFilters[0]
+
+            this.getMaps(this.pop, this.type)
+        });
     }
 
     ionViewDidLoad() {
@@ -47,9 +69,12 @@ export class ExplorePage {
       }
     }
 
-    selectFilter(test1, test2) {
-      console.log(test1, test2)
-      +
-    }
+    getMaps(pubFilter, typeFilter) {
+      this.serverProvider.getFiltered(pubFilter, typeFilter)
+        .then(data => {
+            this.maps = data['results']
 
+            console.log(this.maps)
+        });
+    }
 }

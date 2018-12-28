@@ -26,13 +26,30 @@
     <ion-item class='option-container'>
 
         <!-- First select -->
-        <ion-select class='left-option' (ngModelChange)="selectFilter(1, $event)" [(ngModel)]="pop" interface="popover ">
-            <ion-option *ngFor="let item of filterTypeOne">{{ item }}</ion-option>
+        <ion-select class='left-option' (ngModelChange)="getMaps($event, type)" [(ngModel)]="pop" interface="popover ">
+            <ion-option *ngFor="let item of pubFilters">{{ item }}</ion-option>
         </ion-select>
 
         <!-- Second select -->
-        <ion-select class='right-option' (ngModelChange)="selectFilter(2, $event)" [(ngModel)]="type " interface="popover ">
-            <ion-option *ngFor="let item of filterTypeTwo ">{{ item }}</ion-option>
+        <ion-select class='right-option' (ngModelChange)="getMaps(pop, $event)" [(ngModel)]="type" interface="popover ">
+            <ion-option *ngFor="let item of typeFilters ">{{ item }}</ion-option>
         </ion-select>
     </ion-item>
+
+    <ion-list>
+        <ion-item *ngFor='let map of maps'>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4 class="preview-img-container">
+                        <ion-img class="preview-img" src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg"></ion-img>
+                    </ion-col>
+                    <ion-col col-8>
+                        <div class="title" text-wrap>{{ map.name }}</div>
+                        <div class="author">{{ map.creator }}</div>
+
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
 </ion-content>

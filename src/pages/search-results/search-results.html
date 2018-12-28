@@ -7,25 +7,31 @@
 
 <ion-content>
     <!-- Loading Indicator -->
-    <ion-item class='searching-indicator' no-lines *ngIf="!items">
+    <ion-item class='searching-indicator' no-lines *ngIf="!maps">
         <h4>Searching Results</h4>
         <ion-spinner item-right name="bubbles"></ion-spinner>
     </ion-item>
 
     <!-- Number of search results -->
-    <div class="search-results-num" *ngIf="items">
-        {{ items.length }} Search Results for <b>{{query}}</b>
-    </div>
-
-    <!-- No results indicator  -->
-    <div class="no-results-indicator" *ngIf="items?.length == 0">
-        No results found
+    <div class="search-results-num" *ngIf="maps">
+        {{ maps.length }} Search Results for <b>{{query}}</b>
     </div>
 
     <!-- Results list -->
-    <ion-list>
-        <ion-item *ngFor="let item of items">
-            {{ item }}
+    <ion-list no-lines>
+        <ion-item *ngFor='let map of maps'>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4 class="preview-img-container">
+                        <ion-img class="preview-img" src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg"></ion-img>
+                    </ion-col>
+                    <ion-col col-8>
+                        <div class="title" text-wrap>{{ map.name }}</div>
+                        <div class="author">{{ map.creator }}</div>
+
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-item>
     </ion-list>
 </ion-content>

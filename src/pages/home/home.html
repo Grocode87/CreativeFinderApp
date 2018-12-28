@@ -21,42 +21,23 @@
         <ion-row>
             <ion-col width-100>
                 <ion-slides pager width="300" spaceBetween="5" freeMode="true" class="slider">
-                    <ion-slide>
-                        <div class="parent">
-                            <img src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg">
-                            <div class="featured-text">Featured</div>
-                            <div class='code-text'>131-432-745-982</div>
-                            <ion-row class="overlay-text">
-                                <ion-col width-100>
-                                    <ion-row class="title">
-                                        Christmas Death Run
-                                    </ion-row>
-                                    <ion-row>
-                                        <ion-col>
-                                            <div class="author">Author: Epic Games</div>
-                                            <div class="desc">This is a PVP Map where there is sme fighting and shit its pretty dope to be honest.</div>
-                                        </ion-col>
-                                    </ion-row>
+                    <ion-slide *ngFor='let map of featured'>
+                        <div class="sliderTextParent">
+                            <img src="{{map.img}}">
+                            <div class='code-text'>{{ map.code }}</div>
+                            <ion-row class='title-row'>
+                                <ion-col col-9>
+                                    <div class='title'>{{ map.name }}</div>
                                 </ion-col>
+                                <ion-col col-3>
+                                    <div class='type'> {{ map.types[0] }}</div>
+                                </ion-col>
+
                             </ion-row>
-                        </div>
-                    </ion-slide>
-                    <ion-slide>
-                        <div class="parent">
-                            <img src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg">
-                            <div class="featured-text">Featured</div>
-                            <div class='code-text'>131-432-745-982</div>
-                            <ion-row class="overlay-text">
-                                <ion-col width-100>
-                                    <ion-row class="title">
-                                        Christmas Death Run
-                                    </ion-row>
-                                    <ion-row>
-                                        <ion-col>
-                                            <div class="author">Author: Epic Games</div>
-                                            <div class="desc">This is a PVP Map where there is sme fighting and shit its pretty dope to be honest.</div>
-                                        </ion-col>
-                                    </ion-row>
+                            <ion-row>
+                                <ion-col>
+                                    <div class="author">{{ map.creator }}</div>
+                                    <div class="desc">{{ map.desc }}</div>
                                 </ion-col>
                             </ion-row>
                         </div>
@@ -68,43 +49,18 @@
 
     <div class='top-maps-title'>Top Maps</div>
 
-    <ion-list>
-        <ion-item>
+    <ion-list class='popular-maps'>
+        <ion-item *ngFor='let map of popular'>
             <ion-grid>
                 <ion-row>
-                    <ion-col col-4 class="preview-img-container">
-                        <ion-img class="preview-img" src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg"></ion-img>
+                    <ion-col col-5>
+                        <ion-img class="img" src="{{map.img}}"></ion-img>
                     </ion-col>
-                    <ion-col col-8>
-                        <div class="title">Christmas Death Run</div>
-                        <div class="author">Epic Games</div>
-
-                    </ion-col>
-                </ion-row>
-                <ion-row text-wrap>
-                    <ion-col col-12>
-                        <div class="desc">This is the map that was replaced by the block and ...</div>
-                        <div class="code">131-432-745-982</div>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-item>
-        <ion-item>
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-4 class="preview-img-container">
-                        <ion-img class="preview-img" src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg"></ion-img>
-                    </ion-col>
-                    <ion-col col-8>
-                        <div class="title" text-wrap>Lachlen's Hide and Seek</div>
-                        <div class="author">Lachlen</div>
-
-                    </ion-col>
-                </ion-row>
-                <ion-row text-wrap>
-                    <ion-col col-12>
-                        <div class="desc">Play a classic game of hide and seek in this expertly designed map.</div>
-                        <div class="code">743-302-130-982</div>
+                    <ion-col col-7>
+                        <div class="title" text-wrap>{{ map.name }}</div>
+                        <div class="author">{{ map.creator }}</div>
+                        <div class="type"> {{ map.types[0] }}</div>
+                        <div class="code">{{ map.code }}</div>
                     </ion-col>
                 </ion-row>
             </ion-grid>

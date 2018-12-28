@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ServerProvider } from '../../providers/server/server'
 
 /**
  * Generated class for the SearchResultsPage page.
@@ -15,15 +16,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SearchResultsPage {
   query: any = "Val"
-  items: any;
+  maps: any;
   showResults; any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider) {
     this.query = navParams.get('query')
-    this.setItems()
-  }
-
-  setItems() {
-    this.items = ["Plane", "Chopper", "Wow", "This", "Great"]
+    
+    this.serverProvider.getSearch(this.query)
+        .then(data => {
+          this.maps = data['results'];
+          console.log("maps " +this.maps);
+        });
   }
 }
