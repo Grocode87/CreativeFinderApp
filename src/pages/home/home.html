@@ -10,17 +10,14 @@
             <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
-
 </ion-header>
 
 
 <ion-content class='content'>
-
-
     <ion-grid class='featured-maps'>
         <ion-row>
             <ion-col width-100>
-                <ion-slides loop="true" pager spaceBetween="5" class="slider">
+                <ion-slides pager slidesPerView="1.05" spaceBetween="5" class="slider">
                     <ion-slide *ngFor='let map of featured' (click)="mapClicked(map)">
                         <div class="sliderTextParent">
                             <img src="{{map.img}}">

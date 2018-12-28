@@ -11,13 +11,14 @@ import { MapDetailsPage } from '../map-details/map-details'
 })
 export class HomePage {
 
+
     toggled: boolean;
     searchTerm: String = '';
     items: string[];
     featured: any;
     popular: any;
 
-    @ViewChild('searchbar') searchbar:any;
+    @ViewChild('searchbar') searchbar:Searchbar;
 
     constructor( public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
         this.toggled = false; 
@@ -35,10 +36,6 @@ export class HomePage {
         });
       }
 
-    ionViewDidLoad() {
-        console.log( 'ionViewDidLoad HomePage' );
-    } 
-
     toggleSearch() {
         this.toggled = this.toggled ? false : true;
         if(this.toggled) {
@@ -55,7 +52,6 @@ export class HomePage {
 
     searchQuery(searchbar: any) {
       const val = searchbar.target.value;
-
     
       if (val && val.trim() != '') {
         this.searchTerm = ""

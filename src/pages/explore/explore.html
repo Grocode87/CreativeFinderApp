@@ -10,13 +10,12 @@
         <!-- Title -->
         <ion-title *ngIf="!toggled">Creative Finder</ion-title>
         <!-- Search Bar -->
-        <ion-searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (search)="searchQuery($event)"></ion-searchbar>
+        <ion-searchbar #searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
         <!-- Search Icon -->
         <ion-buttons end *ngIf="!toggled">
             <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
-
 </ion-header>
 
 

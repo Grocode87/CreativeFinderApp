@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ViewChild, Component } from '@angular/core';
+import { Searchbar, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SearchResultsPage } from '../search-results/search-results'
 import { ServerProvider } from '../../providers/server/server'
 import { MapDetailsPage } from '../map-details/map-details'
@@ -29,6 +29,8 @@ export class ExplorePage {
     pubFilters: any = [];
     typeFilters: any = [];
 
+    @ViewChild('searchbar') searchbar:Searchbar;
+
     constructor( public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
         this.toggled = false; 
 
@@ -56,11 +58,20 @@ export class ExplorePage {
 
     toggleSearch() {
         this.toggled = this.toggled ? false : true;
+        if(this.toggled) {
+            setTimeout(() => {
+                this.searchbar.setFocus();
+                }, 400);
+        }
     }
+
+    searchBlurred() {
+        console.log("Off");
+        this.toggled = false;
+    } 
 
     searchQuery(searchbar: any) {
       const val = searchbar.target.value;
-
     
       if (val && val.trim() != '') {
         this.searchTerm = ""
