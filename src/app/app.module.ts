@@ -10,10 +10,12 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs'
 
 import { SearchResultsPage } from '../pages/search-results/search-results'
+import { MapDetailsPage } from '../pages/map-details/map-details'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ServerProvider } from '../providers/server/server';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { ServerProvider } from '../providers/server/server';
     ExplorePage,
     HomePage,
     TabsPage,
-    SearchResultsPage
+    SearchResultsPage,
+    MapDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -34,13 +37,15 @@ import { ServerProvider } from '../providers/server/server';
     ExplorePage,
     HomePage,
     TabsPage,
-    SearchResultsPage
+    SearchResultsPage,
+    MapDetailsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ServerProvider
+    ServerProvider,
+    InAppBrowser
   ]
 })
 export class AppModule {}

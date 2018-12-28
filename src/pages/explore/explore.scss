@@ -1,7 +1,15 @@
 page-explore {
+    .content {
+        background-color: #F5F5F5;
+    }
+    ion-spinner {
+        display: block;
+        margin: auto;
+        padding-top: 200px;
+    }
     .option-container {
         position: relative;
-        font-size: 4vw;
+        font-size: 15px;
         .left-option {
             position: absolute;
             left: 10vw;
@@ -9,6 +17,39 @@ page-explore {
         .right-option {
             position: absolute;
             right: 15vw;
+        }
+    }
+    .maps-list {
+        .img {
+            width: 100%;
+            height: 70px;
+            border-radius: 7px;
+        }
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .author {
+            font-size: 12px;
+            padding-top: 2px;
+            color: darkgray;
+        }
+        .desc {
+            font-size: 13px;
+        }
+        .type {
+            padding: 4px;
+            margin-top: 5px;
+            display: inline-block;
+            font-size: 13px;
+            background-color: lightgray;
+            border-radius: 2px;
+        }
+        .code {
+            padding-top: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #0277bd;
         }
     }
 }

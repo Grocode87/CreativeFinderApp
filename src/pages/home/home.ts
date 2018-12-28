@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ViewChild, Component } from '@angular/core';
+import { Searchbar, NavController, NavParams } from 'ionic-angular';
 import { SearchResultsPage } from '../search-results/search-results'
 import { ServerProvider } from '../../providers/server/server'
+
+import { MapDetailsPage } from '../map-details/map-details'
 
 @Component( {
     selector: 'page-home',
@@ -14,6 +16,8 @@ export class HomePage {
     items: string[];
     featured: any;
     popular: any;
+
+    @ViewChild('searchbar') searchbar:any;
 
     constructor( public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
         this.toggled = false; 
@@ -37,6 +41,16 @@ export class HomePage {
 
     toggleSearch() {
         this.toggled = this.toggled ? false : true;
+        if(this.toggled) {
+            setTimeout(() => {
+                this.searchbar.setFocus();
+                }, 400);
+        }
+    }
+
+    searchBlurred() {
+        console.log("Off");
+        this.toggled = false;
     }
 
     searchQuery(searchbar: any) {
@@ -44,10 +58,19 @@ export class HomePage {
 
     
       if (val && val.trim() != '') {
+        this.searchTerm = ""
+        this.toggled = false
         console.log(val)
         this.navCtrl.parent.parent.push(SearchResultsPage, {
             query: val
           })
       }
+    }
+
+    mapClicked(map) {
+        this.navCtrl.parent.parent.push(MapDetailsPage, {
+            'map_data': map,
+            'show_others': true
+          }) 
     }
 }

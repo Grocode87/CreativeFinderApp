@@ -52,7 +52,7 @@ page-home {
             .author {
                 margin-top: -3px;
                 padding-top: 0px;
-                font-size: 12px;
+                font-size: 13px;
                 color: darkgray;
                 padding-left: 1px;
             }
@@ -68,7 +68,7 @@ page-home {
         padding-bottom: 10px;
         font-weight: bold
     }
-    .popular-maps {
+    .maps-list {
         .img {
             width: 100%;
             height: 70px;
@@ -87,18 +87,18 @@ page-home {
             font-size: 13px;
         }
         .type {
-            display: inline-block;
-            font-size: 13px;
             padding: 4px;
             margin-top: 5px;
+            display: inline-block;
+            font-size: 13px;
             background-color: lightgray;
             border-radius: 2px;
         }
         .code {
-            font-size: 15px;
             padding-top: 5px;
-            color: #0277bd;
+            font-size: 15px;
             font-weight: bold;
+            color: #0277bd;
         }
     }
 }

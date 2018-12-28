@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
+import { MapDetailsPage } from '../map-details/map-details'
 
 /**
  * Generated class for the SearchResultsPage page.
@@ -21,11 +22,21 @@ export class SearchResultsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider) {
     this.query = navParams.get('query')
-    
-    this.serverProvider.getSearch(this.query)
+  }
+
+   ionViewDidLoad() {
+        this.serverProvider.getSearch(this.query)
         .then(data => {
           this.maps = data['results'];
-          console.log("maps " +this.maps);
+          console.log("maps " +this.maps); 
         });
-  }
+    } 
+
+  mapClicked(map) {
+      console.log(map)
+        this.navCtrl.push(MapDetailsPage, {
+            'map_data': map,
+            'show_others': true
+          }) 
+    }
 }

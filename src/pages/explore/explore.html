@@ -21,32 +21,36 @@
 
 
 
-<ion-content>
+<ion-content class='content'>
 
     <ion-item class='option-container'>
 
         <!-- First select -->
-        <ion-select class='left-option' (ngModelChange)="getMaps($event, type)" [(ngModel)]="pop" interface="popover ">
+        <ion-select class='left-option' (ngModelChange)="getMaps($event, type)" [(ngModel)]="pop" interface="popover">
             <ion-option *ngFor="let item of pubFilters">{{ item }}</ion-option>
         </ion-select>
 
         <!-- Second select -->
-        <ion-select class='right-option' (ngModelChange)="getMaps(pop, $event)" [(ngModel)]="type" interface="popover ">
+        <ion-select class='right-option' (ngModelChange)="getMaps(pop, $event)" [(ngModel)]="type" interface="popover">
             <ion-option *ngFor="let item of typeFilters ">{{ item }}</ion-option>
         </ion-select>
     </ion-item>
 
-    <ion-list>
-        <ion-item *ngFor='let map of maps'>
+
+    <ion-spinner name="crescent" *ngIf="!maps"></ion-spinner>
+
+    <ion-list class='maps-list' [virtualScroll]="maps">
+        <ion-item (click)="mapClicked(map)" *virtualItem="let map">
             <ion-grid>
                 <ion-row>
-                    <ion-col col-4 class="preview-img-container">
-                        <ion-img class="preview-img" src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg"></ion-img>
+                    <ion-col col-5>
+                        <img class="img" src="{{map.img}}">
                     </ion-col>
-                    <ion-col col-8>
+                    <ion-col col-7>
                         <div class="title" text-wrap>{{ map.name }}</div>
                         <div class="author">{{ map.creator }}</div>
-
+                        <div class="type"> {{ map.types[0] }}</div>
+                        <div class="code">{{ map.code }}</div>
                     </ion-col>
                 </ion-row>
             </ion-grid>

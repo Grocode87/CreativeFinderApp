@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SearchResultsPage } from '../search-results/search-results'
 import { ServerProvider } from '../../providers/server/server'
+import { MapDetailsPage } from '../map-details/map-details'
 
 /**
  * Generated class for the ExplorePage page.
@@ -18,6 +19,7 @@ import { ServerProvider } from '../../providers/server/server'
 export class ExplorePage {
     
     toggled: boolean;
+    searchTerm: String = '';
 
     maps: any;
 
@@ -31,7 +33,6 @@ export class ExplorePage {
         this.toggled = false; 
 
         this.getFilterTypes()
-
     }
 
     getFilterTypes() {
@@ -48,7 +49,7 @@ export class ExplorePage {
             this.getMaps(this.pop, this.type)
         });
     }
-
+ 
     ionViewDidLoad() {
         console.log( 'ionViewDidLoad HomePage' );
     } 
@@ -62,6 +63,8 @@ export class ExplorePage {
 
     
       if (val && val.trim() != '') {
+        this.searchTerm = ""
+        this.toggled = false
         console.log(val)
         this.navCtrl.parent.parent.push(SearchResultsPage, {
             query: val
@@ -76,5 +79,12 @@ export class ExplorePage {
 
             console.log(this.maps)
         });
+    }
+
+    mapClicked(map) {
+        this.navCtrl.parent.parent.push(MapDetailsPage, {
+            'map_data': map,
+            'show_others': true
+          }) 
     }
 }

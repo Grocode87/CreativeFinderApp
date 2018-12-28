@@ -7,9 +7,9 @@
 
 <ion-content>
     <!-- Loading Indicator -->
-    <ion-item class='searching-indicator' no-lines *ngIf="!maps">
-        <h4>Searching Results</h4>
-        <ion-spinner item-right name="bubbles"></ion-spinner>
+    <ion-item padding class='searching-indicator' no-lines *ngIf="!maps">
+        <h4>Searching</h4>
+        <ion-spinner item-right name="crescent"></ion-spinner>
     </ion-item>
 
     <!-- Number of search results -->
@@ -18,17 +18,18 @@
     </div>
 
     <!-- Results list -->
-    <ion-list no-lines>
-        <ion-item *ngFor='let map of maps'>
+    <ion-list class='maps-list' [virtualScroll]="maps">
+        <ion-item (click)="mapClicked(map)" *virtualItem="let map">
             <ion-grid>
                 <ion-row>
-                    <ion-col col-4 class="preview-img-container">
-                        <ion-img class="preview-img" src="https://www.onmsft.com/wp-content/uploads/2018/12/fortnite-1031x580.jpg"></ion-img>
+                    <ion-col col-5>
+                        <img class="img" src="{{map.img}}">
                     </ion-col>
-                    <ion-col col-8>
+                    <ion-col col-7>
                         <div class="title" text-wrap>{{ map.name }}</div>
                         <div class="author">{{ map.creator }}</div>
-
+                        <div class="type"> {{ map.types[0] }}</div>
+                        <div class="code">{{ map.code }}</div>
                     </ion-col>
                 </ion-row>
             </ion-grid>

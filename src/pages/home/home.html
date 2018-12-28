@@ -4,7 +4,7 @@
         <!-- Title -->
         <ion-title *ngIf="!toggled">Creative Finder</ion-title>
         <!-- Search Bar -->
-        <ion-searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (search)="searchQuery($event)"></ion-searchbar>
+        <ion-searchbar #searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
         <!-- Search Icon -->
         <ion-buttons end *ngIf="!toggled">
             <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
@@ -20,8 +20,8 @@
     <ion-grid class='featured-maps'>
         <ion-row>
             <ion-col width-100>
-                <ion-slides pager width="300" spaceBetween="5" freeMode="true" class="slider">
-                    <ion-slide *ngFor='let map of featured'>
+                <ion-slides loop="true" pager spaceBetween="5" class="slider">
+                    <ion-slide *ngFor='let map of featured' (click)="mapClicked(map)">
                         <div class="sliderTextParent">
                             <img src="{{map.img}}">
                             <div class='code-text'>{{ map.code }}</div>
@@ -32,7 +32,6 @@
                                 <ion-col col-3>
                                     <div class='type'> {{ map.types[0] }}</div>
                                 </ion-col>
-
                             </ion-row>
                             <ion-row>
                                 <ion-col>
@@ -49,12 +48,12 @@
 
     <div class='top-maps-title'>Top Maps</div>
 
-    <ion-list class='popular-maps'>
-        <ion-item *ngFor='let map of popular'>
+    <ion-list class='maps-list' [virtualScroll]="popular">
+        <ion-item (click)="mapClicked(map)" *virtualItem="let map">
             <ion-grid>
                 <ion-row>
                     <ion-col col-5>
-                        <ion-img class="img" src="{{map.img}}"></ion-img>
+                        <img class="img" src="{{map.img}}">
                     </ion-col>
                     <ion-col col-7>
                         <div class="title" text-wrap>{{ map.name }}</div>

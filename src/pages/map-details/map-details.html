@@ -6,13 +6,57 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>map-details</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Details</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <div class='main-details'>
+        <img src="{{ map.img }}">
+        <div class='name'>{{ map.name }}</div>
+        <div class='creator'>By {{ map.creator }}</div>
+        <div class='desc'>{{ map.desc }}</div>
 
+        <div class='code-wrapper'>
+            <div class='code-bg' (click)='visitMapLink()'>
+                Island Code
+                <div class='code'>{{ map.code }}</div>
+                <a class='code-link' href="https://epicgames.com/fn/{{ map.code }}">(Press to visit official site)</a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf='showOthers'>
+        <div class='other-creations'>Other creations by <b>{{ map.creator }}</b></div>
+
+        <ion-item class='loading-indicator' no-lines *ngIf="!otherMaps">
+            <h4>Searching</h4>
+            <ion-spinner item-right name="crescent"></ion-spinner>
+        </ion-item>
+
+        <ion-item no-lines class='no-results' *ngIf="otherMaps?.length == 0">
+            No creations found
+        </ion-item>
+
+        <ion-list class='maps-list' [virtualScroll]="otherMaps">
+            <ion-item (click)="mapClicked(map)" *virtualItem="let map">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-5>
+                            <img class="img" src="{{map.img}}">
+                        </ion-col>
+                        <ion-col col-7>
+                            <div class="title" text-wrap>{{ map.name }}</div>
+                            <div class="author">{{ map.creator }}</div>
+                            <div class="type"> {{ map.types[0] }}</div>
+                            <div class="code">{{ map.code }}</div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </div>
 </ion-content>

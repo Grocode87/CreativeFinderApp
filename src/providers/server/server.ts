@@ -26,7 +26,7 @@ export class ServerProvider {
   getSearch(query) {
     return new Promise(resolve => {
       this.http.get(this.apiUrl+'/get/search/'+query).subscribe(data => {
-        resolve(data);
+        resolve(data); 
       }, err => {
         console.log(err);
       });
@@ -43,10 +43,19 @@ export class ServerProvider {
     });
   }
 
-
   getFiltered(filterOne, filterTwo) {
     return new Promise(resolve => {
       this.http.get(this.apiUrl+'/get/filtered/'+filterOne+"/"+filterTwo).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getMapsFromCreator(creator) {
+      return new Promise(resolve => {
+      this.http.get(this.apiUrl+'/get/maps/'+creator).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
