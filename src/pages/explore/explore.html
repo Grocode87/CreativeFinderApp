@@ -8,7 +8,7 @@
     <ion-navbar>
         <button *ngIf="!toggled" ion-button icon-only menuToggle><ion-icon name="menu"></ion-icon></button>
         <!-- Title -->
-        <ion-title *ngIf="!toggled">Creative Finder</ion-title>
+        <img *ngIf="!toggled" src="/assets/imgs/header-logo.png" width="180px" style="display:inline-block" height="40px" />
         <!-- Search Bar -->
         <ion-searchbar #searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
         <!-- Search Icon -->
@@ -21,6 +21,9 @@
 
 
 <ion-content class='content'>
+    <ion-refresher (ionRefresh)="refresh($event)" spinner="none">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
     <ion-item class='option-container'>
 

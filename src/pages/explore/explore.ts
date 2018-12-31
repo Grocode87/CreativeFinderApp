@@ -48,7 +48,7 @@ export class ExplorePage {
             this.pop = this.pubFilters[0]
             this.type = this.typeFilters[0]
 
-            this.getMaps(this.pop, this.type)
+            this.getMaps(this.pop, this.type, null)
         });
     }
  
@@ -82,20 +82,23 @@ export class ExplorePage {
           })
       }
     }
-
-    getMaps(pubFilter, typeFilter) {
+    refresh(refresher) {
+        this.getMaps(this.pop, this.type, refresher)
+    }
+    getMaps(pubFilter, typeFilter, refresher) {
       this.serverProvider.getFiltered(pubFilter, typeFilter)
         .then(data => {
             this.maps = data['results']
 
-            console.log(this.maps)
+            if(refresher) {
+                refresher.complete();
+            }
         });
     }
 
     mapClicked(map) {
         this.navCtrl.parent.parent.push(MapDetailsPage, {
-            'map_data': map,
-            'show_others': true
+            'map_data': map
           }) 
     }
 }

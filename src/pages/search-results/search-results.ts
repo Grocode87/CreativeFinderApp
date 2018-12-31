@@ -35,8 +35,7 @@ export class SearchResultsPage {
   mapClicked(map) {
       console.log(map)
         this.navCtrl.push(MapDetailsPage, {
-            'map_data': map,
-            'show_others': true
+            'map_data': map
           }) 
     }
 }

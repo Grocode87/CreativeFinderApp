@@ -1,5 +1,5 @@
 import { ViewChild, Component } from '@angular/core';
-import { Searchbar, NavController, NavParams } from 'ionic-angular';
+import { Searchbar, NavController, NavParams, Platform } from 'ionic-angular';
 import { SearchResultsPage } from '../search-results/search-results'
 import { ServerProvider } from '../../providers/server/server'
 
@@ -14,25 +14,40 @@ export class HomePage {
 
     toggled: boolean;
     searchTerm: String = '';
-    items: string[];
+    
     featured: any;
     popular: any;
 
+    isApp: any = true
+
     @ViewChild('searchbar') searchbar:Searchbar;
 
-    constructor( public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
+    constructor( public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider, private platform: Platform ) {
+        if (this.platform.is('cordova')) {
+            //this.isApp = true;
+        } 
+        
         this.toggled = false; 
-        this.getMaps()
+        this.getMaps(null)
+    }
+    refresh(refresher) {
+        this.getMaps(refresher)
     }
     
-    getMaps() {
+    getMaps(refresher) {
         this.serverProvider.getHome()
         .then(data => {
-          this.featured = data['featured'];
-          this.popular = data['popular'];
 
-          console.log(this.featured);
-          console.log(this.popular);
+            if(refresher) {
+                setTimeout(() => {
+                    this.featured = data['featured'];
+                    this.popular = data['popular'];
+                    refresher.complete();
+                }, 1000);
+            } else {
+                this.featured = data['featured'];
+                this.popular = data['popular'];
+            }
         });
       }
 
@@ -65,8 +80,7 @@ export class HomePage {
 
     mapClicked(map) {
         this.navCtrl.parent.parent.push(MapDetailsPage, {
-            'map_data': map,
-            'show_others': true
+            'map_data': map
           }) 
     }
 }

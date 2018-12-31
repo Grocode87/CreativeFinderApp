@@ -18,19 +18,21 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 export class MapDetailsPage {
 
     map: any;
-    otherMaps: any = [];
-    showOthers: any;
+    otherMaps: any;
+    relatedMaps: any;
+
 
   constructor(public navCtrl: NavController, public iab: InAppBrowser, public navParams: NavParams, public serverProvider: ServerProvider) {
       this.map = navParams.get('map_data')
-      this.showOthers = navParams.get('show_others')
 
       console.log(this.map)
 
       // Get additional maps made by creator
-      this.serverProvider.getMapsFromCreator(this.map.creator)
+      this.serverProvider.getMapsFromCreator(this.map.id, this.map.creator, true)
         .then(data => {
-            let results = data['results']
+            
+            console.log(data)
+            let results = data['creator_maps']
             let tempMaps = []
             results.forEach( (result) => {
                 if(result.name != this.map.name) {
@@ -40,24 +42,25 @@ export class MapDetailsPage {
 
             if(tempMaps.length > 0) {
                 this.otherMaps = tempMaps;
+            } else {
+                this.otherMaps = []
             }
+            this.relatedMaps = data['related_maps']
         });
 
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MapDetailsPage');
   }
 
   mapClicked(map) {
       console.log(map)
         this.navCtrl.push(MapDetailsPage, {
-            'map_data': map,
-            'show_others': false
-          })
+            'map_data': map
+          }).then(() => {
+              let index = this.navCtrl.getActive().index;
+              this.navCtrl.remove(index - 1)
+          });
     }
 
     visitMapLink() {
-        let browser = this.iab.create('https://epicgames.com/fn/' + this.map.code);
+        this.iab.create('https://epicgames.com/fn/' + this.map.code);
     }
 }
