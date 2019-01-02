@@ -25,7 +25,9 @@
             <div class='name'>{{ map.name }}</div>
             <div class='creator'>By {{ map.creator }}</div>
             <div class='desc'>{{ map.desc }}</div>
-
+            <div class='type-wrapper'>
+                <div class="type" *ngFor='let type of map.types'> {{ type }}</div>
+            </div>
             <div class='code-wrapper'>
                 <div class='code-bg' (click)='visitMapLink()'>
                     Island Code

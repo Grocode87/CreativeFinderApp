@@ -28,7 +28,7 @@ export class MapDetailsPage {
       console.log(this.map)
 
       // Get additional maps made by creator
-      this.serverProvider.getMapsFromCreator(this.map.id, this.map.creator, true)
+      this.serverProvider.getMapsFromCreator(this.map.id, this.map.creator, "True")
         .then(data => {
             
             console.log(data)

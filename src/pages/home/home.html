@@ -4,7 +4,7 @@
         <!-- Title -->
         <img *ngIf="!toggled" src="/assets/imgs/header-logo.png" width="180px" style="display:inline-block" height="40px" />
         <!-- Search Bar -->
-        <ion-searchbar #searchbar *ngIf="toggled" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
+        <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
         <!-- Search Icon -->
         <ion-buttons end *ngIf="!toggled">
             <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
@@ -71,7 +71,7 @@
             </ion-row>
         </ion-grid>
 
-        <div class='top-maps-title'>Top Maps</div>
+        <div class='top-maps-title'>Recommended Maps</div>
 
         <!-- website list -->
         <ion-grid class='web-maps-list' *ngIf='!isApp'>

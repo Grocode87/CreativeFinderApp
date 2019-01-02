@@ -21,7 +21,8 @@ export class ExplorePage {
     toggled: boolean;
     searchTerm: String = '';
 
-    maps: any;
+    maps: any = [];
+    showLoading: any = true;
 
     pop: any;
     type: any;
@@ -86,10 +87,21 @@ export class ExplorePage {
         this.getMaps(this.pop, this.type, refresher)
     }
     getMaps(pubFilter, typeFilter, refresher) {
+      if(!refresher) {
+        this.maps = [];
+        this.showLoading = true;
+      }
       this.serverProvider.getFiltered(pubFilter, typeFilter)
         .then(data => {
             this.maps = data['results']
+            this.showLoading = false;
 
+            // Go through the maps and change the only tag to the filter item
+            if(typeFilter != "All") {
+                this.maps.forEach( (result) => {
+                    result['types'] = [typeFilter]
+                });
+            }
             if(refresher) {
                 refresher.complete();
             }

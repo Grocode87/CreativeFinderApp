@@ -41,5 +41,10 @@ page-search-results {
             font-weight: bold;
             color: map-get($colors, primary);
         }
+        .desc {
+            padding-top: 5px;
+            font-size: 12.7px;
+            font-weight: 500;
+        }
     }
 }

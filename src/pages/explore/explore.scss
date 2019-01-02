@@ -10,6 +10,7 @@ page-explore {
     .option-container {
         position: relative;
         font-size: 15px;
+        background-color: transparent;
         .left-option {
             position: absolute;
             left: 10vw;
@@ -38,19 +39,29 @@ page-explore {
         .desc {
             font-size: 13px;
         }
+        .type-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+        }
         .type {
             padding: 4px;
+            margin-right: 4px;
             margin-top: 5px;
-            display: inline-block;
+            align-items: flex-start;
             font-size: 13px;
             background-color: lightgray;
             border-radius: 2px;
         }
         .code {
-            padding-top: 5px;
+            padding-top: 4px;
             font-size: 15px;
             font-weight: bold;
             color: map-get($colors, primary);
+        }
+        .desc {
+            padding-top: 5px;
+            font-size: 12.7px;
+            font-weight: 500;
         }
     }
 }

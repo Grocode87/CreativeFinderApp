@@ -23,9 +23,22 @@ page-map-details {
             font-size: 13px;
             color: darkgray;
         }
+        .type-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .type {
+            padding: 4px;
+            margin-right: 4px;
+            margin-top: 10px;
+            align-items: flex-start;
+            font-size: 13px;
+            background-color: lightgray;
+            border-radius: 2px;
+        }
     }
     .code-wrapper {
-        padding-top: 25px;
+        padding-top: 20px;
         text-align: center;
         .code-bg {
             background-color: #0277bd;
