@@ -19,7 +19,7 @@
 
     <!-- Results list -->
     <ion-list class='maps-list' [virtualScroll]="maps">
-        <ion-item (click)="mapClicked(map)" *virtualItem="let map">
+        <ion-item (click)="mapClicked(map, 'True')" *virtualItem="let map">
             <ion-grid>
                 <ion-row>
                     <ion-col col-5>
@@ -28,7 +28,9 @@
                     <ion-col col-7>
                         <div class="title" text-wrap>{{ map.name }}</div>
                         <div class="author">{{ map.creator }}</div>
-                        <div class="type"> {{ map.types[0] }}</div>
+                        <div class='type-wrapper'>
+                            <div class="type" *ngFor='let type of map.types.slice(0,3)'> {{ type }}</div>
+                        </div>
                         <div class="desc" text-wrap>{{ map.desc }}</div>
                         <div class="code">{{ map.code }}</div>
                     </ion-col>

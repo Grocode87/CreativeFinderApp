@@ -8,7 +8,17 @@
 
     <ion-navbar>
         <ion-title>Details</ion-title>
+        <ion-buttons end *ngIf="!toggled">
+
+            <button ion-button icon-only (click)="save()" *ngIf='!saved'>
+                <ion-icon name="bookmark"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="unsave()" *ngIf='saved'>
+                <ion-icon name="ios-bookmark-outline"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
+
 
 </ion-header>
 
@@ -46,7 +56,7 @@
             </ion-item>
 
             <ion-list class='maps-list'>
-                <ion-item no-padding (click)="mapClicked(map)" *ngFor="let map of otherMaps">
+                <ion-item no-padding (click)="mapClicked(map, 'True')" *ngFor="let map of otherMaps">
                     <ion-grid>
                         <ion-row>
                             <ion-col col-5>
@@ -73,7 +83,7 @@
             </ion-item>
 
             <ion-list class='maps-list'>
-                <ion-item no-padding (click)="mapClicked(map)" *ngFor="let map of relatedMaps">
+                <ion-item no-padding (click)="mapClicked(map, 'True')" *ngFor="let map of relatedMaps">
                     <ion-grid>
                         <ion-row>
                             <ion-col col-5>

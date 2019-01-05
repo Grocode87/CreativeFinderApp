@@ -78,9 +78,10 @@ export class HomePage {
       }
     }
 
-    mapClicked(map) {
+    mapClicked(map, addToViews) {
         this.navCtrl.parent.parent.push(MapDetailsPage, {
-            'map_data': map
+            'map_data': map,
+            'add_to_views': addToViews
           }) 
     }
 }

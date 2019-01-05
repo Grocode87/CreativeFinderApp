@@ -1,13 +1,36 @@
-page-search-results {
-    .search-results-num {
-        padding-left: 15px;
-        padding-top: 15px;
+page-my-list {
+    ion-spinner {
+        display: block;
+        margin: auto;
+        padding-top: 200px;
+    }
+    .content {
+        background-color: #F5F5F5;
+    }
+    .title-text {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: -1.5px;
+        overflow: hidden;
+    }
+    .no-maps-msg {
+        line-height: 25px;
+        padding-top: 4vh;
+        text-align: center;
+        color: #555555;
+    }
+    .del-inst {
+        text-align: center;
+        color: #555555;
+        font-size: 13px;
+    }
+    .maps-msg {
+        padding-left: 10px;
+        padding-top: 7px;
         padding-bottom: 10px;
+        font-weight: bold
     }
-    .searching-indicator {
-        padding-left: 0px;
-    }
-    .no-results-indicator {}
     .maps-list {
         .img {
             width: 100%;
@@ -27,15 +50,10 @@ page-search-results {
         .desc {
             font-size: 13px;
         }
-        .type-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-        }
         .type {
             padding: 4px;
-            margin-right: 4px;
             margin-top: 5px;
-            align-items: flex-start;
+            display: inline-block;
             font-size: 13px;
             background-color: lightgray;
             border-radius: 2px;
@@ -45,11 +63,6 @@ page-search-results {
             font-size: 15px;
             font-weight: bold;
             color: map-get($colors, primary);
-        }
-        .desc {
-            padding-top: 5px;
-            font-size: 12.7px;
-            font-weight: 500;
         }
     }
 }

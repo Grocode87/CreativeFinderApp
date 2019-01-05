@@ -90,10 +90,15 @@ page-home {
         .desc {
             font-size: 13px;
         }
+        .type-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+        }
         .type {
             padding: 4px;
+            margin-right: 4px;
             margin-top: 5px;
-            display: inline-block;
+            align-items: flex-start;
             font-size: 13px;
             background-color: lightgray;
             border-radius: 2px;

@@ -1,5 +1,5 @@
 import { ViewChild, Component } from '@angular/core';
-import { Searchbar, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Content, Searchbar, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SearchResultsPage } from '../search-results/search-results'
 import { ServerProvider } from '../../providers/server/server'
 import { MapDetailsPage } from '../map-details/map-details'
@@ -31,6 +31,7 @@ export class ExplorePage {
     typeFilters: any = [];
 
     @ViewChild('searchbar') searchbar:Searchbar;
+    @ViewChild(Content) content: Content;
 
     constructor( public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
         this.toggled = false; 
@@ -87,10 +88,12 @@ export class ExplorePage {
         this.getMaps(this.pop, this.type, refresher)
     }
     getMaps(pubFilter, typeFilter, refresher) {
-      if(!refresher) {
-        this.maps = [];
-        this.showLoading = true;
-      }
+        
+        if(!refresher) {
+            this.showLoading = true;
+
+        }
+        this.content.scrollTo(0, 5, 0)
       this.serverProvider.getFiltered(pubFilter, typeFilter)
         .then(data => {
             this.maps = data['results']
@@ -99,7 +102,11 @@ export class ExplorePage {
             // Go through the maps and change the only tag to the filter item
             if(typeFilter != "All") {
                 this.maps.forEach( (result) => {
-                    result['types'] = [typeFilter]
+                    result['typesToShow'] = [typeFilter]
+                });
+            } else {
+                this.maps.forEach( (result) => {
+                    result['typesToShow'] = result['types']
                 });
             }
             if(refresher) {
@@ -108,9 +115,10 @@ export class ExplorePage {
         });
     }
 
-    mapClicked(map) {
+    mapClicked(map, addToViews) {
         this.navCtrl.parent.parent.push(MapDetailsPage, {
-            'map_data': map
+            'map_data': map,
+            'add_to_views': addToViews
           }) 
     }
 }

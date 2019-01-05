@@ -32,10 +32,10 @@ export class SearchResultsPage {
         });
     } 
 
-  mapClicked(map) {
-      console.log(map)
-        this.navCtrl.push(MapDetailsPage, {
-            'map_data': map
+   mapClicked(map, addToViews) {
+        this.navCtrl.parent.parent.push(MapDetailsPage, {
+            'map_data': map,
+            'add_to_views': addToViews
           }) 
     }
 }
