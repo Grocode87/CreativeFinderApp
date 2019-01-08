@@ -1,5 +1,5 @@
-import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
-import { ToastController, IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { ToastController, NavController, NavParams, Events } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Storage } from '@ionic/storage';
@@ -12,7 +12,6 @@ import { Storage } from '@ionic/storage';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-map-details',
   templateUrl: 'map-details.html',

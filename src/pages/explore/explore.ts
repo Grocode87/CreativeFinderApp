@@ -1,5 +1,5 @@
 import { ViewChild, Component } from '@angular/core';
-import { Content, Searchbar, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Content, Searchbar, NavController, NavParams } from 'ionic-angular';
 import { SearchResultsPage } from '../search-results/search-results'
 import { ServerProvider } from '../../providers/server/server'
 import { MapDetailsPage } from '../map-details/map-details'
@@ -11,7 +11,6 @@ import { MapDetailsPage } from '../map-details/map-details'
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-explore',
   templateUrl: 'explore.html',

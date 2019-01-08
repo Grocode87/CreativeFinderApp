@@ -1,5 +1,5 @@
 import { ViewChild, Component } from '@angular/core';
-import { Searchbar, IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { Searchbar, NavController, NavParams, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { MapDetailsPage } from '../map-details/map-details'
@@ -12,7 +12,6 @@ import { SearchResultsPage } from '../search-results/search-results'
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-my-list',
   templateUrl: 'my-list.html',

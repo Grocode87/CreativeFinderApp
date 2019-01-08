@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { MapDetailsPage } from '../map-details/map-details'
 
@@ -10,7 +10,6 @@ import { MapDetailsPage } from '../map-details/map-details'
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-search-results',
   templateUrl: 'search-results.html',
@@ -33,7 +32,7 @@ export class SearchResultsPage {
     } 
 
    mapClicked(map, addToViews) {
-        this.navCtrl.parent.parent.push(MapDetailsPage, {
+        this.navCtrl.push(MapDetailsPage, {
             'map_data': map,
             'add_to_views': addToViews
           }) 
