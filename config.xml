@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.colin.creativefinder" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.colin.grob.creativefinder" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Creative Finder</name>
-    <description>An awesome Ionic/Cordova app.</description>
+    <description>Best place to browse and find Fortnite Creative codes.</description>
     <author email="colin.grob87@gmail.com" href="http://ionicframework.com/">Colin Grob</author>
     <content src="index.html" />
     <access origin="*" />

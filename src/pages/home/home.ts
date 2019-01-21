@@ -16,9 +16,43 @@ export class HomePage {
     searchTerm: String = '';
     
     featured: any;
-    popular: any;
+    recommended: any;
 
     isApp: any = true
+
+    testMapData = [{
+      "code": "0963-6285-4276",
+      "creator": "aj-slack",
+      "desc": "Claim the golden gun at the Festival Falls gardens and sculpture park.",
+      "id": 510,
+      "img": "https://i.imgur.com/TpdWAs2.png",
+      "name": "Festival Falls",
+      "types": [
+        "The Block"
+      ]
+    },
+    {
+      "code": "7274-7356-5702",
+      "creator": "tollmolia",
+      "desc": "#FortniteBlockParty Lunar new year submission",
+      "id": 508,
+      "img": "https://i.imgur.com/NCw46Leg.png",
+      "name": "BULKY BONSAI",
+      "types": [
+        "The Block"
+      ]
+    },
+    {
+      "code": "1941-9557-2063",
+      "creator": "sammyblue",
+      "desc": "My Lunar New Year island submission for the #fortniteblockparty",
+      "id": 509,
+      "img": "http://cgrob10.pythonanywhere.com/static/template-img.jpg",
+      "name": "Sammyblue's Parkour Place",
+      "types": [
+        "The Block"
+      ]
+    }]
 
     @ViewChild('searchbar') searchbar:Searchbar;
 
@@ -37,16 +71,17 @@ export class HomePage {
     getMaps(refresher) {
         this.serverProvider.getHome()
         .then(data => {
+            console.log(data)
 
             if(refresher) {
                 setTimeout(() => {
                     this.featured = data['featured'];
-                    this.popular = data['popular'];
+                    this.recommended = data['recommended'];
                     refresher.complete();
                 }, 1000);
             } else {
                 this.featured = data['featured'];
-                this.popular = data['popular'];
+                this.recommended = data['recommended'];
             }
         });
       }

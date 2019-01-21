@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { ToastController, NavController, NavParams, Events } from 'ionic-angular';
+import { AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Storage } from '@ionic/storage';
@@ -23,9 +23,7 @@ export class MapDetailsPage {
     relatedMaps: any;
     saved: any = false
 
-  constructor(public ref: ChangeDetectorRef, public navCtrl: NavController, public events: Events, public iab: InAppBrowser, public navParams: NavParams, public serverProvider: ServerProvider, public storage: Storage, private toastCtrl: ToastController) {
-        
-        
+  constructor(public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public ref: ChangeDetectorRef, public navCtrl: NavController, public events: Events, public iab: InAppBrowser, public navParams: NavParams, public serverProvider: ServerProvider, public storage: Storage, private toastCtrl: ToastController) {
         this.map = navParams.get('map_data')
         let addToViews = navParams.get('add_to_views')
         console.log(addToViews)
@@ -66,8 +64,72 @@ export class MapDetailsPage {
                 this.otherMaps = []
             }
             this.relatedMaps = data['related_maps']
+            this.ref.detectChanges();
         });
+    }
 
+   presentActionSheet() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [
+        {
+          text: 'Report',
+          role: 'report',
+          icon: 'flag',
+          handler: () => {
+            console.log('Report clicked');
+            this.reportAlert()
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  reportAlert() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Report Map');
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Spam or excess advertising',
+      value: 'Spam or excess advertising',
+      checked: false
+    });
+    alert.addInput({
+      type: 'radio',
+      label: 'Pornography or explicit material',
+      value: 'Pornography or explicit material',
+      checked: false
+    });
+    alert.addInput({
+      type: 'radio',
+      label: 'Hate speech or graphic violence',
+      value: 'Hate speech or graphic violence',
+      checked: false
+    });
+    alert.addInput({
+      type: 'radio',
+      label: 'Harassment or bullying',
+      value: 'Harrassment or bullying',
+      checked: false
+    });
+    alert.addInput({
+      type: 'radio',
+      label: 'Other',
+      value: 'other',
+      checked: false
+    });
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'Report',
+      handler: data => {
+            this.serverProvider.reportMap(this.map.id, data)
+            this.presentToast("Reported map, thanks for your feedback.")
+      }
+    });
+    alert.present();
   }
 
   mapClicked(map, addToViews) {

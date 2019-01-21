@@ -18,7 +18,7 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-spinner name="crescent" *ngIf="!featured || !popular"></ion-spinner>
+    <ion-spinner name="crescent" *ngIf="!featured || !recommended"></ion-spinner>
     <!-- web featured slider-->
     <ion-grid class='web-featured-maps' *ngIf='!isApp'>
         <ion-row>
@@ -40,38 +40,29 @@
         </ion-row>
     </ion-grid>
 
-    <div *ngIf='featured && popular'>
-        <!-- app features slider-->
-        <ion-grid class='featured-maps' *ngIf='isApp'>
-            <ion-row>
-                <ion-col width-100>
-                    <ion-slides pager slidesPerView="1" spaceBetween="5" class="slider">
-                        <ion-slide *ngFor='let map of featured' (click)="mapClicked(map, 'False')">
-                            <div class="sliderTextParent">
-                                <img src="{{map.img}}">
-                                <div class='code-text'>{{ map.code }}</div>
-                                <ion-row class='title-row'>
-                                    <ion-col col-9>
-                                        <div class='title'>{{ map.name }}</div>
-                                    </ion-col>
-                                    <ion-col col-3>
-                                        <div class='type'> {{ map.types[0] }}</div>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row>
-                                    <ion-col>
-                                        <div class="author">{{ map.creator }}</div>
-                                        <div class="desc">{{ map.desc }}</div>
-                                    </ion-col>
-                                </ion-row>
-                            </div>
-                        </ion-slide>
-                    </ion-slides>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-
-        <div class='top-maps-title'>Recommended Maps</div>
+    <div class="featured-wrapper " *ngIf='featured && recommended'>
+        <div class='trending' (click)="mapClicked(featured[0], 'True')">
+            <div class='text-wrapper'>
+                <img src="{{featured[0].img}}">
+                <div class='trending-text'>
+                    <ion-icon name="flame"></ion-icon> Trending</div>
+                <ion-row class='title-row'>
+                    <ion-col col-9>
+                        <div class='title'>{{ featured[0].name }}</div>
+                    </ion-col>
+                    <ion-col col-3>
+                        <div class='type'> {{ featured[0].types[0] }}</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <div class="author">{{ featured[0].creator }}</div>
+                        <div class="desc">{{ featured[0].desc }}</div>
+                        <div class="code">{{ featured[0].code }}</div>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </div>
 
         <!-- website list -->
         <ion-grid class='web-maps-list' *ngIf='!isApp'>
@@ -89,24 +80,40 @@
         </ion-grid>
 
         <!-- regular app list-->
-        <ion-list class='maps-list' *ngIf='isApp'>
-            <ion-item (click)="mapClicked(map, 'True')" *ngFor="let map of popular">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-5>
-                            <img class="img" src="{{map.img}}">
-                        </ion-col>
-                        <ion-col col-7>
-                            <div class="title" text-wrap>{{ map.name }}</div>
-                            <div class="author">{{ map.creator }}</div>
-                            <div class='type-wrapper'>
-                                <div class="type" *ngFor='let type of map.types.slice(0,3)'> {{ type }}</div>
-                            </div>
-                            <div class="code">{{ map.code }}</div>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-item>
-        </ion-list>
+        <div class='maps-list' *ngIf='isApp'>
+            <div *ngFor="let map of recommended">
+                <ion-item *ngIf="map.type == 'map'" (click)="mapClicked(map, 'True')">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-5>
+                                <img class="img" src="{{map.img}}">
+                            </ion-col>
+                            <ion-col col-7>
+                                <div class="title" text-wrap>{{ map.name }}</div>
+                                <div class="author">{{ map.creator }}</div>
+                                <div class='type-wrapper'>
+                                    <div class="type" *ngFor='let type of map.types.slice(0,3)'> {{ type }}</div>
+                                </div>
+                                <div class="code">{{ map.code }}</div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+                <div class='collection' *ngIf="map.type == 'collection'">
+                    <div class='title' text-wrap>{{map.title}}</div>
+                    <div class='desc' text-wrap>{{map.desc}}</div>
+                    <div class='c-slider'>
+                        <div class='c-slide-e'></div>
+                        <div *ngFor='let map of map.maps' class='c-slide' (click)="mapClicked(map, 'True')">
+                            <img class='img' src="{{map.img}}">
+                            <div class="name" text-wrap>{{map.name}}</div>
+                            <div class='creator'>{{map.creator}}</div>
+                        </div>
+                    </div>
+                    <div class='line-bottom'></div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </ion-content>

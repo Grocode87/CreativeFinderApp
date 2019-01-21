@@ -11,12 +11,13 @@ import { Injectable } from '@angular/core';
 export class ServerProvider {
 
   apiUrl = 'http://cgrob10.pythonanywhere.com'
+  //apiUrl = 'http://localhost:5000'
 
   constructor(public http: HttpClient) {}
 
   getHome() {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/get/home').subscribe(data => {
+      this.http.get(this.apiUrl+'/get/home?wcollections').subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -45,7 +46,7 @@ export class ServerProvider {
 
   getFiltered(filterOne, filterTwo) {
     return new Promise(resolve => {
-      this.http.get(this.apiUrl+'/get/filtered/'+filterOne+"/"+filterTwo).subscribe(data => {
+      this.http.get(this.apiUrl+'/get/filtered/'+filterOne+"/"+filterTwo+"?wcollections").subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -63,4 +64,13 @@ export class ServerProvider {
     });
   }
 
+    reportMap(map_id, reason) {
+    return new Promise(resolve => {
+      this.http.get(this.apiUrl+'/report/'+map_id+"/"+reason).subscribe(data => {
+        resolve(data); 
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
 }

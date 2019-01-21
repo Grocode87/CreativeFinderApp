@@ -1,6 +1,6 @@
 {
     "name": "Creative Finder",
-    "short_name": "FBR Creative",
+    "short_name": "Creative",
     "start_url": "index.html",
     "display": "standalone",
     "icons": [{
