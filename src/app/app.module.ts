@@ -17,8 +17,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ServerProvider } from '../providers/server/server';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { IonicImageLoader } from 'ionic-image-loader';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   imports: [
     BrowserModule,
+    LazyLoadImageModule,
+    IonicImageLoader.forRoot(),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpClientModule
@@ -49,6 +54,7 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     SplashScreen,
+    GoogleAnalytics,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ServerProvider,
     InAppBrowser

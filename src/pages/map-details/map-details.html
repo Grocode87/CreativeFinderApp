@@ -34,7 +34,21 @@
     <div *ngIf='otherMaps && relatedMaps'>
         <!-- Main map details-->
         <div class='main-details'>
-            <img src="{{ map.img }}">
+
+            <ion-slides *ngIf="map.imgs?.length > 1" class='i-slider' slidesPerView="1.15" spaceBetween="7">
+                <ion-slide class='i-slide' *ngFor='let img of map.imgs; let i = index'>
+                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="img" [scrollObservable]="loadAndScroll" offset="2000" />
+                    <div class='progress'>
+                        <ion-icon name="image"></ion-icon>
+                        <div class='p-text'>{{i + 1}}/{{map.imgs.length}}</div>
+                    </div>
+                </ion-slide>
+            </ion-slides>
+            <div *ngIf="map.imgs?.length == 1">
+                <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="map.imgs[0]" [scrollObservable]="loadAndScroll" offset="2000" />
+            </div>
+            <img *ngIf="map.imgs == undefined" class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
+
             <div class='name'>{{ map.name }}</div>
             <div class='creator'>By {{ map.creator }}</div>
             <div class='desc'>{{ map.desc }}</div>
@@ -63,7 +77,10 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col col-5>
-                                <img class="img" src="{{map.img}}">
+                                <div class='relative'>
+                                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
+                                    <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                                </div>
                             </ion-col>
                             <ion-col col-7>
                                 <div class="title" text-wrap>{{ map.name }}</div>
@@ -90,7 +107,9 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col col-5>
-                                <img class="img" src="{{map.img}}">
+                                <div class='relative'><img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
+                                    <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                                </div>
                             </ion-col>
                             <ion-col col-7>
                                 <div class="title" text-wrap>{{ map.name }}</div>

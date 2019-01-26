@@ -41,9 +41,12 @@
     </ion-grid>
 
     <div class="featured-wrapper " *ngIf='featured && recommended'>
-        <div class='trending' (click)="mapClicked(featured[0], 'True')">
+        <div class='trending' (click)="mapClicked(featured[0], 'True', 'Trending')">
             <div class='text-wrapper'>
-                <img src="{{featured[0].img}}">
+                <div class='relative'>
+                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="featured[0].img" [scrollObservable]="content.ionScroll" offset="1000" />
+                    <ion-icon *ngIf="featured[0].imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                </div>
                 <div class='trending-text'>
                     <ion-icon name="flame"></ion-icon> Trending</div>
                 <ion-row class='title-row'>
@@ -82,11 +85,15 @@
         <!-- regular app list-->
         <div class='maps-list' *ngIf='isApp'>
             <div *ngFor="let map of recommended">
-                <ion-item *ngIf="map.type == 'map'" (click)="mapClicked(map, 'True')">
+                <ion-item *ngIf="map.type == 'map'" (click)="mapClicked(map, 'True', 'Home')">
                     <ion-grid>
                         <ion-row>
                             <ion-col col-5>
-                                <img class="img" src="{{map.img}}">
+                                <div class='relative'>
+                                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
+
+                                    <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                                </div>
                             </ion-col>
                             <ion-col col-7>
                                 <div class="title" text-wrap>{{ map.name }}</div>
@@ -104,8 +111,11 @@
                     <div class='desc' text-wrap>{{map.desc}}</div>
                     <div class='c-slider'>
                         <div class='c-slide-e'></div>
-                        <div *ngFor='let map of map.maps' class='c-slide' (click)="mapClicked(map, 'True')">
-                            <img class='img' src="{{map.img}}">
+                        <div *ngFor='let map of map.maps' class='c-slide' (click)="mapClicked(map, 'True', 'Collection')">
+                            <div class='relative'>
+                                <img class="img" src="{{map.img}}">
+                                <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                            </div>
                             <div class="name" text-wrap>{{map.name}}</div>
                             <div class='creator'>{{map.creator}}</div>
                         </div>

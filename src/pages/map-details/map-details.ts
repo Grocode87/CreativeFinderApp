@@ -1,8 +1,15 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
+import { ViewChild, Component, ChangeDetectorRef } from '@angular/core';
+import { Content, AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Storage } from '@ionic/storage';
+import { GoogleAnalytics } from '@ionic-native/google-analytics/';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/merge';
+import { Subject } from 'rxjs/Subject';
 
 
 /**
@@ -23,10 +30,16 @@ export class MapDetailsPage {
     relatedMaps: any;
     saved: any = false
 
-  constructor(public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public ref: ChangeDetectorRef, public navCtrl: NavController, public events: Events, public iab: InAppBrowser, public navParams: NavParams, public serverProvider: ServerProvider, public storage: Storage, private toastCtrl: ToastController) {
+    imgs: any = ["http://cgrob10.pythonanywhere.com/static/4030-8390-4429-1.png","http://cgrob10.pythonanywhere.com/static/4030-8390-4429-2.png"]
+
+    @ViewChild(Content) content: Content;
+
+    contentLoaded: Subject<any> = new Subject();
+    loadAndScroll: Observable<any>;
+
+  constructor(public ga: GoogleAnalytics, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public ref: ChangeDetectorRef, public navCtrl: NavController, public events: Events, public iab: InAppBrowser, public navParams: NavParams, public serverProvider: ServerProvider, public storage: Storage, private toastCtrl: ToastController) {
         this.map = navParams.get('map_data')
         let addToViews = navParams.get('add_to_views')
-        console.log(addToViews)
         
         storage.get('saved_maps').then((val) => {
             console.log(val)
@@ -66,6 +79,19 @@ export class MapDetailsPage {
             this.relatedMaps = data['related_maps']
             this.ref.detectChanges();
         });
+    }
+
+    ionViewDidLoad() {
+        this.loadAndScroll = Observable.merge(
+            this.content.ionScroll,
+            this.contentLoaded
+        );
+    }
+    
+    ionViewDidEnter() {
+        // Track page - Google Analytics
+        console.log("Tracking Map Details")
+        this.ga.trackView('Map Details');
     }
 
    presentActionSheet() {
@@ -133,7 +159,8 @@ export class MapDetailsPage {
   }
 
   mapClicked(map, addToViews) {
-      console.log(map)
+        this.ga.trackEvent('Engagements', "Related", map['name']);
+
         this.navCtrl.push(MapDetailsPage, {
             'map_data': map,
             'add_to_views': addToViews
@@ -160,8 +187,9 @@ export class MapDetailsPage {
             }
         });
         this.saved = true;
+        this.ga.trackEvent('Bookmarks', "Added", this.map['name']);
         this.events.publish('maps:changed');
-        this.presentToast("Bookmarked map")
+        this.presentToast("Bookmark added")
     }
 
     unsave() {
@@ -181,6 +209,7 @@ export class MapDetailsPage {
             }
         });
         this.presentToast("Bookmark deleted")
+        this.ga.trackEvent('Bookmarks', "Deleted", this.map['name']);
     }
 
     presentToast(msg) {

@@ -24,6 +24,7 @@ page-my-list {
         text-align: center;
         color: #555555;
         font-size: 13px;
+        padding-bottom: 10px;
     }
     .maps-msg {
         padding-left: 10px;
@@ -32,6 +33,15 @@ page-my-list {
         font-weight: bold
     }
     .maps-list {
+        .relative {
+            position: relative;
+        }
+        .abs-icon {
+            color: #ffffff;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
         .img {
             width: 100%;
             max-height: 100%;

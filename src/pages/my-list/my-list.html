@@ -39,7 +39,10 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col col-5>
-                                <img class="img" src="{{map.img}}">
+                                <div class='relative'>
+                                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
+                                    <ion-icon *ngIf="map.imgs?.length > 1" class='abs-icon' name="images"></ion-icon>
+                                </div>
                             </ion-col>
                             <ion-col col-7>
                                 <div class="title" text-wrap>{{ map.name }}</div>
