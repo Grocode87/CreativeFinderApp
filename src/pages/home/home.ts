@@ -5,6 +5,7 @@ import { ServerProvider } from '../../providers/server/server';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 
 import { MapDetailsPage } from '../map-details/map-details'
+import { SettingsPage } from '../settings/settings'
 
 @Component( {
     selector: 'page-home',
@@ -64,6 +65,10 @@ export class HomePage {
                 this.searchbar.setFocus();
                 }, 400);
         }
+    }
+
+    openSettings() {
+        this.navCtrl.push(SettingsPage, {})
     }
 
     searchBlurred() {

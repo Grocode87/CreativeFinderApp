@@ -1,19 +1,22 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar primary>
         <button *ngIf="!toggled" ion-button icon-only menuToggle><ion-icon name="menu"></ion-icon></button>
         <!-- Title -->
-        <img *ngIf="!toggled" src="/assets/imgs/header-logo.png" width="180px" style="display:inline-block" height="40px" />
+        <div *ngIf='!toggled'>
+            <img class='app-title' src="/assets/imgs/header-logo.png" width="180px" style="display:inline-block" height="40px" />
+        </div>
         <!-- Search Bar -->
         <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
         <!-- Search Icon -->
         <ion-buttons end *ngIf="!toggled">
             <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
+            <button ion-button icon-only (click)="openSettings()"><ion-icon name="settings"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 
-<ion-content class='content'>
+<ion-content class='content dark-bg'>
     <ion-refresher (ionRefresh)="refresh($event)" spinner="none">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
@@ -83,7 +86,7 @@
         </ion-grid>
 
         <!-- regular app list-->
-        <div class='maps-list' *ngIf='isApp'>
+        <div class='maps-list-home dark-bg' *ngIf='isApp'>
             <div *ngFor="let map of recommended">
                 <ion-item *ngIf="map.type == 'map'" (click)="mapClicked(map, 'True', 'Home')">
                     <ion-grid>
@@ -96,7 +99,7 @@
                                 </div>
                             </ion-col>
                             <ion-col col-7>
-                                <div class="title" text-wrap>{{ map.name }}</div>
+                                <div ion-text color="text-color" class="title" text-wrap>{{ map.name }}</div>
                                 <div class="author">{{ map.creator }}</div>
                                 <div class='type-wrapper'>
                                     <div class="type" *ngFor='let type of map.types.slice(0,3)'> {{ type }}</div>

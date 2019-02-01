@@ -1,8 +1,16 @@
 page-map-details {
+    
+    .content {
+        background-color: map-get($colors, fg-color)
+    }
     ion-spinner {
         display: block;
         margin: auto;
         padding-top: 200px;
+    }
+    
+    .spinner-md-crescent circle {
+        stroke: white;
     }
     .main-details {
         .i-slide {
@@ -10,7 +18,7 @@ page-map-details {
         }
         .progress {
             font-size: 13px;
-            background-color: white;
+            background-color: map-get($colors, fg-color);;
             position: absolute;
             right: 5px;
             bottom: 10px;
@@ -49,7 +57,7 @@ page-map-details {
             margin-top: 10px;
             align-items: flex-start;
             font-size: 13px;
-            background-color: lightgray;
+            background-color: map-get($colors, accent-color);
             border-radius: 2px;
         }
     }
@@ -72,16 +80,20 @@ page-map-details {
         }
     }
     .other-creations {
-        border-bottom: 1px solid rgb(196, 195, 195);
+        border-bottom: 1px solid map-get($colors, accent-color);
         margin-top: 30px;
         margin-bottom: 1px;
         padding-bottom: 5px;
         font-size: 14px;
     }
     .no-results {
+        background-color: map-get($colors, fg-color);
         font-size: 14px;
     }
     .maps-list {
+        ion-item {
+            background-color: map-get($colors, fg-color);
+        }
         .relative {
             position: relative;
         }
@@ -113,7 +125,7 @@ page-map-details {
             margin-top: 5px;
             display: inline-block;
             font-size: 13px;
-            background-color: lightgray;
+            background-color: map-get($colors, accent-color);
             border-radius: 2px;
         }
         .code {

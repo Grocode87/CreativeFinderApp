@@ -11,6 +11,8 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
 
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
+
 
 /**
  * Generated class for the MapDetailsPage page.
@@ -37,9 +39,11 @@ export class MapDetailsPage {
     contentLoaded: Subject<any> = new Subject();
     loadAndScroll: Observable<any>;
 
-  constructor(public ga: GoogleAnalytics, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public ref: ChangeDetectorRef, public navCtrl: NavController, public events: Events, public iab: InAppBrowser, public navParams: NavParams, public serverProvider: ServerProvider, public storage: Storage, private toastCtrl: ToastController) {
+  constructor(private admobFree : AdMobFree, public ga: GoogleAnalytics, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public ref: ChangeDetectorRef, public navCtrl: NavController, public events: Events, public iab: InAppBrowser, public navParams: NavParams, public serverProvider: ServerProvider, public storage: Storage, private toastCtrl: ToastController) {
         this.map = navParams.get('map_data')
         let addToViews = navParams.get('add_to_views')
+        
+        this.showAds()
         
         storage.get('saved_maps').then((val) => {
             console.log(val)
@@ -94,8 +98,13 @@ export class MapDetailsPage {
         this.ga.trackView('Map Details');
     }
 
+    ionViewWillLeave() {
+        this.admobFree.banner.remove();
+    }
+
    presentActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
+      cssClass: 'action-sheet-alert',
       title: '',
       buttons: [
         {
@@ -113,7 +122,7 @@ export class MapDetailsPage {
   }
 
   reportAlert() {
-    let alert = this.alertCtrl.create();
+    let alert = this.alertCtrl.create({cssClass: 'report-alert'});
     alert.setTitle('Report Map');
 
     alert.addInput({
@@ -224,5 +233,20 @@ export class MapDetailsPage {
         });
 
         toast.present();
-}
+    }
+    
+    showAds(){
+        const bannerConfig: AdMobFreeBannerConfig = {
+            isTesting: true,
+            autoShow: true
+        };
+        this.admobFree.banner.config(bannerConfig);
+
+        this.admobFree.banner.prepare()
+        .then(() => {
+            // banner Ad is ready
+            // if we set autoShow to false, then we will need to call the show method here
+        })
+        .catch(e => console.log(e));    
+    }
 }

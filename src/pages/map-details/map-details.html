@@ -26,12 +26,11 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class='content light-dark-bg'>
     <!-- Loading Indicator -->
     <ion-spinner name="crescent" *ngIf="!otherMaps || !relatedMaps"></ion-spinner>
-
     <!-- Page content -->
-    <div *ngIf='otherMaps && relatedMaps'>
+    <div *ngIf='otherMaps && relatedMaps'>  
         <!-- Main map details-->
         <div class='main-details'>
 

@@ -12,6 +12,7 @@ import { TabsPage } from '../pages/tabs/tabs'
 import { SearchResultsPage } from '../pages/search-results/search-results'
 import { MapDetailsPage } from '../pages/map-details/map-details'
 import { MyListPage } from '../pages/my-list/my-list'
+import { SettingsPage } from '../pages/settings/settings'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,9 +20,13 @@ import { ServerProvider } from '../providers/server/server';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
+import { AppState } from './app.global';
+
 import { IonicStorageModule } from '@ionic/storage';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+
+import { AdMobFree } from '@ionic-native/admob-free';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     TabsPage,
     SearchResultsPage,
     MapDetailsPage,
-    MyListPage
+    MyListPage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     TabsPage,
     SearchResultsPage,
     MapDetailsPage,
-    MyListPage
+    MyListPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
@@ -57,7 +64,9 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     GoogleAnalytics,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ServerProvider,
-    InAppBrowser
+    InAppBrowser,
+    AppState,
+    AdMobFree
   ]
 })
 export class AppModule {}

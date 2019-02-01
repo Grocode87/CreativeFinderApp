@@ -34,7 +34,7 @@ export class ExplorePage {
     type: any;
 
     pubFilters: any = [];
-    typeFilters: any = [];
+    typeFilters: any = ['1', '2'];
 
     @ViewChild('searchbar') searchbar:Searchbar;
     @ViewChild(Content) content: Content;

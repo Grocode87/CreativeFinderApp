@@ -5,15 +5,18 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar>
+    <ion-navbar primary>
         <button *ngIf="!toggled" ion-button icon-only menuToggle><ion-icon name="menu"></ion-icon></button>
         <!-- Title -->
-        <img *ngIf="!toggled" src="/assets/imgs/header-logo.png" width="180px" style="display:inline-block" height="40px" />
+        <div *ngIf='!toggled'>
+            <img src="/assets/imgs/header-logo-d.png" width="180px" style="display:inline-block" height="40px" />
+        </div>
         <!-- Search Bar -->
         <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
         <!-- Search Icon -->
         <ion-buttons end *ngIf="!toggled">
             <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
+            <button ion-button icon-only (click)="openSettings()"><ion-icon name="settings"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
 
@@ -22,7 +25,7 @@
 
             <!-- First select -->
             <ion-select class='left-option' (ngModelChange)="getMaps($event, type)" [(ngModel)]="pop" interface="popover">
-                <ion-option *ngFor="let item of pubFilters">{{ item }}</ion-option>
+                <ion-option class='option' *ngFor="let item of pubFilters">{{ item }}</ion-option>
             </ion-select>
 
             <!-- Second select -->
@@ -35,8 +38,8 @@
 
 
 
-<ion-content class='content'>
-    <ion-refresher (ionRefresh)="refresh($event)" spinner="none">
+<ion-content class='content dark-bg'>
+    <ion-refresher color='white' (ionRefresh)="refresh($event)" spinner="none">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 

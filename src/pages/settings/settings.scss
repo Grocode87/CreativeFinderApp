@@ -1,0 +1,8 @@
+page-settings {
+    .content {
+        background-color: map-get($colors, bg-color);
+    }
+    .s-item {
+        background-color: map-get($colors, fg-color);
+    }
+}
