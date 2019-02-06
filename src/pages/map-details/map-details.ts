@@ -12,6 +12,7 @@ import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
 
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
+import { ThrowStmt } from '@angular/compiler';
 
 
 /**
@@ -20,6 +21,8 @@ import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+
+ 
 
 @Component({
   selector: 'page-map-details',
@@ -39,7 +42,21 @@ export class MapDetailsPage {
     contentLoaded: Subject<any> = new Subject();
     loadAndScroll: Observable<any>;
 
-  constructor(private admobFree : AdMobFree, public ga: GoogleAnalytics, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public ref: ChangeDetectorRef, public navCtrl: NavController, public events: Events, public iab: InAppBrowser, public navParams: NavParams, public serverProvider: ServerProvider, public storage: Storage, private toastCtrl: ToastController) {
+    errorLoading = false;
+
+  constructor(private admobFree : AdMobFree, 
+              public ga: GoogleAnalytics, 
+              public alertCtrl: AlertController, 
+              public actionSheetCtrl: ActionSheetController, 
+              public ref: ChangeDetectorRef, 
+              public navCtrl: NavController, 
+              public events: Events, 
+              public iab: InAppBrowser, 
+              public navParams: NavParams, 
+              public serverProvider: ServerProvider, 
+              public storage: Storage, 
+              private toastCtrl: ToastController) {
+                  
         this.map = navParams.get('map_data')
         let addToViews = navParams.get('add_to_views')
         
@@ -82,8 +99,12 @@ export class MapDetailsPage {
             }
             this.relatedMaps = data['related_maps']
             this.ref.detectChanges();
+        }).catch(error => {
+            this.relatedMaps = []
+            this.otherMaps = []
+            this.errorLoading = true;
         });
-    }
+      };
 
     ionViewDidLoad() {
         this.loadAndScroll = Observable.merge(

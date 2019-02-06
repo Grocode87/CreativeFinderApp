@@ -1,6 +1,7 @@
 import { ViewChild, Component } from '@angular/core';
 import { Content, Searchbar, NavController, NavParams } from 'ionic-angular';
 import { SearchResultsPage } from '../search-results/search-results'
+import { SettingsPage } from '../settings/settings'
 import { ServerProvider } from '../../providers/server/server'
 import { MapDetailsPage } from '../map-details/map-details'
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
@@ -43,29 +44,39 @@ export class ExplorePage {
     loadAndScroll: Observable<any>;
     sub: any;
 
+    errorLoading = false;
+
     constructor(public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
         this.toggled = false; 
 
-        this.getFilterTypes()
+        this.getFilterTypes(null)
     }
 
-    
-
-    getFilterTypes() {
+    getFilterTypes(refresher) {
         /** Get the possible selection values from the server and set them */
         this.serverProvider.getFilterTypes()
         .then(data => {
             console.log(data)
+            this.errorLoading = false;
             this.pubFilters = data['publishedFilters'];
             this.typeFilters = data['typeFilters'];
 
             this.pop = this.pubFilters[0]
             this.type = this.typeFilters[0]
 
-            this.getMaps(this.pop, this.type, null)
+            this.getMaps(this.pop, this.type, refresher)
 
-        })
-    }
+        }).catch(error => {
+            console.log("Unable to load content")
+            this.errorLoading = true;
+            this.maps = []
+            
+            if(refresher) {
+                refresher.complete();
+            }
+        });
+      };
+
     ionViewDidEnter() {
         // Track page - Google Analytics
         this.ga.trackView('Explore');
@@ -106,9 +117,15 @@ export class ExplorePage {
           })
       }
     }
+    
+    openSettings() {
+        this.navCtrl.push(SettingsPage, {})
+    }
+
     refresh(refresher) {
         this.getMaps(this.pop, this.type, refresher)
     }
+
     getMaps(pubFilter, typeFilter, refresher) {
         
         if(!refresher) {
@@ -120,6 +137,7 @@ export class ExplorePage {
             .then(data => {
                 this.maps = data['results']
                 this.showLoading = false;
+                this.errorLoading = false;
                 
                 setTimeout(() => {
                     console.log("loaded")
@@ -140,7 +158,15 @@ export class ExplorePage {
                     refresher.complete();
                 }
                 
-            })
+            }).catch(error => {
+                console.log("Unable to load content")
+                this.errorLoading = true;
+                this.maps = []
+
+                if(refresher) {
+                    refresher.complete();
+                }
+            });
             
     }
 

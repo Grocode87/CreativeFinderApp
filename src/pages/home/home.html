@@ -17,11 +17,16 @@
 
 
 <ion-content class='content dark-bg'>
-    <ion-refresher (ionRefresh)="refresh($event)" spinner="none">
+    <div class='error-loading'*ngIf='errorLoading'>
+        <ion-icon name="alert" color='error-color'></ion-icon>
+        <div class='error-text'>Could not load, check your connection and try again later.</div>
+    </div>
+
+    <ion-refresher *ngIf='(featured && recommended) || errorLoading'(ionRefresh)="refresh($event)" spinner="none">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-spinner name="crescent" *ngIf="!featured || !recommended"></ion-spinner>
+    <ion-spinner name="crescent" *ngIf="(!featured || !recommended) && !errorLoading"></ion-spinner>
     <!-- web featured slider-->
     <ion-grid class='web-featured-maps' *ngIf='!isApp'>
         <ion-row>
@@ -43,20 +48,20 @@
         </ion-row>
     </ion-grid>
 
-    <div class="featured-wrapper " *ngIf='featured && recommended'>
+    <div class="featured-wrapper " *ngIf='featured && recommended && !errorLoading'>
         <div class='trending' (click)="mapClicked(featured[0], 'True', 'Trending')">
             <div class='text-wrapper'>
                 <div class='relative'>
-                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="featured[0].img" [scrollObservable]="content.ionScroll" offset="1000" />
+                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="featured[0].img" [scrollObservable]="content.ionScroll" offset="1000" />
                     <ion-icon *ngIf="featured[0].imgs.length > 1" class='abs-icon' name="images"></ion-icon>
                 </div>
                 <div class='trending-text'>
                     <ion-icon name="flame"></ion-icon> Trending</div>
                 <ion-row class='title-row'>
-                    <ion-col col-9>
+                    <ion-col col-8>
                         <div class='title'>{{ featured[0].name }}</div>
                     </ion-col>
-                    <ion-col col-3>
+                    <ion-col col-4>
                         <div class='type'> {{ featured[0].types[0] }}</div>
                     </ion-col>
                 </ion-row>
@@ -86,14 +91,14 @@
         </ion-grid>
 
         <!-- regular app list-->
-        <div class='maps-list-home dark-bg' *ngIf='isApp'>
+        <div class='maps-list-home dark-bg' *ngIf='isApp && !errorLoading'>
             <div *ngFor="let map of recommended">
                 <ion-item *ngIf="map.type == 'map'" (click)="mapClicked(map, 'True', 'Home')">
                     <ion-grid>
                         <ion-row>
                             <ion-col col-5>
                                 <div class='relative'>
-                                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
+                                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
 
                                     <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
                                 </div>
@@ -128,5 +133,6 @@
             </div>
         </div>
     </div>
+    
 
 </ion-content>

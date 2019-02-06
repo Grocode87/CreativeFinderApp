@@ -13,12 +13,13 @@ import { SettingsPage } from '../settings/settings'
 })
 export class HomePage {
 
-
     toggled: boolean;
     searchTerm: String = '';
     
     featured: any;
     recommended: any;
+
+    errorLoading: any = false;
 
     isApp: any = true
 
@@ -43,8 +44,8 @@ export class HomePage {
     getMaps(refresher) {
         this.serverProvider.getHome()
         .then(data => {
-            console.log(data)
-
+            console.log("loaded succesfully")
+            this.errorLoading = false;
             if(refresher) {
                 setTimeout(() => {
                     this.featured = data['featured'];
@@ -54,6 +55,18 @@ export class HomePage {
             } else {
                 this.featured = data['featured'];
                 this.recommended = data['recommended'];
+            }
+        }).catch(error => {
+            console.log("Unable to load content")
+            this.errorLoading = true;
+
+            this.featured = null;
+            this.recommended = null;
+            
+            if(refresher) {
+                setTimeout(() => {
+                    refresher.complete();
+                }, 500);
             }
         });
       }

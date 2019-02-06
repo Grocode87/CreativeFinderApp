@@ -17,7 +17,8 @@ $colors: ( primary: #bf360c,
            bg-color: #f3f3f3,
            fg-color: #ffffff,
            accent-color: lightgrey,
-           text-color: #000000
+           text-color: #000000,
+           error-color: #aaaaaa
            );
 
            //$toolbar-background: $fg-color;
@@ -25,21 +26,7 @@ $colors: ( primary: #bf360c,
            //$list-md-border-color: $accent-color;
            //$refresher-icon-color: $text-color;
            //$tabs-md-tab-color-inactive: #a3a3a3;
-           $picker-md-option-text-color: black;
        
-           $alert-md-radio-label-text-color: white;
-           $alert-md-radio-border-color-off: white;
-       
-    .popover-viewport ng-component .list .item-md {
-        background-color: black !important; //your color here
-        color: #a0a0a0 !important;
-    }
-    .alert-radio-group {
-        color: black !important;
-        .button-inner {
-            color: black !important;
-        }
-    }
 
 // App iOS Variables
 // --------------------------------------------------

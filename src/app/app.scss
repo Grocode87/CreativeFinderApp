@@ -16,34 +16,3 @@
 // automatically applied to the <body> element in the app.
 
 @import '../theme/dark.theme';
-
-.report-alert {
-    button {
-        color: white; // button text color
-        background-color: black;
-            //button bg color
-    }
-    .alert-title {
-        color: white;
-    }
-
-    .alert-wrapper {
-        background-color: black; // bg color of alert content
-    }
-}
-
-.action-sheet-alert {
-    button {
-        
-        color: white !important; // button text color
-        background-color: black !important;
-            //button bg color
-    }
-    .alert-title {
-        color: white !important;
-    }
-
-    .alert-wrapper {
-        background-color: black !important; // bg color of alert content
-    }
-}

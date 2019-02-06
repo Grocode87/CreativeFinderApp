@@ -9,7 +9,7 @@
         <button *ngIf="!toggled" ion-button icon-only menuToggle><ion-icon name="menu"></ion-icon></button>
         <!-- Title -->
         <div *ngIf='!toggled'>
-            <img src="/assets/imgs/header-logo-d.png" width="180px" style="display:inline-block" height="40px" />
+            <img class='app-title' src="/assets/imgs/header-logo.png" width="180px" style="display:inline-block" height="40px" />
         </div>
         <!-- Search Bar -->
         <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
@@ -20,6 +20,7 @@
         </ion-buttons>
     </ion-navbar>
 </ion-header>
+
 
 
 <ion-content class='content dark-bg'>
@@ -43,7 +44,7 @@
                         <ion-row>
                             <ion-col col-5>
                                 <div class='relative'>
-                                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
+                                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
                                     <ion-icon *ngIf="map.imgs?.length > 1" class='abs-icon' name="images"></ion-icon>
                                 </div>
                             </ion-col>

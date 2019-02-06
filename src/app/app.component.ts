@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { AppState} from "./app.global";
 import { TabsPage } from '../pages/tabs/tabs';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,12 +15,17 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 export class MyApp {
   rootPage:any = TabsPage;
-  selectedTheme: String;
 
-  constructor(public global: AppState, public ga: GoogleAnalytics, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(public storage: Storage, public global: AppState, public ga: GoogleAnalytics, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
   
     platform.ready().then(() => {
-      this.changeTheme('')
+      storage.get('theme').then((val) => {
+        if(val) {
+          global.set('theme', val)
+        } else {
+          storage.set('theme', '')
+        }
+      });
 
       this.ga.startTrackerWithId('UA-132784338-1')
         .then(() => {console.log('Google analytics started');})
@@ -29,8 +35,5 @@ export class MyApp {
       statusBar.styleLightContent();
       splashScreen.hide();
     });
-  }
-  changeTheme(theme) {
-    this.global.set('theme', theme);
   }
 }

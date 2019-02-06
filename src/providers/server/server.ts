@@ -16,60 +16,60 @@ export class ServerProvider {
   constructor(public http: HttpClient) {}
 
   getHome() {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl+'/get/home?wcollections').subscribe(data => {
         resolve(data);
       }, err => {
-        console.log(err);
+        reject(err)
       });
     });
   }
   getSearch(query) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl+'/get/search/'+query).subscribe(data => {
         resolve(data); 
       }, err => {
-        console.log(err);
+        reject(err)
       });
     });
   }
 
   getFilterTypes() {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl+'/get/filtered/filters').subscribe(data => {
         resolve(data);
       }, err => {
-        console.log(err);
+        reject(err)
       });
     });
   }
 
   getFiltered(filterOne, filterTwo) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl+'/get/filtered/'+filterOne+"/"+filterTwo+"?wcollections").subscribe(data => {
         resolve(data);
       }, err => {
-        console.log(err);
+        reject(err)
       });
     });
   }
 
   getMapsFromCreator(map_id, creator, add_to_views) {
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl+'/get/details/'+map_id+'/'+creator+'?add_view='+add_to_views).subscribe(data => {
         resolve(data); 
       }, err => {
-        console.log(err);
+        reject(err)
       });
     });
   }
 
     reportMap(map_id, reason) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl+'/report/'+map_id+"/"+reason).subscribe(data => {
         resolve(data); 
       }, err => {
-        console.log(err);
+        reject(err)
       });
     });
   }

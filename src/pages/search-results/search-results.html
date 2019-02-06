@@ -6,6 +6,10 @@
 
 
 <ion-content class='dark-bg'>
+    <div class='error-loading'*ngIf='errorLoading'>
+        <ion-icon name="alert" color='error-color'></ion-icon>
+        <div class='error-text'>Could not load, check your connection and try again later.</div>
+    </div>
     <!-- Loading Indicator -->
     <ion-item padding class='searching-indicator' no-lines *ngIf="!maps">
         <h4>Searching</h4>

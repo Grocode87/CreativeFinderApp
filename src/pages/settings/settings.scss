@@ -1,8 +1,14 @@
 page-settings {
+    .divider {
+        background-color: map-get($colors, bg-color)
+    }
     .content {
         background-color: map-get($colors, bg-color);
     }
     .s-item {
         background-color: map-get($colors, fg-color);
+    }
+    .feedback-textarea {
+        height: 200px;
     }
 }

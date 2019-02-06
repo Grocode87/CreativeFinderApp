@@ -5,6 +5,7 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 
 import { MapDetailsPage } from '../map-details/map-details'
 import { SearchResultsPage } from '../search-results/search-results'
+import { SettingsPage } from '../settings/settings'
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -122,6 +123,10 @@ export class MyListPage {
             query: val
           })
       }
+    }
+    
+    openSettings() {
+        this.navCtrl.push(SettingsPage, {})
     }
 
 }

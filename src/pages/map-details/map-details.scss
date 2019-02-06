@@ -1,5 +1,13 @@
 page-map-details {
-    
+    @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+      
+        to {
+          opacity: 1;
+        }
+    }
     .content {
         background-color: map-get($colors, fg-color)
     }
@@ -9,10 +17,9 @@ page-map-details {
         padding-top: 200px;
     }
     
-    .spinner-md-crescent circle {
-        stroke: white;
-    }
     .main-details {
+        animation-name: fadeIn;
+        animation-duration: 1s;
         .i-slide {
             position: relative;
         }
@@ -31,7 +38,7 @@ page-map-details {
         }
         img {
             width: 100%;
-            border-radius: 4px;
+            border-radius: 4px;  
         }
         .name {
             padding-top: 3px;
@@ -133,6 +140,21 @@ page-map-details {
             font-size: 15px;
             font-weight: bold;
             color: map-get($colors, primary);
+        }
+    }
+    
+    .error-loading {
+        padding-top: 50%;
+        text-align: center;
+
+        ion-icon {
+            font-size: 60px;
+        }
+        .error-text {
+            font-size: 17px;
+            padding-top: 8px;
+            padding-left: 50px;
+            padding-right: 50px;
         }
     }
 }

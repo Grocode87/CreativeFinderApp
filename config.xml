@@ -89,6 +89,7 @@
         <variable name="GMS_VERSION" value="11.0.1" />
     </plugin>
     <plugin name="cordova-plugin-admob-free" spec="0.25.0" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.4" />
     <engine name="android" spec="7.1.4" />
     <engine name="browser" spec="5.0.4" />
 </widget>
