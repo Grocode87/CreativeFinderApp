@@ -12,7 +12,6 @@ import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
 
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
-import { ThrowStmt } from '@angular/compiler';
 
 
 /**

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController, NavParams } from 'ionic-angular';
+import { ToastController, ModalController, NavController, NavParams } from 'ionic-angular';
 import { AppState} from "../../app/app.global";
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -39,7 +39,7 @@ onError(msg) {
   console.log("Sharing failed with message: " + msg);
 };
 
-  constructor(public socialSharing: SocialSharing, public iab: InAppBrowser, public storage: Storage, public global: AppState, public modalCtrl : ModalController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController, public socialSharing: SocialSharing, public iab: InAppBrowser, public storage: Storage, public global: AppState, public modalCtrl : ModalController, public navCtrl: NavController, public navParams: NavParams) {
     storage.get('theme').then((val) => {
       if(val) {
         if(val == 'dark-theme') {
@@ -66,11 +66,24 @@ onError(msg) {
     this.iab.create('https://creativefinder.wufoo.com/forms/zzwizl801wddz3/');
   }
   share() {
-    this.socialSharing.share("Check out Creative Finder - an app to find Fortnite Creative Codes!", "subject", null, "www.url.com").then(() => {
-      // Success
+    this.socialSharing.share("Creative Finder - The best place to find Fortnite Creative Codes", null, null, "https://bit.ly/2BieoNv").then(() => {
+      this.presentToast("Shared succesfully")
     }).catch((e) => {
       // Error!
     });
   }
 
+    presentToast(msg) {
+        let toast = this.toastCtrl.create({
+            message: msg,
+            duration: 1500,
+            position: 'bottom'
+        });
+
+        toast.onDidDismiss(() => {
+            console.log('Dismissed toast');
+        });
+
+        toast.present();
+    }
 }

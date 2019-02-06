@@ -88,8 +88,12 @@
     <plugin name="cordova-plugin-google-analytics" spec="1.8.6">
         <variable name="GMS_VERSION" value="11.0.1" />
     </plugin>
-    <plugin name="cordova-plugin-admob-free" spec="0.25.0" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.4" />
     <engine name="android" spec="7.1.4" />
     <engine name="browser" spec="5.0.4" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="5.4.4">
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
+    </plugin>
+    <plugin name="cordova-plugin-admob-free" spec="0.25.0">
+        <variable name="ADMOB_APP_ID" value="ca-app-pub-6794112313190428~9933702716" />
+    </plugin>
 </widget>

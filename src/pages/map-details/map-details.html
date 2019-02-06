@@ -8,13 +8,16 @@
 
     <ion-navbar>
         <ion-title>Details</ion-title>
-        <ion-buttons end *ngIf="!toggled && !error-loading">
+        <ion-buttons end *ngIf="!toggled">
 
             <button ion-button icon-only (click)="save()" *ngIf='!saved'>
                 <ion-icon name="bookmark"></ion-icon>
             </button>
             <button ion-button icon-only (click)="unsave()" *ngIf='saved'>
                 <ion-icon name="ios-bookmark-outline"></ion-icon>
+            </button>
+            <button ion-button icon-only>
+                <ion-icon name="share"></ion-icon>
             </button>
             <button ion-button icon-only (click)="presentActionSheet()">
                 <ion-icon name="more"></ion-icon>
@@ -31,7 +34,7 @@
     <ion-spinner name="crescent" *ngIf="(!otherMaps || !relatedMaps) && !errorLoading"></ion-spinner>
 
     <!-- Page content -->
-    <div *ngIf='(otherMaps && relatedMaps) && !errorLoading'>  
+    <div *ngIf='(otherMaps && relatedMaps) && !errorLoading'>
         <!-- Main map details-->
         <div class='main-details'>
 
@@ -124,9 +127,9 @@
         </div>
 
     </div>
-    
+
     <div class='error-loading' *ngIf='errorLoading'>
-            <ion-icon name="alert" color='error-color'></ion-icon>
-            <div class='error-text'>Could not load, check your connection and try again later.</div>
-        </div>
+        <ion-icon name="alert" color='error-color'></ion-icon>
+        <div class='error-text'>Could not load, check your connection and try again later.</div>
+    </div>
 </ion-content>
