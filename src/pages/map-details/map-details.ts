@@ -11,8 +11,6 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
 
-import { PageTwo } from '../../components/popover/popover';
-
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 
 
@@ -119,6 +117,7 @@ export class MapDetailsPage {
         // Track page - Google Analytics
         console.log("Tracking Map Details")
         this.ga.trackView('Map Details');
+        this.ref.detectChanges();
     }
 
     ionViewWillLeave() {
@@ -220,7 +219,6 @@ export class MapDetailsPage {
         });
         this.saved = true;
         this.ga.trackEvent('Bookmarks', "Added", this.map['name']);
-        this.events.publish('maps:changed');
         this.presentToast("Bookmark added")
     }
 
@@ -267,19 +265,9 @@ export class MapDetailsPage {
 
         this.admobFree.banner.prepare()
         .then(() => {
-            // banner Ad is ready
-            // if we set autoShow to false, then we will need to call the show method here
+            this.admobFree.banner.show()
+            console.log("ad showing")
         })
         .catch(e => console.log(e));    
-    }
-
-    presentPopover(ev: any) {
-        const popover = this.popoverController.create({
-            component: PageTwo,
-            event: ev,
-            translucent: true
-          });
-          
-          popover.present();
     }
 }

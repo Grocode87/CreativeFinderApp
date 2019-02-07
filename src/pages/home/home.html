@@ -13,24 +13,26 @@
             <button ion-button icon-only (click)="openSettings()"><ion-icon name="settings"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
+
     <ion-toolbar *ngIf='toggled' class='search-suggestions'>
-        <div class='s-container'>
-        <ion-item *ngFor='let suggestion of autocomplete'>
-            {{ suggestion }}
-        </ion-item>
-        </div>
-        
+        <ion-list>
+            <ion-item class='suggestion' *ngFor='let suggestion of autocomplete'>
+                <ion-icon item-start name='time'></ion-icon>
+                {{ suggestion }}
+                <ion-icon item-end name="arrow-round-forward"></ion-icon>
+            </ion-item>
+        </ion-list>
     </ion-toolbar>
 </ion-header>
 
 
 <ion-content class='content dark-bg'>
-    <div class='error-loading'*ngIf='errorLoading'>
+    <div class='error-loading' *ngIf='errorLoading'>
         <ion-icon name="alert" color='error-color'></ion-icon>
         <div class='error-text'>Could not load, check your connection and try again later.</div>
     </div>
 
-    <ion-refresher *ngIf='(featured && recommended) || errorLoading'(ionRefresh)="refresh($event)" spinner="none">
+    <ion-refresher *ngIf='(featured && recommended) || errorLoading' (ionRefresh)="refresh($event)" spinner="none">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
@@ -141,6 +143,6 @@
             </div>
         </div>
     </div>
-    
+
 
 </ion-content>

@@ -55,11 +55,14 @@ export class MyListPage {
             this.content.ionScroll,
             this.contentLoaded
         );
+        
     } 
 
     ionViewDidEnter() {
         // Track page - Google Analytics
         this.ga.trackView('Bookmarks');
+        
+        this.updateMaps()
     }
 
   updateMaps() {
