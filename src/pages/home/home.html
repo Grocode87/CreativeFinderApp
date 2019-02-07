@@ -13,6 +13,14 @@
             <button ion-button icon-only (click)="openSettings()"><ion-icon name="settings"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
+    <ion-toolbar *ngIf='toggled' class='search-suggestions'>
+        <div class='s-container'>
+        <ion-item *ngFor='let suggestion of autocomplete'>
+            {{ suggestion }}
+        </ion-item>
+        </div>
+        
+    </ion-toolbar>
 </ion-header>
 
 

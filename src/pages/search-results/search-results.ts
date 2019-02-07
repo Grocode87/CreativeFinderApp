@@ -31,6 +31,8 @@ export class SearchResultsPage {
     contentLoaded: Subject<any> = new Subject();
     loadAndScroll: Observable<any>;
 
+    errorLoading = true;
+
   constructor(public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider) {
     this.query = navParams.get('query')
     this.ga.trackEvent('Search', "Query", this.query);

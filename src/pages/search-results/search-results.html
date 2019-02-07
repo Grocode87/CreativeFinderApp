@@ -4,20 +4,19 @@
     </ion-navbar>
 </ion-header>
 
-
 <ion-content class='dark-bg'>
     <div class='error-loading'*ngIf='errorLoading'>
         <ion-icon name="alert" color='error-color'></ion-icon>
         <div class='error-text'>Could not load, check your connection and try again later.</div>
     </div>
     <!-- Loading Indicator -->
-    <ion-item padding class='searching-indicator' no-lines *ngIf="!maps">
+    <ion-item padding class='searching-indicator' no-lines *ngIf="!maps && !errorLoading">
         <h4>Searching</h4>
         <ion-spinner item-right name="crescent"></ion-spinner>
     </ion-item>
 
     <!-- Number of search results -->
-    <div class="search-results-num" *ngIf="maps">
+    <div class="search-results-num" *ngIf="maps && !errorLoading">
         {{ maps.length }} Search Results for <b>{{query}}</b>
     </div>
 

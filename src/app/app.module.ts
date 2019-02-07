@@ -69,6 +69,8 @@ import { AdMobFree } from '@ionic-native/admob-free';
     AppState,
     AdMobFree,
     SocialSharing
+  ],
+  exports: [
   ]
 })
 export class AppModule {}

@@ -42,6 +42,7 @@ export class MyListPage {
         
         events.subscribe('maps:changed', () => {
             this.updateMaps()
+            console.log("change")
         });
         
         this.toggled = false; 

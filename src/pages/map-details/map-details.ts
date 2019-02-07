@@ -1,5 +1,5 @@
 import { ViewChild, Component, ChangeDetectorRef } from '@angular/core';
-import { Content, AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
+import { PopoverController, Content, AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Storage } from '@ionic/storage';
@@ -10,6 +10,8 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
+
+import { PageTwo } from '../../components/popover/popover';
 
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 
@@ -43,7 +45,8 @@ export class MapDetailsPage {
 
     errorLoading = false;
 
-  constructor(private admobFree : AdMobFree, 
+  constructor(public popoverController: PopoverController,
+              private admobFree : AdMobFree, 
               public ga: GoogleAnalytics, 
               public alertCtrl: AlertController, 
               public actionSheetCtrl: ActionSheetController, 
@@ -268,5 +271,15 @@ export class MapDetailsPage {
             // if we set autoShow to false, then we will need to call the show method here
         })
         .catch(e => console.log(e));    
+    }
+
+    presentPopover(ev: any) {
+        const popover = this.popoverController.create({
+            component: PageTwo,
+            event: ev,
+            translucent: true
+          });
+          
+          popover.present();
     }
 }

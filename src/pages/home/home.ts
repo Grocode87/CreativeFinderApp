@@ -22,6 +22,7 @@ export class HomePage {
     errorLoading: any = false;
 
     isApp: any = true
+    autocomplete = ['cizzorz', 'deathrun', 'a search result', 'the search result', 'lol wtf', 'cizzors death run', 'death runs']
 
     @ViewChild(Content) content: Content;
     @ViewChild('searchbar') searchbar:Searchbar;
