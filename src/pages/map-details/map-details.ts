@@ -5,12 +5,15 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Storage } from '@ionic/storage';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
+
+import {PopoverPage} from "../popover/popover"
 
 
 /**
@@ -19,7 +22,6 @@ import { Subject } from 'rxjs/Subject';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
  
 
 @Component({
@@ -41,6 +43,7 @@ export class MapDetailsPage {
     loadAndScroll: Observable<any>;
 
     errorLoading = false;
+    popover: any;
 
   constructor(public popoverController: PopoverController,
               public ga: GoogleAnalytics,
@@ -52,7 +55,8 @@ export class MapDetailsPage {
               public events: Events, 
               public iab: InAppBrowser, 
               public navParams: NavParams, 
-              public serverProvider: ServerProvider, 
+              public serverProvider: ServerProvider,
+              private socialSharing: SocialSharing,
               public storage: Storage, 
               private toastCtrl: ToastController) {
                   
@@ -75,6 +79,8 @@ export class MapDetailsPage {
                this.storage.set('saved_maps', JSON.stringify({"maps":[this.map]}));
             }
         });
+
+       
 
       // Get creator maps and related maps
       this.serverProvider.getMapsFromCreator(this.map.id, this.map.creator, addToViews)
@@ -99,8 +105,24 @@ export class MapDetailsPage {
             this.otherMaps = []
             this.errorLoading = true;
         });
+
+        events.subscribe('popover:report', () => {
+            this.popover.dismiss()
+            this.reportAlert()
+        });
+        events.subscribe('popover:share', () => {
+            this.popover.dismiss()
+            this.share()
+        });
       };
 
+    showPopover(event) {
+        this.popover = this.popoverController.create(PopoverPage, {}, {cssClass: 'options-popover'})
+
+        this.popover.present({
+            ev: event
+        });
+    }
     ionViewDidLoad() {
         this.loadAndScroll = Observable.merge(
             this.content.ionScroll,
@@ -145,7 +167,7 @@ export class MapDetailsPage {
           icon: 'share',
           handler: () => {
             console.log('Share clicked');
-            this.reportAlert()
+            this.share()
           }
         }
       ]
@@ -197,6 +219,30 @@ export class MapDetailsPage {
       }
     });
     alert.present();
+  }
+  
+  share() {
+    var msg = this.map.name + "  :  " + this.map.code + "\n\n" + this.map.desc + "\n\nFor this map and much more, download Creative Finder from the Google Play Store!"
+
+    var options = {
+        message: msg, // not supported on some apps (Facebook, Instagram)
+        subject: 'Fortnite Creative Map - ' + this.map.name, // fi. for email
+        files: [],
+        url: 'http://bit.ly/creative-finder'
+    };
+
+    var onSuccess = function(result) {
+        console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+        console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+    };
+
+    var onError = function(msg) {
+        console.log("Sharing failed with message: " + msg);
+    };
+
+    //this.socialSharing.shareWithOptions(options);
+      var msg = this.map.name + "  :  " + this.map.code + "\n\n" + this.map.desc + "\n\nFound using the Creative Finder app."
+      this.socialSharing.shareWithOptions(options).then(() => {});
   }
 
   mapClicked(map, addToViews) {

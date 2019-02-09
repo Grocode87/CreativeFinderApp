@@ -1,4 +1,22 @@
 page-my-list {
+    // Search animations
+    @keyframes slideIn {
+        0% {
+            -webkit-transform: translate3d(0, -70%, 0);
+        }
+        100% {
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+    }
+    .search-suggestions {
+        animation-name: slideIn;
+        animation-duration: 0.3s;
+        padding-bottom: 1000px;
+    }
+    #searchbar {
+        animation-name: slideIn;
+        animation-duration: 0.3s;
+    }
     ion-spinner {
         display: block;
         margin: auto;

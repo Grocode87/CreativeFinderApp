@@ -1,5 +1,22 @@
 page-explore {
-    
+    // Search animations
+    @keyframes slideIn {
+        0% {
+            -webkit-transform: translate3d(0, -70%, 0);
+        }
+        100% {
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+    }
+    .search-suggestions {
+        animation-name: slideIn;
+        animation-duration: 0.3s;
+        padding-bottom: 1000px;
+    }
+    #searchbar {
+        animation-name: slideIn;
+        animation-duration: 0.3s;
+    }
     .content {
         background-color: map-get($colors, bg-color);
     }
@@ -81,7 +98,6 @@ page-explore {
     .error-loading {
         padding-top: 37%;
         text-align: center;
-
         ion-icon {
             font-size: 60px;
         }

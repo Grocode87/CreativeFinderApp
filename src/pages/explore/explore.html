@@ -3,7 +3,8 @@
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
---><ion-header>
+-->
+<ion-header>
     <ion-navbar primary>
         <button *ngIf="!toggled" ion-button icon-only menuToggle><ion-icon name="menu"></ion-icon></button>
         <!-- Title -->
@@ -11,7 +12,7 @@
             <img class='app-title' src="/assets/imgs/header-logo.png" width="180px" style="display:inline-block" height="40px" />
         </div>
         <!-- Search Bar -->
-        <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
+        <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (ionInput)="searchUpdated($event)" (search)="searchQuery($event)"></ion-searchbar>
         <!-- Search Icon -->
         <ion-buttons end *ngIf="!toggled">
             <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
@@ -19,7 +20,23 @@
         </ion-buttons>
     </ion-navbar>
 
-    
+
+    <ion-toolbar *ngIf='toggled' class='search-suggestions'>
+        <ion-list>
+            <ion-item no-lines (click)="suggestionClicked(item)" class='suggestion' *ngFor='let item of suggestions'>
+                <ion-icon class='suggestion-icon' item-start name='search'></ion-icon>
+                {{ item }}
+                <ion-icon item-end name="arrow-round-forward"></ion-icon>
+            </ion-item>
+            <ion-item no-lines (click)="suggestionClicked(item)" class='history' *ngFor='let item of history'>
+                <ion-icon class='suggestion-icon' item-start name='time'></ion-icon>
+                {{ item }}
+                <ion-icon item-end name="arrow-round-forward"></ion-icon>
+            </ion-item>
+        </ion-list>
+    </ion-toolbar>
+
+
     <ion-toolbar>
         <ion-item no-lines class='option-container'>
             <!-- First select -->
@@ -33,16 +50,18 @@
             </ion-select>
         </ion-item>
     </ion-toolbar>
+
+
 </ion-header>
 
 
 <ion-content class='content dark-bg'>
-    <div class='error-loading'*ngIf='errorLoading'>
+    <div class='error-loading' *ngIf='errorLoading'>
         <ion-icon name="alert" color='error-color'></ion-icon>
         <div class='error-text'>Could not load, check your connection and try again later.</div>
     </div>
-        
-    <ion-refresher *ngIf='!showLoading || errorLoading'(ionRefresh)="getFilterTypes($event)" spinner="none">
+
+    <ion-refresher *ngIf='!showLoading || errorLoading' (ionRefresh)="getFilterTypes($event)" spinner="none">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 

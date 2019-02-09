@@ -8,31 +8,18 @@ $font-path: "../assets/fonts";
 // http://ionicframework.com/docs/theming/rtl-support/
 $app-direction: ltr;
 @import "ionic.globals";
-
-$colors: ( primary: #bf360c, 
-           secondary: #d4c21e, 
-           danger: #f53d3d, 
-           light: #fafafa, 
-           dark: #222,
-           bg-color: #f3f3f3,
-           fg-color: #ffffff,
-           accent-color: lightgrey,
-           text-color: #000000,
-           error-color: #aaaaaa
-           );
-
-           //$toolbar-background: $fg-color;
-           //$tabs-background: $fg-color;
-           //$list-md-border-color: $accent-color;
-           //$refresher-icon-color: $text-color;
-           //$tabs-md-tab-color-inactive: #a3a3a3;
-       
-
+$colors: ( primary: #bf360c, secondary: #d4c21e, danger: #f53d3d, light: #fafafa, dark: #222, bg-color: #f3f3f3, fg-color: #ffffff, accent-color: lightgrey, text-color: #000000, error-color: #aaaaaa);
+//$toolbar-background: $fg-color;
+//$tabs-background: $fg-color;
+//$list-md-border-color: $accent-color;
+//$refresher-icon-color: $text-color;
+//$tabs-md-tab-color-inactive: #a3a3a3;
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
 // App Material Design Variables
 // --------------------------------------------------
+$popover-md-width: 150px;
 // Material Design only Sass variables can go here
 // App Windows Variables
 // --------------------------------------------------

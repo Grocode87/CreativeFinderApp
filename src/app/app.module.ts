@@ -13,6 +13,7 @@ import { SearchResultsPage } from '../pages/search-results/search-results'
 import { MapDetailsPage } from '../pages/map-details/map-details'
 import { MyListPage } from '../pages/my-list/my-list'
 import { SettingsPage } from '../pages/settings/settings'
+import { PopoverPage } from '../pages/popover/popover'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,6 +28,7 @@ import { IonicImageLoader } from 'ionic-image-loader';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 import { AdMobFree } from '@ionic-native/admob-free';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { AdMobFree } from '@ionic-native/admob-free';
     SearchResultsPage,
     MapDetailsPage,
     MyListPage,
-    SettingsPage
+    SettingsPage,
+    PopoverPage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import { AdMobFree } from '@ionic-native/admob-free';
     SearchResultsPage,
     MapDetailsPage,
     MyListPage,
-    SettingsPage
+    SettingsPage,
+    PopoverPage
   ],
   providers: [
     StatusBar,
@@ -66,7 +70,8 @@ import { AdMobFree } from '@ionic-native/admob-free';
     ServerProvider,
     InAppBrowser,
     AppState,
-    AdMobFree
+    AdMobFree,
+    SocialSharing
   ],
   exports: [
   ]

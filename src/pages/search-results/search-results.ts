@@ -3,6 +3,7 @@ import { Content, NavController, NavParams } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { MapDetailsPage } from '../map-details/map-details'
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
+import { Storage } from '@ionic/storage';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -33,9 +34,25 @@ export class SearchResultsPage {
 
     errorLoading = false;
 
-  constructor(public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider) {
+  constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider) {
     this.query = navParams.get('query')
     this.ga.trackEvent('Search', "Query", this.query);
+
+     storage.get('recent_searches').then((val) => {
+            if(val) {
+                let searches = JSON.parse(val).searches
+                if(searches.indexOf(this.query) > -1) {
+                    searches.splice(searches.indexOf(this.query), 1);
+                }
+
+                searches.unshift(this.query)
+                if(searches.length > 4){
+                    searches.length = 4
+                }
+
+                this.storage.set('recent_searches', JSON.stringify({"searches":searches}));
+            }
+        });
   }
 
    ionViewDidLoad() {

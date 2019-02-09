@@ -12,6 +12,8 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
 
+import { Storage } from '@ionic/storage';
+
 /**
  * Generated class for the ExplorePage page.
  *
@@ -45,8 +47,11 @@ export class ExplorePage {
     sub: any;
 
     errorLoading = false;
+    
+    suggestions = []
+    history = []
 
-    constructor(public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
+    constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
         this.toggled = false; 
 
         this.getFilterTypes(null)
@@ -93,6 +98,7 @@ export class ExplorePage {
     toggleSearch() {
         this.toggled = this.toggled ? false : true;
         if(this.toggled) {
+            this.searchUpdated(null)
             setTimeout(() => {
                 this.searchbar.setFocus();
                 }, 400);
@@ -100,22 +106,60 @@ export class ExplorePage {
     }
 
     searchBlurred() {
-        console.log("Off");
-        this.toggled = false;
-    } 
+        setTimeout(() => {
+            this.toggled = false;
+            
+            this.searchTerm = ""
+            this.suggestions = []
+        }, 150);
+    }
 
-    searchQuery(searchbar: any) {
-      const val = searchbar.target.value;
+    searchQuery() {
+      const val = this.searchTerm;
     
       if (val && val.trim() != '') {
-        this.searchBlurred();
+        this.navCtrl.parent.parent.push(SearchResultsPage, {
+            query: val
+          }).then(() =>{
         this.searchTerm = ""
         this.toggled = false
         console.log(val)
-        this.navCtrl.parent.parent.push(SearchResultsPage, {
-            query: val
+
           })
       }
+    }
+
+    searchUpdated(ev: any) {
+        if(!ev) {
+            this.getHistory()
+        } else {
+            let val = ev.target.value;
+
+            if (!val || val.trim() == '') {
+                this.getHistory()
+            } else {
+                this.getSuggestions(val)
+            }
+        }
+    }
+
+    getHistory() {
+        this.storage.get('recent_searches').then((val) => {
+            this.suggestions = []
+            this.history = JSON.parse(val).searches
+            console.log(this.history)
+        });
+    }
+    getSuggestions(query) {
+        this.serverProvider.getAutocomplete(query).then(data => {
+             this.suggestions = data['results']
+             this.history = []
+        }).catch(error => { return []});
+    }
+    suggestionClicked(suggestion) {
+        this.searchTerm = suggestion
+
+        this.searchQuery()
     }
     
     openSettings() {

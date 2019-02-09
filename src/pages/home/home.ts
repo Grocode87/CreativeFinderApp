@@ -7,6 +7,8 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 import { MapDetailsPage } from '../map-details/map-details'
 import { SettingsPage } from '../settings/settings'
 
+import { Storage } from '@ionic/storage';
+
 @Component( {
     selector: 'page-home',
     templateUrl: 'home.html'
@@ -29,7 +31,7 @@ export class HomePage {
     @ViewChild(Content) content: Content;
     @ViewChild('searchbar') searchbar:Searchbar;
 
-    constructor(public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
+    constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
         this.toggled = false; 
         this.getMaps(null)
     }
@@ -89,12 +91,12 @@ export class HomePage {
     }
 
     searchBlurred() {
-            setTimeout(() => {
-        this.toggled = false;
-        
-        this.searchTerm = ""
-        this.suggestions = []
-                }, 150);
+        setTimeout(() => {
+            this.toggled = false;
+            
+            this.searchTerm = ""
+            this.suggestions = []
+        }, 150);
     }
 
     searchQuery() {
@@ -114,13 +116,12 @@ export class HomePage {
 
     searchUpdated(ev: any) {
         if(!ev) {
-            this.history = this.getHistory()
+            this.getHistory()
         } else {
             let val = ev.target.value;
 
             if (!val || val.trim() == '') {
-                this.suggestions = []
-                this.history = this.getHistory()
+                this.getHistory()
             } else {
                 this.getSuggestions(val)
             }
@@ -128,7 +129,11 @@ export class HomePage {
     }
 
     getHistory() {
-        return ['looking', 'back', 'at it']
+        this.storage.get('recent_searches').then((val) => {
+            this.suggestions = []
+            this.history = JSON.parse(val).searches
+            console.log(this.history)
+        });
     }
     getSuggestions(query) {
         this.serverProvider.getAutocomplete(query).then(data => {

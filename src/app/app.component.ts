@@ -35,5 +35,12 @@ export class MyApp {
       statusBar.styleLightContent();
       splashScreen.hide();
     });
+
+    // Create storage obj for recent searches
+    storage.get('recent_searches').then((val) => {
+        if(!val) {    
+            this.storage.set('recent_searches', JSON.stringify({"searches":[]}));
+        }
+    });
   }
 }

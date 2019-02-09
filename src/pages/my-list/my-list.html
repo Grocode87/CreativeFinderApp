@@ -12,13 +12,28 @@
             <img class='app-title' src="/assets/imgs/header-logo.png" width="180px" style="display:inline-block" height="40px" />
         </div>
         <!-- Search Bar -->
-        <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (search)="searchQuery($event)"></ion-searchbar>
+        <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (ionInput)="searchUpdated($event)" (search)="searchQuery($event)"></ion-searchbar>
         <!-- Search Icon -->
         <ion-buttons end *ngIf="!toggled">
             <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
             <button ion-button icon-only (click)="openSettings()"><ion-icon name="settings"></ion-icon></button>
         </ion-buttons>
     </ion-navbar>
+
+    <ion-toolbar *ngIf='toggled' class='search-suggestions'>
+        <ion-list>
+            <ion-item no-lines (click)="suggestionClicked(item)" class='suggestion' *ngFor='let item of suggestions'>
+                <ion-icon class='suggestion-icon' item-start name='search'></ion-icon>
+                {{ item }}
+                <ion-icon item-end name="arrow-round-forward"></ion-icon>
+            </ion-item>
+            <ion-item no-lines (click)="suggestionClicked(item)" class='history' *ngFor='let item of history'>
+                <ion-icon class='suggestion-icon' item-start name='time'></ion-icon>
+                {{ item }}
+                <ion-icon item-end name="arrow-round-forward"></ion-icon>
+            </ion-item>
+        </ion-list>
+    </ion-toolbar>
 </ion-header>
 
 
