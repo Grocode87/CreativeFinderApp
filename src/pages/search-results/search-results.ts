@@ -31,7 +31,7 @@ export class SearchResultsPage {
     contentLoaded: Subject<any> = new Subject();
     loadAndScroll: Observable<any>;
 
-    errorLoading = true;
+    errorLoading = false;
 
   constructor(public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider) {
     this.query = navParams.get('query')
@@ -49,6 +49,8 @@ export class SearchResultsPage {
                     console.log("loaded")
                     this.contentLoaded.next();
                 }, 400);
+        }).catch(error => { 
+            this.errorLoading = true;
         });
 
         

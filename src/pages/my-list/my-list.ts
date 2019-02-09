@@ -93,8 +93,9 @@ export class MyListPage {
                 for(let i = 0; i < maps_obj.maps.length; i++) {
                     if(maps_obj.maps[i]['name'] == map['name']) {
                         maps_obj.maps.splice(i, 1);
-                        this.storage.set('saved_maps', JSON.stringify(maps_obj));
-                        this.events.publish('maps:changed');
+                        this.storage.set('saved_maps', JSON.stringify(maps_obj)).then((val) => {
+                            this.events.publish('maps:changed');
+                        });
                     }
                 }
             }

@@ -73,4 +73,14 @@ export class ServerProvider {
       });
     });
   }
+
+  getAutocomplete(query) {
+      return new Promise((resolve, reject) => {
+      this.http.get(this.apiUrl+'/autocomplete/'+query).subscribe(data => {
+        resolve(data); 
+      }, err => {
+        reject(err)
+      });
+    });
+  }
 }

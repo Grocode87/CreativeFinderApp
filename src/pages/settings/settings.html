@@ -15,7 +15,7 @@
 
 <ion-content class='content dark-bg'>
     <ion-item-group>
-        <ion-item-divider class='divider'>All</ion-item-divider>
+        <ion-item-divider class='divider'>General</ion-item-divider>
 
         <ion-item class='s-item'>
             <ion-toggle checked="false" [(ngModel)]='darkToggle' (ionChange)="toggleDark($event)"></ion-toggle>
@@ -24,19 +24,26 @@
                 <p>Enable an app-wide dark theme</p>
             </ion-label>
         </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+        <ion-item-divider class='divider'>Contact</ion-item-divider>
 
         <ion-item class='s-item' (click)='openFeedback()'>
             <h3>Send Feedback</h3>
         </ion-item>
 
-        <button ion-item (click)='share()' class='s-item'>
-            <h3>Share</h3>
-            <p>Let your friends know about Creative Finder</p>
+        <button ion-item class='s-item'>
+            <h3>Developer Email</h3>
+            <p>colin.grob87@gmail.com</p>
         </button>
+    </ion-item-group>
 
+    <ion-item-group>
+        <ion-item-divider class='divider'>About</ion-item-divider>
         <ion-item class='s-item'>
             <h3>App Version</h3>
-            <p>0.0.3</p>
+            <p>0.0.4</p>
         </ion-item>
     </ion-item-group>
 </ion-content>

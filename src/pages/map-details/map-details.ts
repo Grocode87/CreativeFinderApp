@@ -4,14 +4,13 @@ import { ServerProvider } from '../../providers/server/server'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Storage } from '@ionic/storage';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
-
-import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 
 
 /**
@@ -44,8 +43,8 @@ export class MapDetailsPage {
     errorLoading = false;
 
   constructor(public popoverController: PopoverController,
-              private admobFree : AdMobFree, 
-              public ga: GoogleAnalytics, 
+              public ga: GoogleAnalytics,
+              public admob: AdMobFree,
               public alertCtrl: AlertController, 
               public actionSheetCtrl: ActionSheetController, 
               public ref: ChangeDetectorRef, 
@@ -60,7 +59,6 @@ export class MapDetailsPage {
         this.map = navParams.get('map_data')
         let addToViews = navParams.get('add_to_views')
         
-        this.showAds()
         
         storage.get('saved_maps').then((val) => {
             console.log(val)
@@ -77,13 +75,10 @@ export class MapDetailsPage {
                this.storage.set('saved_maps', JSON.stringify({"maps":[this.map]}));
             }
         });
-      console.log(this.map)
 
-      // Get additional maps made by creator
+      // Get creator maps and related maps
       this.serverProvider.getMapsFromCreator(this.map.id, this.map.creator, addToViews)
         .then(data => {
-            
-            console.log(data)
             let results = data['creator_maps']
             let tempMaps = []
             results.forEach( (result) => {
@@ -99,7 +94,7 @@ export class MapDetailsPage {
             }
             this.relatedMaps = data['related_maps']
             this.ref.detectChanges();
-        }).catch(error => {
+        }).catch(error => { 
             this.relatedMaps = []
             this.otherMaps = []
             this.errorLoading = true;
@@ -113,6 +108,15 @@ export class MapDetailsPage {
         );
     }
     
+    ionViewWillEnter() {
+        console.log("showing ads");
+        this.showBanner();
+    }
+    ionViewDidLeave() {
+        console.log("hiding ads");
+        this.hideBanner();
+    }
+
     ionViewDidEnter() {
         // Track page - Google Analytics
         console.log("Tracking Map Details")
@@ -120,14 +124,11 @@ export class MapDetailsPage {
         this.ref.detectChanges();
     }
 
-    ionViewWillLeave() {
-        this.admobFree.banner.remove();
-    }
 
    presentActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
       cssClass: 'action-sheet-alert',
-      title: '',
+      title: 'Additional Actions',
       buttons: [
         {
           text: 'Report',
@@ -135,6 +136,15 @@ export class MapDetailsPage {
           icon: 'flag',
           handler: () => {
             console.log('Report clicked');
+            this.reportAlert()
+          }
+        },
+        {
+          text: 'Share',
+          role: 'share',
+          icon: 'share',
+          handler: () => {
+            console.log('Share clicked');
             this.reportAlert()
           }
         }
@@ -211,9 +221,10 @@ export class MapDetailsPage {
                 let new_obj = JSON.parse(val)
                 new_obj.maps.push(this.map)
 
-                this.storage.set('saved_maps', JSON.stringify(new_obj));
-                this.ref.detectChanges();
-                this.events.publish('maps:changed');
+                this.storage.set('saved_maps', JSON.stringify(new_obj)).then((val) => {
+                    this.events.publish('maps:changed');
+                    this.ref.detectChanges();
+                });
             } else {
             }
         });
@@ -230,10 +241,11 @@ export class MapDetailsPage {
                 for(let i = 0; i < maps_obj.maps.length; i++) {
                     if(maps_obj.maps[i]['name'] == this.map.name){
                         maps_obj.maps.splice(i, 1);
-                        this.storage.set('saved_maps', JSON.stringify(maps_obj));
+                        this.storage.set('saved_maps', JSON.stringify(maps_obj)).then((val) => {
+                            this.events.publish('maps:changed');
+                            this.ref.detectChanges();
+                        });
                         this.saved = false;
-                        this.ref.detectChanges();
-                        this.events.publish('maps:changed');
                     }
                 }
             }
@@ -255,19 +267,21 @@ export class MapDetailsPage {
 
         toast.present();
     }
-    
-    showAds(){
-        const bannerConfig: AdMobFreeBannerConfig = {
-            isTesting: true,
-            autoShow: true
-        };
-        this.admobFree.banner.config(bannerConfig);
 
-        this.admobFree.banner.prepare()
-        .then(() => {
-            this.admobFree.banner.show()
-            console.log("ad showing")
-        })
-        .catch(e => console.log(e));    
+    
+    showBanner() {
+        let bannerConfig: AdMobFreeBannerConfig = {
+            isTesting: true, // Remove in production
+            autoShow: true
+            //id: Your Ad Unit ID goes here
+        };
+
+        this.admob.banner.config(bannerConfig);
+        this.admob.banner.prepare().then(() => {}).catch(e => console.log(e));
     }
+    hideBanner() {
+        this.admob.banner.hide().catch(e => console.log(e));
+    }
+
+
 }

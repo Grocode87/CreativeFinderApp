@@ -24,7 +24,6 @@ import { AppState } from './app.global';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { IonicImageLoader } from 'ionic-image-loader';
-import { SocialSharing } from '@ionic-native/social-sharing';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 import { AdMobFree } from '@ionic-native/admob-free';
@@ -67,8 +66,7 @@ import { AdMobFree } from '@ionic-native/admob-free';
     ServerProvider,
     InAppBrowser,
     AppState,
-    AdMobFree,
-    SocialSharing
+    AdMobFree
   ],
   exports: [
   ]

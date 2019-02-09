@@ -22,7 +22,9 @@ export class HomePage {
     errorLoading: any = false;
 
     isApp: any = true
-    autocomplete = ['cizzorz', 'deathrun', 'a search result']
+
+    suggestions = []
+    history = []
 
     @ViewChild(Content) content: Content;
     @ViewChild('searchbar') searchbar:Searchbar;
@@ -75,6 +77,7 @@ export class HomePage {
     toggleSearch() {
         this.toggled = this.toggled ? false : true;
         if(this.toggled) {
+            this.searchUpdated(null)
             setTimeout(() => {
                 this.searchbar.setFocus();
                 }, 400);
@@ -86,21 +89,57 @@ export class HomePage {
     }
 
     searchBlurred() {
-        console.log("Off");
+            setTimeout(() => {
         this.toggled = false;
+        
+        this.searchTerm = ""
+        this.suggestions = []
+                }, 150);
     }
 
-    searchQuery(searchbar: any) {
-      const val = searchbar.target.value;
+    searchQuery() {
+      const val = this.searchTerm;
     
       if (val && val.trim() != '') {
+        this.navCtrl.parent.parent.push(SearchResultsPage, {
+            query: val
+          }).then(() =>{
         this.searchTerm = ""
         this.toggled = false
         console.log(val)
-        this.navCtrl.parent.parent.push(SearchResultsPage, {
-            query: val
+
           })
       }
+    }
+
+    searchUpdated(ev: any) {
+        if(!ev) {
+            this.history = this.getHistory()
+        } else {
+            let val = ev.target.value;
+
+            if (!val || val.trim() == '') {
+                this.suggestions = []
+                this.history = this.getHistory()
+            } else {
+                this.getSuggestions(val)
+            }
+        }
+    }
+
+    getHistory() {
+        return ['looking', 'back', 'at it']
+    }
+    getSuggestions(query) {
+        this.serverProvider.getAutocomplete(query).then(data => {
+             this.suggestions = data['results']
+             this.history = []
+        }).catch(error => { return []});
+    }
+    suggestionClicked(suggestion) {
+        this.searchTerm = suggestion
+
+        this.searchQuery()
     }
 
     mapClicked(map, addToViews, source) {
@@ -111,4 +150,5 @@ export class HomePage {
             'add_to_views': addToViews
           }) 
     }
+
 }

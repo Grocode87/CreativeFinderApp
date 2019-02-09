@@ -4,7 +4,7 @@ import { AppState} from "../../app/app.global";
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
-import { SocialSharing } from '@ionic-native/social-sharing';
+//import { SocialSharing } from '@ionic-native/social-sharing';
 
 
 /**
@@ -39,7 +39,7 @@ onError(msg) {
   console.log("Sharing failed with message: " + msg);
 };
 
-  constructor(private toastCtrl: ToastController, public socialSharing: SocialSharing, public iab: InAppBrowser, public storage: Storage, public global: AppState, public modalCtrl : ModalController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController, public iab: InAppBrowser, public storage: Storage, public global: AppState, public modalCtrl : ModalController, public navCtrl: NavController, public navParams: NavParams) {
     storage.get('theme').then((val) => {
       if(val) {
         if(val == 'dark-theme') {
@@ -65,13 +65,13 @@ onError(msg) {
   openFeedback() {
     this.iab.create('https://creativefinder.wufoo.com/forms/zzwizl801wddz3/');
   }
-  share() {
+  /*share() {
     this.socialSharing.share("Creative Finder - The best place to find Fortnite Creative Codes", null, null, "https://bit.ly/2BieoNv").then(() => {
       this.presentToast("Shared succesfully")
     }).catch((e) => {
       // Error!
     });
-  }
+  }*/
 
     presentToast(msg) {
         let toast = this.toastCtrl.create({

@@ -1,8 +1,7 @@
 {
-  "name": "creative-finder-2",
+  "name": "creative-finder-app",
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular",
-  "id": "190b3817"
+  "type": "ionic-angular"
 }

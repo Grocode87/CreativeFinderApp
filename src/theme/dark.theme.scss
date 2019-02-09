@@ -33,6 +33,15 @@
         transition: all 1.1s ease;
         background-color: $bg-color;
     }
+    // icon in search suggestions
+    .suggestion-icon {
+        color: white;
+    }
+    //author text color
+    .author,
+    .creator {
+        color: #9b9b9b !important;
+    }
     // Home page specific
     .trending {
         background-color: $fg-color !important;
