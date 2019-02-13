@@ -1,6 +1,7 @@
 import { ViewChild, Component, ChangeDetectorRef } from '@angular/core';
-import { PopoverController, Content, AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
+import { Platform, PopoverController, Content, AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
+import { BannerProvider } from '../../providers/banner/banner'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Storage } from '@ionic/storage';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
@@ -13,7 +14,7 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
 
-import {PopoverPage} from "../popover/popover"
+import { PopoverPage } from "../popover/popover"
 
 
 /**
@@ -45,6 +46,8 @@ export class MapDetailsPage {
     errorLoading = false;
     popover: any;
 
+    showingAlert = false;
+
   constructor(public popoverController: PopoverController,
               public ga: GoogleAnalytics,
               public admob: AdMobFree,
@@ -57,13 +60,14 @@ export class MapDetailsPage {
               public navParams: NavParams, 
               public serverProvider: ServerProvider,
               private socialSharing: SocialSharing,
-              public storage: Storage, 
-              private toastCtrl: ToastController) {
-                  
+              public storage: Storage,
+              private toastCtrl: ToastController,
+              public platform: Platform,
+              public banner: BannerProvider) {
+
         this.map = navParams.get('map_data')
         let addToViews = navParams.get('add_to_views')
-        
-        
+
         storage.get('saved_maps').then((val) => {
             console.log(val)
             if(val) {
@@ -106,14 +110,6 @@ export class MapDetailsPage {
             this.errorLoading = true;
         });
 
-        events.subscribe('popover:report', () => {
-            this.popover.dismiss()
-            this.reportAlert()
-        });
-        events.subscribe('popover:share', () => {
-            this.popover.dismiss()
-            this.share()
-        });
       };
 
     showPopover(event) {
@@ -128,21 +124,31 @@ export class MapDetailsPage {
             this.content.ionScroll,
             this.contentLoaded
         );
+        this.events.subscribe('popover:report', () => {
+            this.popover.dismiss()
+            this.reportAlert()
+        });
+        this.events.subscribe('popover:share', () => {
+            this.popover.dismiss()
+            this.share()
+        });
+        this.showBanner();
     }
     
     ionViewWillEnter() {
         console.log("showing ads");
-        this.showBanner();
     }
     ionViewDidLeave() {
-        console.log("hiding ads");
         this.hideBanner();
+        this.events.unsubscribe('popover:report');
+        this.events.unsubscribe('popover:share');
     }
 
     ionViewDidEnter() {
         // Track page - Google Analytics
         console.log("Tracking Map Details")
         this.ga.trackView('Map Details');
+
         this.ref.detectChanges();
     }
 
@@ -176,49 +182,54 @@ export class MapDetailsPage {
   }
 
   reportAlert() {
-    let alert = this.alertCtrl.create({cssClass: 'report-alert'});
-    alert.setTitle('Report Map');
-
-    alert.addInput({
-      type: 'radio',
-      label: 'Spam or excess advertising',
-      value: 'Spam or excess advertising',
-      checked: false
-    });
-    alert.addInput({
-      type: 'radio',
-      label: 'Pornography or explicit material',
-      value: 'Pornography or explicit material',
-      checked: false
-    });
-    alert.addInput({
-      type: 'radio',
-      label: 'Hate speech or graphic violence',
-      value: 'Hate speech or graphic violence',
-      checked: false
-    });
-    alert.addInput({
-      type: 'radio',
-      label: 'Harassment or bullying',
-      value: 'Harrassment or bullying',
-      checked: false
-    });
-    alert.addInput({
-      type: 'radio',
-      label: 'Other',
-      value: 'other',
-      checked: false
-    });
-
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'Report',
-      handler: data => {
-            this.serverProvider.reportMap(this.map.id, data)
-            this.presentToast("Reported map, thanks for your feedback.")
-      }
-    });
-    alert.present();
+    this.alertCtrl.create({
+        title: 'Report Map',
+        cssClass: 'report-alert',
+        inputs: [
+            {
+                type: 'radio',
+                label: 'Spam or excess advertising',
+                value: 'Spam or excess advertising',
+                checked: false
+            },
+            {
+                type: 'radio',
+                label: 'Pornography or explicit material',
+                value: 'Pornography or explicit material',
+                checked: false
+            },
+            {
+                type: 'radio',
+                label: 'Hate speech or graphic violence',
+                value: 'Hate speech or graphic violence',
+                checked: false
+            },
+            {
+                    type: 'radio',
+                label: 'Harassment or bullying',
+                value: 'Harrassment or bullying',
+                checked: false
+            },
+            {
+                type: 'radio',
+                label: 'Other',
+                value: 'other',
+                checked: false
+            }
+        ],
+        buttons: [
+            {
+                text:'Cancel'
+            },
+            {
+                text: 'Report',
+                handler: data => {
+                    this.serverProvider.reportMap(this.map.id, data)
+                    this.presentToast("Reported map, thanks for your feedback.")
+                }
+            }
+        ]
+    }).present();
   }
   
   share() {
@@ -230,19 +241,9 @@ export class MapDetailsPage {
         files: [],
         url: 'http://bit.ly/creative-finder'
     };
-
-    var onSuccess = function(result) {
-        console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-        console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
-    };
-
-    var onError = function(msg) {
-        console.log("Sharing failed with message: " + msg);
-    };
-
-    //this.socialSharing.shareWithOptions(options);
-      var msg = this.map.name + "  :  " + this.map.code + "\n\n" + this.map.desc + "\n\nFound using the Creative Finder app."
+    this.platform.ready().then(() => {
       this.socialSharing.shareWithOptions(options).then(() => {});
+    });
   }
 
   mapClicked(map, addToViews) {
@@ -317,9 +318,9 @@ export class MapDetailsPage {
     
     showBanner() {
         let bannerConfig: AdMobFreeBannerConfig = {
-            isTesting: true, // Remove in production
+            id: "ca-app-pub-6794112313190428/7662762593",
+            isTesting: false,
             autoShow: true
-            //id: Your Ad Unit ID goes here
         };
 
         this.admob.banner.config(bannerConfig);

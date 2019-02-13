@@ -94,6 +94,9 @@
             color: map-get($colors, primary) !important;
         }
     }
+    .other-creations {
+        border-bottom: 1px solid $accent-color;
+    }
     //.input-wrapper,
     /*  .item-inner,
   .item,

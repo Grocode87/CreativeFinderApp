@@ -26,6 +26,7 @@ export class PopoverPage {
   }
   report() {
       this.events.publish('popover:report');
+      console.log("report event triggered")
   }
 
 }

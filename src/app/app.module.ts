@@ -29,6 +29,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 import { AdMobFree } from '@ionic-native/admob-free';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { BannerProvider } from '../providers/banner/banner';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     InAppBrowser,
     AppState,
     AdMobFree,
-    SocialSharing
+    SocialSharing,
+    BannerProvider
   ],
   exports: [
   ]
