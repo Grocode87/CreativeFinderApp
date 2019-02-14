@@ -24,7 +24,6 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { AppState } from './app.global';
 
 import { IonicStorageModule } from '@ionic/storage';
-import { IonicImageLoader } from 'ionic-image-loader';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 import { AdMobFree } from '@ionic-native/admob-free';
@@ -46,7 +45,6 @@ import { BannerProvider } from '../providers/banner/banner';
   imports: [
     BrowserModule,
     LazyLoadImageModule,
-    IonicImageLoader.forRoot(),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpClientModule
