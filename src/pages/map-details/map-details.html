@@ -26,7 +26,7 @@
 </ion-header>
 
 
-<ion-content padding class='content light-dark-bg'>
+<ion-content class='content light-dark-bg'>
     <!-- Loading Indicator -->
     <ion-spinner name="crescent" *ngIf="(!otherMaps || !relatedMaps) && !errorLoading"></ion-spinner>
 
@@ -48,24 +48,25 @@
                 <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.imgs[0]" [scrollObservable]="loadAndScroll" offset="2000" />
             </div>
             <img *ngIf="map.imgs == undefined" class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
-
-            <div class='name'>{{ map.name }}</div>
-            <div class='creator'>By {{ map.creator }}</div>
-            <div class='desc'>{{ map.desc }}</div>
-            <div class='type-wrapper'>
-                <div class="type" *ngFor='let type of map.types'> {{ type }}</div>
-            </div>
-            <div class='code-wrapper'>
-                <div class='code-bg' (click)='visitMapLink()'>
-                    Island Code
-                    <div class='code'>{{ map.code }}</div>
-                    <a class='code-link' href="https://epicgames.com/fn/{{ map.code }}">(Press to visit official site)</a>
+            <div class='custom-padding'>
+                <div class='name'>{{ map.name }}</div>
+                <div class='creator'>By {{ map.creator }}</div>
+                <div class='desc'>{{ map.desc }}</div>
+                <div class='type-wrapper'>
+                    <div class="type" *ngFor='let type of map.types'> {{ type }}</div>
+                </div>
+                <div class='code-wrapper'>
+                    <div class='code-bg' (click)='visitMapLink()'>
+                        Island Code
+                        <div class='code'>{{ map.code }}</div>
+                        <a class='code-link' href="https://epicgames.com/fn/{{ map.code }}">(Press to visit official site)</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- other creations by creator -->
-        <div *ngIf='!errorLoading'>
+        <div *ngIf='!errorLoading' class='custom-padding'>
             <div class='other-creations'>Other creations by <b>{{ map.creator }}</b></div>
 
             <ion-item no-lines class='no-results' *ngIf="otherMaps?.length == 0">
@@ -95,7 +96,7 @@
         </div>
 
         <!-- maps related to map -->
-        <div *ngIf='!errorLoading'>
+        <div *ngIf='!errorLoading' class='custom-padding'>
             <div class='other-creations'>Related maps</div>
 
             <ion-item no-lines class='no-results' *ngIf="relatedMaps?.length == 0">

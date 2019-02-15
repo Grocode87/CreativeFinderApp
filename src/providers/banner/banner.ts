@@ -13,11 +13,9 @@ export class BannerProvider {
 
   constructor(public http: HttpClient, public admob: AdMobFree) {
      let bannerConfig: AdMobFreeBannerConfig = {
-            isTesting: true, // Remove in production
-            autoShow: false
-            //id: Your Ad Unit ID goes here
+            autoShow: false,
+            id: "ca-app-pub-6794112313190428/7662762593"
         };
-        console.log("creating ad")
         this.admob.banner.config(bannerConfig);
         this.admob.banner.prepare().then(() => {}).catch(e => console.log(e));
   }

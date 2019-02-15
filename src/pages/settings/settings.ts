@@ -30,15 +30,6 @@ export class SettingsPage {
     'chooserTitle': 'Pick an app' /// Android only, you can provide id of the App you want to share with
 };
 
-onSuccess(result) {
-  console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-  console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
-};
-
-onError(msg) {
-  console.log("Sharing failed with message: " + msg);
-};
-
   constructor(private toastCtrl: ToastController, public iab: InAppBrowser, public storage: Storage, public global: AppState, public modalCtrl : ModalController, public navCtrl: NavController, public navParams: NavParams) {
     storage.get('theme').then((val) => {
       if(val) {
@@ -72,6 +63,9 @@ onError(msg) {
       // Error!
     });
   }*/
+  openPP() {
+      this.iab.create('http://cgrob10.pythonanywhere.com/static/privacy_policy.html');
+  }
 
     presentToast(msg) {
         let toast = this.toastCtrl.create({

@@ -132,14 +132,17 @@ export class MapDetailsPage {
             this.popover.dismiss()
             this.share()
         });
-        this.showBanner();
+
+        this.banner.showAd()
     }
     
     ionViewWillEnter() {
         console.log("showing ads");
     }
+    ionViewWillLeave() {
+        this.banner.hideAd()
+    }
     ionViewDidLeave() {
-        this.hideBanner();
         this.events.unsubscribe('popover:report');
         this.events.unsubscribe('popover:share');
     }
