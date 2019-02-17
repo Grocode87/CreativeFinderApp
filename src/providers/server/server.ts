@@ -44,9 +44,9 @@ export class ServerProvider {
     });
   }
 
-  getFiltered(filterOne, filterTwo) {
+  getFiltered(filterOne, filterTwo, time, page) {
     return new Promise((resolve, reject) => {
-      this.http.get(this.apiUrl+'/get/filtered/'+filterOne+"/"+filterTwo+"?wcollections").subscribe(data => {
+      this.http.get(this.apiUrl+'/get/filtered/'+filterOne+"/"+filterTwo+"/"+time+"/"+page+"?wcollections").subscribe(data => {
         resolve(data);
       }, err => {
         reject(err)

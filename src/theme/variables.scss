@@ -21,6 +21,16 @@ $colors: ( primary: #bf360c, secondary: #d4c21e, danger: #f53d3d, light: #fafafa
 // --------------------------------------------------
 $popover-md-width: 150px;
 $refresher-border-color: transparent;
+$infinite-scroll-loading-margin-bottom: 0px;
+$infinite-scroll-loading-text-margin-start: 0px;
+$infinite-scroll-loading-text-margin-end: 0px;
+@font-face {
+    font-family: 'Luckiest Guy';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/luckiestguy/luckiest.guy-regular.ttf');
+}
+
 // Material Design only Sass variables can go here
 // App Windows Variables
 // --------------------------------------------------

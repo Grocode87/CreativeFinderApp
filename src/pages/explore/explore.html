@@ -40,12 +40,12 @@
     <ion-toolbar>
         <ion-item no-lines class='option-container'>
             <!-- First select -->
-            <ion-select class='left-option' (ngModelChange)="getMaps($event, type)" [(ngModel)]="pop" interface="popover">
+            <ion-select class='left-option' (ngModelChange)="getMaps($event, type, 0, 0)" [(ngModel)]="pop" interface="popover">
                 <ion-option class='option' *ngFor="let item of pubFilters">{{ item }}</ion-option>
             </ion-select>
 
             <!-- Second select -->
-            <ion-select class='right-option' (ngModelChange)="getMaps(pop, $event)" [(ngModel)]="type" interface="popover">
+            <ion-select class='right-option' (ngModelChange)="getMaps(pop, $event, 0, 0)" [(ngModel)]="type" interface="popover">
                 <ion-option *ngFor="let item of typeFilters ">{{ item }}</ion-option>
             </ion-select>
         </ion-item>
@@ -66,29 +66,33 @@
     </ion-refresher>
 
     <ion-spinner name="crescent" *ngIf="showLoading && !errorLoading"></ion-spinner>
+    <div>
+        <ion-list class='maps-list' [hidden]="showLoading" [approxItemHeight]="'75px'" [virtualScroll]="maps">
+            <ion-item (click)="mapClicked(map, 'True')" *virtualItem="let map">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-5>
+                            <div class='relative'>
+                                <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
+                                <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                            </div>
 
-    <ion-list class='maps-list' [hidden]="showLoading" [approxItemHeight]="'75px'" [virtualScroll]="maps.length ? maps : []">
-        <ion-item (click)="mapClicked(map, 'True')" *virtualItem="let map">
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-5>
-                        <div class='relative'>
-                            <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
-                            <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
-                        </div>
-
-                    </ion-col>
-                    <ion-col col-7>
-                        <div class="title" text-wrap>{{ map.name }}</div>
-                        <div class="author">{{ map.creator }}</div>
-                        <div class='type-wrapper'>
-                            <div class="type" *ngFor='let type of map.typesToShow.slice(0,3)'> {{ type }}</div>
-                        </div>
-                        <div class="desc" text-wrap>{{ map.desc }}</div>
-                        <div class="code">{{ map.code }}</div>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-item>
-    </ion-list>
+                        </ion-col>
+                        <ion-col col-7>
+                            <div class="title" text-wrap>{{ map.name }}</div>
+                            <div class="author">{{ map.creator }}</div>
+                            <div class='type-wrapper'>
+                                <div class="type" *ngFor='let type of map.typesToShow.slice(0,3)'> {{ type }}</div>
+                            </div>
+                            <div class="desc" text-wrap>{{ map.desc }}</div>
+                            <div class="code">{{ map.code }}</div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="getMoreMaps($event)" *ngIf='page < total_pages && page < 20'>
+        <ion-infinite-scroll-content threshold="40%" loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

@@ -1,5 +1,5 @@
 import { ViewChild, Component } from '@angular/core';
-import { Content, Searchbar, NavController, NavParams } from 'ionic-angular';
+import { VirtualScroll, Content, Searchbar, NavController, NavParams } from 'ionic-angular';
 import { SearchResultsPage } from '../search-results/search-results'
 import { SettingsPage } from '../settings/settings'
 import { ServerProvider } from '../../providers/server/server'
@@ -41,6 +41,7 @@ export class ExplorePage {
 
     @ViewChild('searchbar') searchbar:Searchbar;
     @ViewChild(Content) content: Content;
+    @ViewChild(VirtualScroll) virtualScroll: VirtualScroll
 
     contentLoaded: Subject<any> = new Subject();
     loadAndScroll: Observable<any>;
@@ -50,6 +51,9 @@ export class ExplorePage {
     
     suggestions = []
     history = []
+
+    page = 0
+    total_pages = 0
 
     constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
         this.toggled = false; 
@@ -66,10 +70,12 @@ export class ExplorePage {
             this.pubFilters = data['publishedFilters'];
             this.typeFilters = data['typeFilters'];
 
-            this.pop = this.pubFilters[0]
-            this.type = this.typeFilters[0]
+            if(!refresher) {
+                this.pop = this.pubFilters[0]
+                this.type = this.typeFilters[0]
+            }
 
-            this.getMaps(this.pop, this.type, refresher)
+            this.getMaps(this.pop, this.type, refresher, 0)
 
         }).catch(error => {
             console.log("Unable to load content")
@@ -167,25 +173,27 @@ export class ExplorePage {
     }
 
     refresh(refresher) {
-        this.getMaps(this.pop, this.type, refresher)
+        this.getMaps(this.pop, this.type, refresher, 0)
     }
 
-    getMaps(pubFilter, typeFilter, refresher) {
-        
+    getMaps(pubFilter, typeFilter, refresher, page) {
+        this.page = page;
         if(!refresher) {
             this.showLoading = true;
         }
 
         this.content.scrollTo(0, 5, 0)
-        this.serverProvider.getFiltered(pubFilter, typeFilter)
+        this.serverProvider.getFiltered(pubFilter, typeFilter, new Date().getTime(), page)
             .then(data => {
                 this.maps = data['results']
+                this.total_pages = data['total_pages']
+                console.log(this.total_pages)
                 this.showLoading = false;
                 this.errorLoading = false;
                 
                 setTimeout(() => {
                     console.log("loaded")
-                    this.contentLoaded.next();
+                    //this.contentLoaded.next();
                 }, 500);
 
                 // Go through the maps and change the only tag to the filter item
@@ -212,6 +220,24 @@ export class ExplorePage {
                 }
             });
             
+    }
+    getMoreMaps(infiniteScroll) {
+        this.page = this.page += 1
+
+         this.serverProvider.getFiltered(this.pop, this.type, new Date().getTime(), this.page)
+            .then(data => {
+                for(let map of data['results']) {
+                    if(this.type != "All") {
+                        map['typesToShow'] = [this.type]
+                    } else {
+                        map['typesToShow'] = map['types']
+                    }
+                    this.maps.push(map);
+                    console.log(map)
+                }
+                infiniteScroll.complete();
+            });
+
     }
 
     mapClicked(map, addToViews) {
