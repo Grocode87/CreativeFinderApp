@@ -1,33 +1,5 @@
 <ion-header>
-    <ion-navbar primary>
-        <button *ngIf="!toggled" ion-button icon-only menuToggle><ion-icon name="menu"></ion-icon></button>
-        <!-- Title -->
-        <div *ngIf='!toggled'>
-            <img class='app-title' src="/assets/imgs/header-logo.png" width="180px" style="display:inline-block" height="40px" />
-        </div>
-        <!-- Search Bar -->
-        <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (ionInput)="searchUpdated($event)" (search)="searchQuery($event)"></ion-searchbar>
-        <!-- Search Icon -->
-        <ion-buttons end *ngIf="!toggled">
-            <button ion-button icon-only (click)="toggleSearch()"><ion-icon name="search"></ion-icon></button>
-            <button ion-button icon-only (click)="openSettings()"><ion-icon name="settings"></ion-icon></button>
-        </ion-buttons>
-    </ion-navbar>
-
-    <ion-toolbar *ngIf='toggled' class='search-suggestions'>
-        <ion-list>
-            <ion-item no-lines (click)="suggestionClicked(item)" class='suggestion' *ngFor='let item of suggestions'>
-                <ion-icon class='suggestion-icon' item-start name='search'></ion-icon>
-                {{ item }}
-                <ion-icon item-end name="arrow-round-forward"></ion-icon>
-            </ion-item>
-            <ion-item no-lines (click)="suggestionClicked(item)" class='history' *ngFor='let item of history'>
-                <ion-icon class='suggestion-icon' item-start name='time'></ion-icon>
-                {{ item }}
-                <ion-icon item-end name="arrow-round-forward"></ion-icon>
-            </ion-item>
-        </ion-list>
-    </ion-toolbar>
+    <my-header></my-header>
 </ion-header>
 
 
@@ -42,29 +14,9 @@
     </ion-refresher>
 
     <ion-spinner name="crescent" *ngIf="(!featured || !recommended) && !errorLoading"></ion-spinner>
-    <!-- web featured slider-->
-    <ion-grid class='web-featured-maps' *ngIf='!isApp'>
-        <ion-row>
-            <ion-col width-100>
-                <ion-slides pager slidesPerView="1" spaceBetween="5" class="slider">
-                    <ion-slide *ngFor='let map of featured' (click)="mapClicked(map)">
-                        <div class="sliderTextParent">
-                            <img src="{{map.img}}">
-                            <div class='slider-text'>
-                                <div class='title'>{{ map.name }}</div>
-                                <div class="author">{{ map.creator }}</div>
-                                <div class="desc">{{ map.desc }}</div>
-                                <div class='code'>{{ map.code }}</div>
-                            </div>
-                        </div>
-                    </ion-slide>
-                </ion-slides>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
 
     <div class="featured-wrapper " *ngIf='featured && recommended && !errorLoading'>
-        <div class='trending' (click)="mapClicked(featured[0], 'True', 'Trending')">
+        <div class='trending' (click)="mapClicked(featured[0])">
             <div class='text-wrapper'>
                 <div class='relative'>
                     <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="featured[0].img" [scrollObservable]="content.ionScroll" offset="1000" />
@@ -90,62 +42,9 @@
             </div>
         </div>
 
-        <!-- website list -->
-        <ion-grid class='web-maps-list' *ngIf='!isApp'>
-            <ion-row class='resp-row'>
-                <ion-col class="resp-col" *ngFor="let map of popular" col-12 col-xl-4 col-lg-4 col-md-6>
-                    <ion-card class='resp-card'>
-                        <img class="img" src="{{map.img}}">
-                        <div class="title" text-wrap>{{ map.name }}</div>
-                        <div class="author">{{ map.creator }}</div>
-                        <div class="type"> {{ map.types[0] }}</div>
-                        <div class="code">{{ map.code }}</div>
-                    </ion-card>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-
-        <!-- regular app list-->
+        <!-- app list-->
         <div class='maps-list-home dark-bg' *ngIf='isApp && !errorLoading'>
-            <div *ngFor="let map of recommended">
-                <ion-item *ngIf="map.type == 'map'" (click)="mapClicked(map, 'True', 'Home')">
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col col-5>
-                                <div class='relative'>
-                                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
-
-                                    <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
-                                </div>
-                            </ion-col>
-                            <ion-col col-7>
-                                <div ion-text color="text-color" class="title" text-wrap>{{ map.name }}</div>
-                                <div class="author">{{ map.creator }}</div>
-                                <div class='type-wrapper'>
-                                    <div class="type" *ngFor='let type of map.types.slice(0,3)'> {{ type }}</div>
-                                </div>
-                                <div class="code">{{ map.code }}</div>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </ion-item>
-                <div class='collection' *ngIf="map.type == 'collection'">
-                    <div class='title' text-wrap>{{map.title}}</div>
-                    <div class='desc' text-wrap>{{map.desc}}</div>
-                    <div class='c-slider'>
-                        <div class='c-slide-e'></div>
-                        <div *ngFor='let map of map.maps' class='c-slide' (click)="mapClicked(map, 'True', 'Collection')">
-                            <div class='relative'>
-                                <img class="img" src="{{map.img}}">
-                                <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
-                            </div>
-                            <div class="name" text-wrap>{{map.name}}</div>
-                            <div class='creator'>{{map.creator}}</div>
-                        </div>
-                    </div>
-                    <div class='line-bottom'></div>
-                </div>
-            </div>
+            <map-item [map]="map" [content]='content' [aSource]="Home" *ngFor="let map of recommended"></map-item>
         </div>
     </div>
 

@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content class='dark-bg'>
-    <div class='error-loading'*ngIf='errorLoading'>
+    <div class='error-loading' *ngIf='errorLoading'>
         <ion-icon name="alert" color='error-color'></ion-icon>
         <div class='error-text'>Could not load, check your connection and try again later.</div>
     </div>
@@ -22,26 +22,9 @@
 
     <!-- Results list -->
     <ion-list class='maps-list' [virtualScroll]="maps">
-        <ion-item (click)="mapClicked(map, 'True')" *virtualItem="let map">
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-5>
-                        <div class='relative'><img class="img" defaultImage="assets/imgs/default-image.png" errorImage="http://cgrob10.pythonanywhere.com/static/template-img.jpg" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="1500" />
-                            <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
-                        </div>
-                    </ion-col>
-                    <ion-col col-7>
-                        <div class="title" text-wrap>{{ map.name }}</div>
-                        <div class="author">{{ map.creator }}</div>
-                        <div class='type-wrapper'>
-                            <div class="type" *ngFor='let type of map.types.slice(0,3)'> {{ type }}</div>
-                        </div>
-                        <div class="desc" text-wrap>{{ map.desc }}</div>
-                        <div class="code">{{ map.code }}</div>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-item>
+        <div *virtualItem="let map">
+            <map-item [map]='map' [content]='content' [doShowDesc]='true' [aSource]='Explore'></map-item>
+        </div>
     </ion-list>
 
 </ion-content>

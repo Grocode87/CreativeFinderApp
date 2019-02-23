@@ -4,16 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-
-import { ExplorePage } from '../pages/explore/explore';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs'
-
-import { SearchResultsPage } from '../pages/search-results/search-results'
-import { MapDetailsPage } from '../pages/map-details/map-details'
-import { MyListPage } from '../pages/my-list/my-list'
-import { SettingsPage } from '../pages/settings/settings'
-import { PopoverPage } from '../pages/popover/popover'
+import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,15 +23,7 @@ import { BannerProvider } from '../providers/banner/banner';
 
 @NgModule({
   declarations: [
-    MyApp,
-    ExplorePage,
-    HomePage,
-    TabsPage,
-    SearchResultsPage,
-    MapDetailsPage,
-    MyListPage,
-    SettingsPage,
-    PopoverPage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -51,15 +34,7 @@ import { BannerProvider } from '../providers/banner/banner';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    ExplorePage,
-    HomePage,
-    TabsPage,
-    SearchResultsPage,
-    MapDetailsPage,
-    MyListPage,
-    SettingsPage,
-    PopoverPage
+    MyApp
   ],
   providers: [
     StatusBar,

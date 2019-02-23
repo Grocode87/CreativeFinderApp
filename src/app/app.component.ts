@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { AppState} from "./app.global";
-import { TabsPage } from '../pages/tabs/tabs';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -14,7 +13,7 @@ import { Storage } from '@ionic/storage';
 })
 
 export class MyApp {
-  rootPage:any = TabsPage;
+  rootPage:any = 'TabsPage';
 
   constructor(public storage: Storage, public global: AppState, public ga: GoogleAnalytics, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
   

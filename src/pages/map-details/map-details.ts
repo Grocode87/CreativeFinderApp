@@ -1,5 +1,5 @@
 import { ViewChild, Component, ChangeDetectorRef } from '@angular/core';
-import { Platform, PopoverController, Content, AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, Platform, PopoverController, Content, AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { BannerProvider } from '../../providers/banner/banner'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -14,8 +14,6 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
 
-import { PopoverPage } from "../popover/popover"
-
 
 /**
  * Generated class for the MapDetailsPage page.
@@ -24,7 +22,7 @@ import { PopoverPage } from "../popover/popover"
  * Ionic pages and navigation.
  */
  
-
+@IonicPage()
 @Component({
   selector: 'page-map-details',
   templateUrl: 'map-details.html',
@@ -113,7 +111,7 @@ export class MapDetailsPage {
       };
 
     showPopover(event) {
-        this.popover = this.popoverController.create(PopoverPage, {}, {cssClass: 'options-popover'})
+        this.popover = this.popoverController.create('PopoverPage', {}, {cssClass: 'options-popover'})
 
         this.popover.present({
             ev: event
@@ -252,7 +250,7 @@ export class MapDetailsPage {
   mapClicked(map, addToViews) {
         this.ga.trackEvent('Engagements', "Related", map['name']);
 
-        this.navCtrl.push(MapDetailsPage, {
+        this.navCtrl.push('MapDetailsPage', {
             'map_data': map,
             'add_to_views': addToViews
           }).then(() => {

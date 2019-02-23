@@ -1,0 +1,42 @@
+<ion-item *ngIf="map.type == 'map'" (click)="mapClicked()">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-5>
+                <div class='relative'>
+                    <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
+
+                    <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                </div>
+            </ion-col>
+            <ion-col col-7>
+                <div ion-text color="text-color" class="title" text-wrap>{{ map.name }}</div>
+                <div class="author">{{ map.creator }}</div>
+                <div class='type-wrapper' *ngIf='!map.typesToShow'>
+                    <div class="type" *ngFor='let type of map.types.slice(0,3)'> {{ type }}</div>
+                </div>
+                <div class='type-wrapper' *ngIf='map.typesToShow'>
+                    <div class="type" *ngFor='let type of map.typesToShow'> {{ type }}</div>
+                </div>
+                <div class="desc" text-wrap *ngIf='includeDesc == true'>{{ map.desc }}</div>
+                <div class="code">{{ map.code }}</div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-item>
+
+<div class='collection' *ngIf="map.type == 'collection'">
+    <div class='title' text-wrap>{{map.title}}</div>
+    <div class='desc' text-wrap>{{map.desc}}</div>
+    <div class='c-slider'>
+        <div class='c-slide-e'></div>
+        <div *ngFor='let map of map.maps' class='c-slide' (click)="mapClicked()">
+            <div class='relative'>
+                <img class="img" src="{{map.img}}">
+                <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+            </div>
+            <div class="name" text-wrap>{{map.name}}</div>
+            <div class='creator'>{{map.creator}}</div>
+        </div>
+    </div>
+    <div class='line-bottom'></div>
+</div>

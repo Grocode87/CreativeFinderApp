@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, ModalController, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, ToastController, ModalController, NavController, NavParams } from 'ionic-angular';
 import { AppState} from "../../app/app.global";
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -13,7 +13,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+@IonicPage()
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',

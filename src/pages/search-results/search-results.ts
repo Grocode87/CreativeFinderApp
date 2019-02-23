@@ -1,7 +1,6 @@
 import { ViewChild, Component } from '@angular/core';
-import { Content, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Content, NavController, NavParams } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
-import { MapDetailsPage } from '../map-details/map-details'
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 import { Storage } from '@ionic/storage';
 
@@ -17,7 +16,7 @@ import { Subject } from 'rxjs/Subject';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+@IonicPage()
 @Component({
   selector: 'page-search-results',
   templateUrl: 'search-results.html',
@@ -79,7 +78,7 @@ export class SearchResultsPage {
 
    mapClicked(map, addToViews) {
         this.ga.trackEvent('Engagements', "Search", map['name']);
-        this.navCtrl.push(MapDetailsPage, {
+        this.navCtrl.push('MapDetailsPage', {
             'map_data': map,
             'add_to_views': addToViews
           }) 
