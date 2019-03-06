@@ -13,3 +13,26 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 @import '../theme/dark.theme';
+@font-face {
+    font-family: Monserrat Bold;
+    src: url('../assets/fonts/monserrat.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: Monserrat Regular;
+    src: url('../assets/fonts/montserrat-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: Open Sans;
+    src: url('../assets/fonts/opensans.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: Fortnite;
+    src: url('../assets/fonts/burbank.otf');
+}
+
+* {
+    font-family: Open Sans;
+}

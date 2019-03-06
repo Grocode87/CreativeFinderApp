@@ -41,60 +41,6 @@ page-explore {
             right: 15vw;
         }
     }
-    .maps-list {
-        ion-item {
-            background-color: map-get($colors, fg-color);
-        }
-        .relative {
-            position: relative;
-        }
-        .abs-icon {
-            color: #ffffff;
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-        }
-        .img {
-            width: 100%;
-            border-radius: 7px;
-        }
-        .title {
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .author {
-            font-size: 12px;
-            padding-top: 2px;
-            color: darkgray;
-        }
-        .desc {
-            font-size: 13px;
-        }
-        .type-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .type {
-            padding: 4px;
-            margin-right: 4px;
-            margin-top: 5px;
-            align-items: flex-start;
-            font-size: 13px;
-            background-color: map-get($colors, accent-color);
-            border-radius: 2px;
-        }
-        .code {
-            padding-top: 4px;
-            font-size: 15px;
-            font-weight: bold;
-            color: map-get($colors, primary);
-        }
-        .desc {
-            padding-top: 5px;
-            font-size: 12.7px;
-            font-weight: 500;
-        }
-    }
     .error-loading {
         padding-top: 37%;
         text-align: center;

@@ -46,14 +46,17 @@
                 color: white;
                 padding: 10px;
                 border-radius: 3px;
+                font-family: Monserrat Bold;
             }
             .title-row {
                 padding-top: 3px;
                 margin-bottom: -6px;
                 .title {
                     padding-top: 3px;
-                    font-size: 23px;
+                    font-size: 35px;
                     font-weight: bold;
+                    text-transform: uppercase;
+                    font-family: Fortnite;
                 }
                 .type {
                     margin-top: 5px;
@@ -62,7 +65,8 @@
                     padding: 5px;
                     background-color: map-get($colors, accent-color);
                     font-size: 13px;
-                    border-radius: 3px
+                    border-radius: 3px;
+                    font-family: Monserrat Bold;
                 }
             }
             .author {
@@ -71,17 +75,20 @@
                 font-size: 13px;
                 color: darkgray;
                 padding-left: 1px;
+                font-family: Monserrat Bold;
             }
             .desc {
                 font-size: 13.5px;
                 padding-top: 6px;
                 padding-bottom: 10px;
+                font-family: Open Sans;
             }
             .code {
-                font-size: 18px;
+                font-size: 22px;
                 font-weight: bold;
                 padding-bottom: 4px;
                 color: map-get($colors, primary);
+                font-family: Fortnite;
             }
         }
         .top-maps-title {

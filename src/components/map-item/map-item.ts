@@ -27,7 +27,8 @@ export class MapItemComponent {
   mapClicked() {
     this.ga.trackEvent('Engagements', this.source, this.map.name);
 
-    this.navCtrl.parent.parent.push('MapDetailsPage', {
+    //if("maps")dw
+    this.navCtrl.push('MapDetailsPage', {
         'map_data': this.map,
         'add_to_views': true
     })

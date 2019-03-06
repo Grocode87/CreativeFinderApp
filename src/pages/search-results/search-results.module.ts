@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SearchResultsPage } from './search-results';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { ComponentsModule } from '../../components/components.module' 
  
 @NgModule({
 declarations: [
@@ -9,7 +10,8 @@ declarations: [
 ],
 imports: [
     IonicPageModule.forChild(SearchResultsPage),
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    ComponentsModule
 ],
 exports: [
     SearchResultsPage

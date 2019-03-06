@@ -1,4 +1,58 @@
 map-item {
+    .relative {
+        position: relative;
+    }
+    .abs-icon {
+        color: #ffffff;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+    }
+    .big-item {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 5px;
+        background-color: white;
+        border-bottom: 1px solid map-get($colors, accent-color);
+        ;
+        .big-img {
+            padding: 10px;
+            padding-top: 20px;
+            border-radius: 5px;
+        }
+        .text-wrapper {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .title {
+            padding-top: 3px;
+            font-size: 35px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-family: Fortnite;
+        }
+        .creator {
+            margin-top: -4px;
+            padding-top: 0px;
+            font-size: 15px;
+            color: darkgray;
+            padding-left: 1px;
+            font-family: Monserrat Bold;
+        }
+        .desc {
+            font-size: 13.5px;
+            padding-top: 6px;
+            padding-bottom: 10px;
+            font-family: Open Sans;
+        }
+        .code {
+            font-size: 23px;
+            font-weight: bold;
+            padding-bottom: 4px;
+            color: map-get($colors, primary);
+            font-family: Fortnite;
+        }
+    }
     ion-item {
         .img {
             width: 100%;
@@ -7,18 +61,22 @@ map-item {
             border-radius: 4px;
         }
         .title {
-            font-size: 18px;
+            font-size: 24px;
             font-weight: bold;
+            font-family: Fortnite;
+            text-transform: uppercase;
         }
         .author {
             font-size: 12px;
             padding-top: 2px;
             color: darkgray;
+            font-family: Monserrat Bold;
         }
         .desc {
             padding-top: 5px;
-            font-size: 12.7px;
+            font-size: 12.25px;
             font-weight: 500;
+            font-family: Open Sans;
         }
         .type-wrapper {
             display: flex;
@@ -32,25 +90,30 @@ map-item {
             font-size: 13px;
             background-color: map-get($colors, accent-color);
             border-radius: 2px;
+            font-family: Monserrat Bold;
         }
         .code {
             padding-top: 5px;
-            font-size: 15px;
+            font-size: 20px;
             font-weight: bold;
             color: map-get($colors, primary);
+            font-family: Fortnite;
         }
     }
     .collection {
         background-color: map-get($colors, fg-color);
         padding-top: 15px;
         .title {
-            font-size: 23px;
+            font-size: 28px;
             font-weight: bold;
             padding-bottom: 3px;
             padding-left: 25px;
+            font-family: Fortnite;
+            text-transform: uppercase;
         }
         .desc {
-            font-size: 14 px;
+            font-size: 14px;
+            font-family: Open Sans;
             padding-bottom: 8px;
             padding-left: 25px;
         }
@@ -76,13 +139,15 @@ map-item {
             }
             .name {
                 padding-top: 3px;
-                font-size: 16px;
+                font-size: 22px;
                 font-weight: bold;
+                font-family: Fortnite;
                 text-transform: uppercase;
             }
             .creator {
                 color: #6d6d6d;
                 font-size: 12px;
+                font-family: Monserrat Bold;
             }
         }
         .line-bottom {

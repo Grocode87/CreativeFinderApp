@@ -1,15 +1,10 @@
 import { ViewChild, Component } from '@angular/core';
-import { IonicPage, Content, Searchbar, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, Content, NavController, NavParams, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 
 import { ServerProvider } from '../../providers/server/server'
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/observable/merge';
-import { Subject } from 'rxjs/Subject';
 
 
 /**
@@ -31,31 +26,19 @@ export class MyListPage {
 
     @ViewChild(Content) content: Content;
 
-    contentLoaded: Subject<any> = new Subject();
-    loadAndScroll: Observable<any>;
-
     constructor(public ga: GoogleAnalytics, public navCtrl: NavController, public events: Events, public navParams: NavParams, public storage: Storage, public serverProvider: ServerProvider) {
         
         events.subscribe('maps:changed', () => {
             this.updateMaps()
         });
-        
         this.updateMaps()
     }
-    
-    ionViewDidLoad() {
-        this.loadAndScroll = Observable.merge(
-            this.content.ionScroll,
-            this.contentLoaded
-        );
-        
-    } 
 
     ionViewDidEnter() {
         // Track page - Google Analytics
         this.ga.trackView('Bookmarks');
-        
-        this.updateMaps()
+    }
+    ionViewWillEnter() {
     }
 
   updateMaps() {

@@ -1,7 +1,6 @@
 import { ViewChild, Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, Platform, PopoverController, Content, AlertController, ActionSheetController, ToastController, NavController, NavParams, Events } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
-import { BannerProvider } from '../../providers/banner/banner'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Storage } from '@ionic/storage';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
@@ -60,8 +59,7 @@ export class MapDetailsPage {
               private socialSharing: SocialSharing,
               public storage: Storage,
               private toastCtrl: ToastController,
-              public platform: Platform,
-              public banner: BannerProvider) {
+              public platform: Platform) {
 
         this.map = navParams.get('map_data')
         let addToViews = navParams.get('add_to_views')
@@ -81,8 +79,6 @@ export class MapDetailsPage {
                this.storage.set('saved_maps', JSON.stringify({"maps":[this.map]}));
             }
         });
-
-       
 
       // Get creator maps and related maps
       this.serverProvider.getMapsFromCreator(this.map.id, this.map.creator, addToViews)
@@ -131,14 +127,14 @@ export class MapDetailsPage {
             this.share()
         });
 
-        this.banner.showAd()
     }
     
     ionViewWillEnter() {
         console.log("showing ads");
+        this.showBanner()
     }
     ionViewWillLeave() {
-        this.banner.hideAd()
+        this.hideBanner()
     }
     ionViewDidLeave() {
         this.events.unsubscribe('popover:report');
