@@ -2,7 +2,7 @@
     <button *ngIf="!toggled" ion-button icon-only menuToggle><ion-icon name="menu"></ion-icon></button>
     <!-- Title -->
     <div *ngIf='!toggled'>
-        <img class='app-title' src="/assets/imgs/header-logo.png" width="200px" style="display:inline-block" height="40px" />
+        <img class='app-title' src="/assets/imgs/header-logo.png" width="200px" style="display:inline-block;" height="40px" />
     </div>
     <!-- Search Bar -->
     <ion-searchbar #searchbar *ngIf="toggled" placeholder="Search Creative Finder" [(ngModel)]="searchTerm" [showCancelButton]="true" (ionCancel)="toggleSearch();" (ionBlur)="searchBlurred();" (ionInput)="searchUpdated($event)" (search)="searchQuery($event)"></ion-searchbar>
@@ -13,7 +13,7 @@
     </ion-buttons>
 </ion-navbar>
 <ion-toolbar *ngIf='toggled' class='search-suggestions'>
-    <ion-list>
+    <div>
         <ion-item no-lines (click)="suggestionClicked(item)" class='suggestion' *ngFor='let item of suggestions'>
             <ion-icon class='suggestion-icon' item-start name='search'></ion-icon>
             {{ item }}
@@ -24,5 +24,5 @@
             {{ item }}
             <ion-icon item-end name="arrow-round-forward"></ion-icon>
         </ion-item>
-    </ion-list>
+    </div>
 </ion-toolbar>

@@ -19,18 +19,39 @@ export class MapItemComponent {
   @Input('content') content: any;
   @Input('aSource') source: any = "Other";
 
+
   constructor(public navCtrl: NavController, public ga: GoogleAnalytics) {}
   ngAfterViewInit() {
-      console.log(this.map)
   }
 
   mapClicked() {
     this.ga.trackEvent('Engagements', this.source, this.map.name);
 
-    //if("maps")dw
-    this.navCtrl.push('MapDetailsPage', {
-        'map_data': this.map,
-        'add_to_views': true
-    })
+    if(this.navCtrl.parent) {
+        this.navCtrl.parent.parent.push('MapDetailsPage', {
+            'map_data': this.map,
+            'add_to_views': true
+        })
+    } else {
+        this.navCtrl.push('MapDetailsPage', {
+            'map_data':  this.map,
+            'add_to_views': true
+        })
+    }
+  }
+  mapClickedCollection(map) {
+    this.ga.trackEvent('Engagements', "Collection", map.name);
+
+    if(this.navCtrl.parent) {
+        this.navCtrl.parent.parent.push('MapDetailsPage', {
+            'map_data': map,
+            'add_to_views': true
+        })
+    } else {
+        this.navCtrl.push('MapDetailsPage', {
+            'map_data':  map,
+            'add_to_views': true
+        })
+    }
   }
 }

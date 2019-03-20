@@ -1,13 +1,13 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Search Results</ion-title>
+        <ion-title>Search Results </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content class='dark-bg'>
     <div class='error-loading' *ngIf='errorLoading'>
-        <ion-icon name="alert" color='error-color'></ion-icon>
-        <div class='error-text'>Could not load, check your connection and try again later.</div>
+        <div class='error-text'>Could not load, check your connection and try again</div>
+        <button ion-button round outline (click)='tryAgain()'>Try Again</button>
     </div>
     <!-- Loading Indicator -->
     <ion-item padding class='searching-indicator' no-lines *ngIf="!maps && !errorLoading">
@@ -16,14 +16,16 @@
     </ion-item>
 
     <!-- Number of search results -->
-    <div class="search-results-num" *ngIf="maps && !errorLoading">
-        {{ maps.length }} Search Results for <b>{{query}}</b>
+    <div class='header-wrapper' *ngIf="maps && !errorLoading">
+        <div class='results-text'>
+            {{ maps.length }} results for <b>{{ query }}</b>
+        </div>
     </div>
 
     <!-- Results list -->
-    <ion-list class='maps-list' [virtualScroll]="maps">
+    <ion-list class='maps-list' [approxItemHeight]="'100px'" [virtualScroll]="maps">
         <div *virtualItem="let map">
-            <map-item [map]='map' [content]='content' [doShowDesc]='true' [aSource]='Explore'></map-item>
+            <map-item [map]='map' [content]='content' [doShowDesc]='true' [aSource]='Search'></map-item>
         </div>
     </ion-list>
 

@@ -25,6 +25,29 @@
 </ion-item>
 
 <!--
+<div class='native-ad'>
+    <div class='sponsored-msg'>Sponsored</div>
+    <ion-grid>
+        <ion-row>
+            <img class='cover-img' src="https://www.facebook.com/images/ads/network/test_video_banner.png">
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <img class='icon' src="https://cfcdnpull-creativefreedoml.netdna-ssl.com/wp-content/uploads/2015/06/Twitter-bird-white-blue2.png">
+            </ion-col>
+            <ion-col>
+                <div class='title'>Facebook Test Ad</div>
+                <div class='body'>Your ad integration works! Woohoo!</div>
+                <div class='social-context'>Get it on Google Play</div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <button ion-button block>Install Now</button>
+        </ion-row>
+    </ion-grid>
+</div>
+-->
+<!--
 <div *ngIf="map.type == 'map'" (click)="mapClicked()" class='light-dark-bg big-item'>
     <img class='big-img' defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
 
@@ -40,7 +63,7 @@
     <div class='desc' text-wrap>{{map.desc}}</div>
     <div class='c-slider'>
         <div class='c-slide-e'></div>
-        <div *ngFor='let m of map.maps' class='c-slide' (click)="mapClicked()">
+        <div *ngFor='let m of map.maps' class='c-slide' (click)="mapClickedCollection(m)">
             <div class='relative'>
                 <img class="img" src="{{m.img}}">
                 <ion-icon *ngIf="m.imgs.length > 1" class='abs-icon' name="images"></ion-icon>

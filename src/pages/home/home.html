@@ -5,8 +5,8 @@
 
 <ion-content class='content dark-bg'>
     <div class='error-loading' *ngIf='errorLoading'>
-        <ion-icon name="alert" color='error-color'></ion-icon>
-        <div class='error-text'>Could not load, check your connection and try again later.</div>
+        <div class='error-text'>Could not load, check your connection and try again</div>
+        <button ion-button round outline (click)='tryAgain()'>Try Again</button>
     </div>
 
     <ion-refresher *ngIf='(featured && recommended) || errorLoading' (ionRefresh)="refresh($event)" spinner="none">
@@ -25,10 +25,10 @@
                 <div class='trending-text'>
                     <ion-icon name="flame"></ion-icon> Trending</div>
                 <ion-row class='title-row'>
-                    <ion-col col-8>
+                    <ion-col col-7>
                         <div class='title'>{{ featured[0].name }}</div>
                     </ion-col>
-                    <ion-col col-4>
+                    <ion-col col-5>
                         <div class='type'> {{ featured[0].types[0] }}</div>
                     </ion-col>
                 </ion-row>

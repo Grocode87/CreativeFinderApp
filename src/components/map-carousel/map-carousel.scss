@@ -1,0 +1,48 @@
+.relative {
+    position: relative;
+}
+
+.abs-icon {
+    color: #ffffff;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.wrapper {
+    background-color: map-get($colors, fg-color);
+    padding-top: 0px;
+    .slider {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+    }
+    .slide-e {
+        width: 15px;
+        flex-shrink: 0;
+        height: 100%;
+    }
+    .slide {
+        padding-right: 10px;
+        width: 45%;
+        flex-shrink: 0;
+        height: 100%;
+        .img {
+            border-radius: 8px;
+            height: 85px;
+            width: 100%
+        }
+        .name {
+            padding-top: 5px;
+            font-size: 20.3px;
+            font-weight: bold;
+            font-family: Fortnite;
+            text-transform: uppercase;
+        }
+        .creator {
+            color: #6d6d6d;
+            font-size: 12px;
+            font-family: Monserrat Bold;
+        }
+    }
+}

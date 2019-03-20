@@ -64,19 +64,25 @@ page-my-list {
             width: 100%;
             max-height: 100%;
             height: inherit !important;
-            border-radius: 7px;
+            border-radius: 4px;
         }
         .title {
-            font-size: 18px;
+            font-size: 24px;
             font-weight: bold;
+            font-family: Fortnite;
+            text-transform: uppercase;
         }
         .author {
             font-size: 12px;
             padding-top: 2px;
             color: darkgray;
+            font-family: Monserrat Bold;
         }
         .desc {
-            font-size: 13px;
+            padding-top: 5px;
+            font-size: 12.25px;
+            font-weight: 500;
+            font-family: Open Sans;
         }
         .type {
             padding: 4px;
@@ -85,12 +91,15 @@ page-my-list {
             font-size: 13px;
             background-color: lightgray;
             border-radius: 2px;
+            font-family: Monserrat Bold;
         }
         .code {
-            padding-top: 5px;
-            font-size: 15px;
+            padding-top: 6.5px;
+            font-size: 20px;
             font-weight: bold;
             color: map-get($colors, primary);
+            font-family: Fortnite;
+            margin-bottom: -5px;
         }
     }
 }

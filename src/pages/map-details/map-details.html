@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>Details</ion-title>
+        <ion-title>{{map.name}}</ion-title>
         <ion-buttons end *ngIf="!toggled">
 
             <button ion-button icon-only (click)="save()" *ngIf='!saved'>
@@ -26,7 +26,7 @@
 </ion-header>
 
 
-<ion-content class='content light-dark-bg'>
+<ion-content class='content dark-bg'>
     <!-- Loading Indicator -->
     <ion-spinner name="crescent" *ngIf="(!otherMaps || !relatedMaps) && !errorLoading"></ion-spinner>
 
@@ -56,46 +56,33 @@
                     <div class="type" *ngFor='let type of map.types'> {{ type }}</div>
                 </div>
                 <div class='code-wrapper'>
-                    <div class='code-bg' (click)='visitMapLink()'>
-                        Island Code
-                        <div class='code'>{{ map.code }}</div>
-                        <a class='code-link' href="https://epicgames.com/fn/{{ map.code }}">(Press to visit official site)</a>
-                    </div>
                 </div>
             </div>
         </div>
 
+        <ion-card class='code-card' (click)='visitMapLink()'>
+            Island Code
+            <div class='code'>{{ map.code }}</div>
+            <a class='code-link' href="https://epicgames.com/fn/{{ map.code }}">(Press to visit official site)</a>
+        </ion-card>
+
         <!-- other creations by creator -->
-        <div *ngIf='!errorLoading'>
-            <div class='other-creations custom-padding'>Other creations by <b>{{ map.creator }}</b></div>
-
-            <ion-item no-lines class='no-results' *ngIf="otherMaps?.length == 0">
-                No creations found
-            </ion-item>
-
-            <ion-list class='maps-list'>
-                <map-item [map]='map' [content]='content' *ngFor="let map of otherMaps"></map-item>
-            </ion-list>
-        </div>
+        <ion-card class='extra-maps-card' *ngIf='!errorLoading && otherMaps?.length > 0'>
+            <div class='other-maps-header custom-padding'>Other Creations by <b>{{ map.creator.toUpperCase()}}</b></div>
+            <map-carousel [maps]='otherMaps'></map-carousel>
+        </ion-card>
 
         <!-- maps related to map -->
-        <div *ngIf='!errorLoading'>
-            <div class='other-creations custom-padding'>Related maps</div>
-
-            <ion-item no-lines class='no-results custom-padding' *ngIf="relatedMaps?.length == 0">
-                No creations found
-            </ion-item>
-
-            <ion-list class='maps-list'>
-                <map-item [map]='map' [content]='content' *ngFor="let map of relatedMaps"></map-item>
-            </ion-list>
-
-        </div>
-
+        <ion-card class='extra-maps-card' *ngIf='!errorLoading && relatedMaps?.length > 0'>
+            <div class='other-maps-header custom-padding'>Similar Maps</div>
+            <map-carousel [maps]='relatedMaps'></map-carousel>
+        </ion-card>
     </div>
+
 
     <div class='error-loading' *ngIf='errorLoading'>
-        <ion-icon name="alert" color='error-color'></ion-icon>
-        <div class='error-text'>Could not load, check your connection and try again later.</div>
+        <div class='error-text'>Could not load, check your connection and try again</div>
+        <button ion-button round outline (click)='tryAgain()'>Try Again</button>
     </div>
+    <br>
 </ion-content>

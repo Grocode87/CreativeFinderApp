@@ -45,6 +45,9 @@ export class MapDetailsPage {
 
     showingAlert = false;
 
+    relatedMapsHeader = "Other Maps by CREATOR"
+    similarMapsHeader = "Related Maps"
+
   constructor(public popoverController: PopoverController,
               public ga: GoogleAnalytics,
               public admob: AdMobFree,
@@ -65,7 +68,6 @@ export class MapDetailsPage {
         let addToViews = navParams.get('add_to_views')
 
         storage.get('saved_maps').then((val) => {
-            console.log(val)
             if(val) {
                 let maps_obj = JSON.parse(val).maps
 
@@ -81,7 +83,20 @@ export class MapDetailsPage {
         });
 
       // Get creator maps and related maps
-      this.serverProvider.getMapsFromCreator(this.map.id, this.map.creator, addToViews)
+      this.getExtraMaps(true)
+
+      };
+
+    showPopover(event) {
+        this.popover = this.popoverController.create('PopoverPage', {}, {cssClass: 'options-popover'})
+
+        this.popover.present({
+            ev: event
+        });
+    }
+
+    getExtraMaps(addToViews) {
+        this.serverProvider.getMapsFromCreator(this.map.id, this.map.creator, addToViews)
         .then(data => {
             let results = data['creator_maps']
             let tempMaps = []
@@ -103,17 +118,10 @@ export class MapDetailsPage {
             this.otherMaps = []
             this.errorLoading = true;
         });
-
-      };
-
-    showPopover(event) {
-        this.popover = this.popoverController.create('PopoverPage', {}, {cssClass: 'options-popover'})
-
-        this.popover.present({
-            ev: event
-        });
     }
+
     ionViewDidLoad() {
+        console.log("View Did Load");
         this.loadAndScroll = Observable.merge(
             this.content.ionScroll,
             this.contentLoaded
@@ -130,7 +138,7 @@ export class MapDetailsPage {
     }
     
     ionViewWillEnter() {
-        console.log("showing ads");
+        console.log("will enter")
         this.showBanner()
     }
     ionViewWillLeave() {
@@ -317,15 +325,22 @@ export class MapDetailsPage {
         let bannerConfig: AdMobFreeBannerConfig = {
             id: "ca-app-pub-6794112313190428/7662762593",
             isTesting: false,
-            autoShow: true
+            autoShow: false
         };
 
         this.admob.banner.config(bannerConfig);
-        this.admob.banner.prepare().then(() => {}).catch(e => console.log(e));
+        this.admob.banner.prepare().then(() => {
+            this.admob.banner.show()
+        }).catch(e => console.log(e));
     }
     hideBanner() {
         this.admob.banner.hide().catch(e => console.log(e));
     }
 
+    
+    tryAgain() {
+        this.errorLoading = false;
+        this.getExtraMaps("false")
+    }
 
 }

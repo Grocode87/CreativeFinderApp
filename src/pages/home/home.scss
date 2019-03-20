@@ -25,10 +25,10 @@
         }
         .trending {
             position: relative;
-            margin-bottom: 15px;
             text-align: left;
             background-color: map-get($colors, fg-color);
             border-bottom: 1px solid map-get($colors, accent-color);
+            margin-bottom: 15px;
             .text-wrapper {
                 padding: 10px;
                 padding-bottom: 0px;
@@ -105,14 +105,11 @@
         .error-loading {
             padding-top: 50%;
             text-align: center;
-            ion-icon {
-                font-size: 60px;
-            }
             .error-text {
                 font-size: 17px;
-                padding-top: 8px;
-                padding-left: 50px;
-                padding-right: 50px;
+                padding-bottom: 8px;
+                padding-left: 30px;
+                padding-right: 30px;
             }
         }
     }

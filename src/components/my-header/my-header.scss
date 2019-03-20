@@ -11,9 +11,16 @@ my-header {
         animation-name: slideIn;
         animation-duration: 0.3s;
         padding-bottom: 1000px;
+        font-family: Monserrat Bold;
     }
     #searchbar {
         animation-name: slideIn;
         animation-duration: 0.3s;
+    }
+    ion-item.history {
+        background-color: transparent !important;
+    }
+    ion-item.suggestion {
+        background-color: transparent !important;
     }
 }

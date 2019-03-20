@@ -22,13 +22,6 @@ export class SettingsPage {
 
   darkToggle:any;
   // this is the complete list of currently supported params you can pass to the plugin (all optional)
-  options: any = {
-    'message': 'share this', // not supported on some apps (Facebook, Instagram)
-    'subject': 'the subject', // fi. for email
-    'files': ['', ''], // an array of filenames either locally or remotely
-    'url': 'https://www.website.com/foo/#bar?a=b',
-    'chooserTitle': 'Pick an app' /// Android only, you can provide id of the App you want to share with
-};
 
   constructor(private toastCtrl: ToastController, public iab: InAppBrowser, public storage: Storage, public global: AppState, public modalCtrl : ModalController, public navCtrl: NavController, public navParams: NavParams) {
     storage.get('theme').then((val) => {

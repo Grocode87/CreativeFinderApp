@@ -8,7 +8,7 @@ page-map-details {
         }
     }
     .content {
-        background-color: map-get($colors, fg-color);
+        background-color: map-get($colors, bg-color);
     }
     .custom-padding {
         padding-left: 15px;
@@ -22,6 +22,11 @@ page-map-details {
     .main-details {
         animation-name: fadeIn;
         animation-duration: 0.6s;
+        background-color: white;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        padding-bottom: 10px;
+        box-shadow: 0 4px 4px 0 rgba(88, 88, 88, 0.2);
         .i-slide {
             position: relative;
         }
@@ -33,6 +38,7 @@ page-map-details {
             bottom: 15px;
             padding: 5px;
             display: inline-block;
+            border-radius: 5px;
             .p-text {
                 padding-left: 3px;
                 display: inline-block;
@@ -41,8 +47,6 @@ page-map-details {
         img {
             padding-bottom: 5px;
             width: 100%;
-            border-bottom-left-radius: 0px;
-            border-bottom-right-radius: 0px;
         }
         .name {
             padding-top: 5px;
@@ -53,14 +57,17 @@ page-map-details {
         }
         .desc {
             font-size: 13px;
-            padding-top: 10px;
-            padding-bottom: 5px;
+            padding-top: 5px;
+            padding-bottom: 0px;
+            font-family: Open Sans;
+            color: #222222;
         }
         .creator {
             padding-top: 0px;
             font-size: 16px;
             color: darkgray;
             font-family: Monserrat Bold;
+            text-transform: uppercase;
         }
         .type-wrapper {
             display: flex;
@@ -77,35 +84,48 @@ page-map-details {
             font-family: Monserrat Bold;
         }
     }
-    .code-wrapper {
-        padding-top: 20px;
+    .code-card {
+        margin-top: 10px;
+        margin-bottom: 10px;
         text-align: center;
-        .code-bg {
-            background-color: #0277bd;
-            padding: 10px;
-            border-radius: 5px;
-            color: white;
-            .code {
-                padding-top: 5px;
-                margin-bottom: -4px;
-                font-size: 15vw;
-                font-family: Fortnite;
-            }
-            .code-link {
-                color: lightblue;
-                text-decoration: none;
-                font-size: 13px;
-            }
+        background-color: map-get($colors, primary);
+        padding: 10px;
+        border-radius: 15px;
+        color: white;
+        animation-name: fadeIn;
+        animation-duration: 0.6s;
+        .code {
+            padding-top: 5px;
+            margin-bottom: -4px;
+            font-size: 15vw;
+            font-family: Fortnite;
+        }
+        .code-link {
+            color: rgb(230, 173, 173);
+            text-decoration: none;
+            font-size: 13px;
         }
     }
-    .other-creations {
+    .extra-maps-card {
+        animation-name: fadeIn;
+        animation-duration: 0.6s;
+        border-radius: 10px;
+        map-carousel {
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-bottom: 8px;
+        }
+    }
+    .other-maps-header {
         animation-name: fadeIn;
         animation-duration: 0.6s;
         border-bottom: 1px solid map-get($colors, accent-color);
-        margin-top: 30px;
+        margin-top: 10px;
         margin-bottom: 1px;
-        padding-bottom: 5px;
-        font-size: 14px;
+        padding-bottom: 8px;
+        font-size: 13px;
+        font-family: Open Sans;
+        color: #3a3a3a
     }
     .no-results {
         background-color: map-get($colors, fg-color);
@@ -115,14 +135,11 @@ page-map-details {
     .error-loading {
         padding-top: 50%;
         text-align: center;
-        ion-icon {
-            font-size: 60px;
-        }
         .error-text {
             font-size: 17px;
-            padding-top: 8px;
-            padding-left: 50px;
-            padding-right: 50px;
+            padding-bottom: 8px;
+            padding-left: 30px;
+            padding-right: 30px;
         }
     }
 }

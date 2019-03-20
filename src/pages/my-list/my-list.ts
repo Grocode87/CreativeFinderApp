@@ -53,7 +53,7 @@ export class MyListPage {
 
    mapClicked(map, addToViews) {
         this.ga.trackEvent('Engagements', "Bookmarks", map['name']);
-        console.log(addToViews)
+        
         this.navCtrl.parent.parent.push('MapDetailsPage', {
             'map_data': map,
             'add_to_views': addToViews

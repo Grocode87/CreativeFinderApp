@@ -48,12 +48,22 @@ export class SearchResultsPage {
 
    ionViewDidLoad() {
         this.ga.trackView('Search Results');
+        this.search()
+        
+    }
 
+    search() {
         this.serverProvider.getSearch(this.query)
         .then(data => {
           this.maps = data['results'];
         }).catch(error => { 
             this.errorLoading = true;
         });
+    }
+
+    
+    tryAgain() {
+        this.errorLoading = false;
+        this.search()
     }
 }

@@ -74,4 +74,9 @@ export class HomePage {
           }) 
     }
 
+    tryAgain() {
+        this.errorLoading = false;
+        this.getMaps(null)
+    }
+
 }

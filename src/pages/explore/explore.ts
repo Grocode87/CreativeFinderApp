@@ -147,4 +147,10 @@ export class ExplorePage {
             });
 
     }
+
+    
+    tryAgain() {
+        this.errorLoading = false;
+        this.getFilterTypes(null)
+    }
 }
