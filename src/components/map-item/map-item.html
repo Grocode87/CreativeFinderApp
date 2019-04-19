@@ -1,11 +1,13 @@
-<ion-item *ngIf="map.type == 'map'" (click)="mapClicked()">
+<ion-item class='' *ngIf="map.type == 'map' && (!map.video || !allowLargeItems)" (click)="mapClicked()">
     <ion-grid>
         <ion-row>
             <ion-col col-5>
                 <div class='relative'>
                     <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
-
-                    <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                    <div class='img-icons'>
+                        <ion-icon *ngIf="map.video" class='yt-icon' name="logo-youtube"></ion-icon>
+                        <ion-icon *ngIf="map.imgs.length > 1" name="images"></ion-icon>
+                    </div>
                 </div>
             </ion-col>
             <ion-col col-7>
@@ -17,7 +19,6 @@
                 <div class='type-wrapper' *ngIf='map.typesToShow'>
                     <div class="type" *ngFor='let type of map.typesToShow'> {{ type }}</div>
                 </div>
-                <div class="desc" text-wrap *ngIf='includeDesc == true'>{{ map.desc }}</div>
                 <div class="code">{{ map.code }}</div>
             </ion-col>
         </ion-row>
@@ -47,17 +48,25 @@
     </ion-grid>
 </div>
 -->
-<!--
-<div *ngIf="map.type == 'map'" (click)="mapClicked()" class='light-dark-bg big-item'>
+
+<div *ngIf="map.type == 'map' && (map.video && allowLargeItems)" (click)="mapClicked()" class='light-dark-bg big-item'>
     <img class='big-img' defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
 
     <div class='text-wrapper'>
         <div class='title'>{{ map.name }}</div>
         <div class="creator">{{ map.creator }}</div>
-        <div class="code">{{ map.code }}</div>
+        <div class='row-wrapper'>
+            <div class="code">{{ map.code }}</div>
+            <div class='type-wrapper' *ngIf='!map.typesToShow'>
+                <div class="type" *ngFor='let type of map.types.slice(0,3)'> {{ type }}</div>
+            </div>
+            <div class='type-wrapper' *ngIf='map.typesToShow'>
+                <div class="type" *ngFor='let type of map.typesToShow'> {{ type }}</div>
+            </div>
+        </div>
     </div>
 </div>
--->
+
 <div class='collection' *ngIf="map.type == 'collection'">
     <div class='title' text-wrap>{{map.title}}</div>
     <div class='desc' text-wrap>{{map.desc}}</div>
@@ -66,7 +75,10 @@
         <div *ngFor='let m of map.maps' class='c-slide' (click)="mapClickedCollection(m)">
             <div class='relative'>
                 <img class="img" src="{{m.img}}">
-                <ion-icon *ngIf="m.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                <div class='img-icons'>
+                    <ion-icon *ngIf="m.video" class='yt-icon' name="logo-youtube"></ion-icon>
+                    <ion-icon *ngIf="m.imgs.length > 1" name="images"></ion-icon>
+                </div>
             </div>
             <div class="name" text-wrap>{{m.name}}</div>
             <div class='creator'>{{m.creator}}</div>

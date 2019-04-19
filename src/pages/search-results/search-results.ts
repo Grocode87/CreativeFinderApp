@@ -1,5 +1,5 @@
 import { ViewChild, Component } from '@angular/core';
-import { IonicPage, Content, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Content, Searchbar, NavController, NavParams } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 import { Storage } from '@ionic/storage';
@@ -18,16 +18,26 @@ import { Storage } from '@ionic/storage';
 })
 export class SearchResultsPage {
     query: any = "Val"
+    searchTerm: any;
     maps: any;
     showResults; any;
 
     @ViewChild(Content) content: Content;
+    @ViewChild('searchbar') searchbar:Searchbar;
 
     errorLoading = false;
+    
+    suggestions = []
+    history = []
+    toggled: any = false;
+    showX: any = true;
+  
 
   constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider) {
     this.query = navParams.get('query')
     this.ga.trackEvent('Search', "Query", this.query);
+
+    this.searchTerm = this.query;
 
      storage.get('recent_searches').then((val) => {
             if(val) {
@@ -65,5 +75,77 @@ export class SearchResultsPage {
     tryAgain() {
         this.errorLoading = false;
         this.search()
+    }
+    onFocus() {
+        this.showX = false;
+    }
+    onBlur() {
+        this.showX = true;
+    }
+    clearPressed() {
+        this.searchTerm = ""
+        this.toggleSearch();
+        this.searchUpdated(null);
+    }
+
+    toggleSearch() {
+        this.toggled = this.toggled ? false : true;
+        if(this.toggled) {
+            this.searchUpdated(null)
+            setTimeout(() => {
+                this.searchbar.setFocus();
+                }, 400);
+        }
+    }
+
+    searchQuery() {
+      const val = this.searchTerm;
+    
+      if (val && val.trim() != '') {
+        this.navCtrl.push('SearchResultsPage', {
+            query: val
+          }).then(() =>{
+        this.searchTerm = ""
+        this.toggled = false
+        console.log(val)
+        let index = this.navCtrl.length()-2;
+  this.navCtrl.remove(index); 
+
+          })
+      }
+    }
+
+    searchUpdated(ev: any) {
+        this.toggled = true;
+        if(!ev) {
+            this.getHistory()
+        } else {
+            let val = ev.target.value;
+
+            if (!val || val.trim() == '') {
+                this.getHistory()
+            } else {
+                this.getSuggestions(val)
+            }
+        }
+    }
+
+    getHistory() {
+        this.storage.get('recent_searches').then((val) => {
+            this.suggestions = []
+            this.history = JSON.parse(val).searches
+            console.log(this.history)
+        });
+    }
+    getSuggestions(query) {
+        this.serverProvider.getAutocomplete(query).then(data => {
+             this.suggestions = data['results']
+             this.history = []
+        }).catch(error => { return []});
+    }
+    suggestionClicked(suggestion) {
+        this.searchTerm = suggestion
+
+        this.searchQuery()
     }
 }

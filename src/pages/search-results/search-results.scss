@@ -1,4 +1,11 @@
 page-search-results {
+    .header-x-button {
+        padding-right: 9px !important;
+        font-size: 12px;
+    }
+    .content {
+        background-color: #f0f0f0;
+    }
     .error-loading {
         padding-top: 50%;
         text-align: center;
@@ -13,7 +20,114 @@ page-search-results {
         padding: 15px;
         color: #535353
     }
+    .search-suggestions {
+        animation: fadein 0.45s;
+        transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+        padding-bottom: 1000px;
+        font-family: Monserrat Bold;
+    }
+    #searchbar {}
+    ion-item.history {
+        background-color: transparent !important;
+    }
+    ion-item.suggestion {
+        background-color: transparent !important;
+    }
     .searching-indicator {
         padding-left: 0px;
+    }
+    .result-type {
+        background-color: white;
+        .type-text {
+            padding: 20px;
+            padding-left: 15px;
+            padding-bottom: 4px;
+            font-size: 20px;
+            font-weight: 450;
+        }
+        .right-text {
+            padding-left: 15px;
+        }
+    }
+    .creators-list {
+        background-color: white;
+        padding: 10px;
+        padding-left: 25px;
+        display: flex;
+        overflow-x: auto;
+        .creator {
+            padding: 10px;
+            padding-top: 5px;
+            padding-left: 0px;
+            flex-shrink: 0;
+            img {
+                width: 65px;
+                height: 65px;
+                border-radius: 7px;
+            }
+            .creator-text {
+                font-size: 16px;
+                text-align: center;
+            }
+        }
+        .category {
+            padding-top: 5px;
+            padding-left: 10px;
+            flex-shrink: 0;
+            img {
+                width: 120px;
+                border-radius: 12px;
+            }
+            .label {
+                font-size: 16px;
+                text-align: center;
+            }
+        }
+    }
+    .category-list {
+        background-color: white;
+        display: flex;
+        overflow-x: auto;
+        padding-left: 25px;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        .category {
+            padding-top: 5px;
+            position: relative;
+            flex-shrink: 0;
+            img {
+                width: 150px;
+                border-radius: 12px;
+            }
+            .label {
+                font-size: 28px;
+                font-family: Fortnite;
+                text-transform: uppercase;
+                color: white;
+                position: absolute;
+                left: 17%;
+                top: 37%;
+            }
+        }
+    }
+    .spacing {
+        height: 13px;
+        border-top: 1px solid rgb(224, 224, 224);
+        border-bottom: 1px solid rgb(224, 224, 224);
+    }
+    ion-searchbar {
+        .searchbar-search-icon {
+            color: red !important;
+        }
+    }
+    input.searchbar-input {
+        padding: 5px 10px 5px 10px !important;
+        box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        background-color: rgb(248, 248, 248) !important;
+    }
+    .line-bottom {
+        //border-bottom: 1px solid rgb(224, 224, 224) !important;
+        //margin-right: 10px;
     }
 }

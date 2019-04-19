@@ -29,8 +29,17 @@
         height: 100%;
         .img {
             border-radius: 8px;
-            height: 85px;
+            height: 20vw;
             width: 100%
+        }
+        .img-icons {
+            color: #ffffff;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            .yt-icon {
+                color: #df1414;
+            }
         }
         .name {
             padding-top: 5px;

@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
+import { Storage } from '@ionic/storage';
+import { Events } from 'ionic-angular';
 
 /**
  * Generated class for the MapItemComponent component.
@@ -18,10 +20,27 @@ export class MapItemComponent {
   @Input('doShowDesc') includeDesc: any = false;
   @Input('content') content: any;
   @Input('aSource') source: any = "Other";
+  
+  allowLargeItems: any = true;
 
+  constructor(public navCtrl: NavController, public ga: GoogleAnalytics, public storage: Storage, public events: Events) {
+    storage.get('layout').then((val) => {
+      if(val && val=='compact') {
+        if(val == 'compact') {
+          this.allowLargeItems = false;
+        }
+      }
+    });
 
-  constructor(public navCtrl: NavController, public ga: GoogleAnalytics) {}
-  ngAfterViewInit() {
+    events.subscribe('layoutUpdated', (val) => {
+        if(val=='compact') {
+            this.allowLargeItems = false;
+            console.log("not allowing large items")
+        } else if(val=='') {
+            this.allowLargeItems = true;
+            console.log("allowing large items")
+        }
+    });
   }
 
   mapClicked() {

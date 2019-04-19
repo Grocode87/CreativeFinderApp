@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="me.colin.grob.creativefinder" version="1.5.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="me.colin.grob.creativefinder" version="1.6.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Creative Finder</name>
     <description>Best place to browse and find Fortnite Creative codes.</description>
     <author email="colin.grob87@gmail.com" href="http://ionicframework.com/">Colin Grob</author>

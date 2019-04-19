@@ -20,6 +20,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { AdMobFree } from '@ionic-native/admob-free';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { BannerProvider } from '../providers/banner/banner';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { BannerProvider } from '../providers/banner/banner';
     LazyLoadImageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    VirtualScrollerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

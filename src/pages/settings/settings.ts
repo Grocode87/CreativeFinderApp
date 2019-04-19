@@ -3,6 +3,7 @@ import { IonicPage, ToastController, ModalController, NavController, NavParams }
 import { AppState} from "../../app/app.global";
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Events } from 'ionic-angular';
 
 //import { SocialSharing } from '@ionic-native/social-sharing';
 
@@ -21,9 +22,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 export class SettingsPage {
 
   darkToggle:any;
+  layoutToggle:any;
   // this is the complete list of currently supported params you can pass to the plugin (all optional)
 
-  constructor(private toastCtrl: ToastController, public iab: InAppBrowser, public storage: Storage, public global: AppState, public modalCtrl : ModalController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private toastCtrl: ToastController, public iab: InAppBrowser, public storage: Storage, public global: AppState, public modalCtrl : ModalController, public navCtrl: NavController, public navParams: NavParams, public events: Events) {
     storage.get('theme').then((val) => {
       if(val) {
         if(val == 'dark-theme') {
@@ -31,6 +33,15 @@ export class SettingsPage {
         }
       } else {
         storage.set('theme', '')
+      }
+    });
+    storage.get('layout').then((val) => {
+      if(val) {
+        if(val == 'compact') {
+          this.layoutToggle = true;
+        }
+      } else {
+        storage.set('layout', '')
       }
     });
   }
@@ -45,6 +56,15 @@ export class SettingsPage {
       this.global.set('theme', '')
       this.storage.set('theme', '')
     }
+  }
+  toggleLayout(event) {
+    var newVal = ''
+    if(event.checked) {
+        newVal = 'compact'
+    }
+    this.storage.set('layout', newVal)
+
+    this.events.publish('layoutUpdated', newVal);
   }
   openFeedback() {
     this.iab.create('https://creativefinder.wufoo.com/forms/zzwizl801wddz3/');

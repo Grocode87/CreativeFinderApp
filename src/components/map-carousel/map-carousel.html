@@ -5,7 +5,10 @@
         <div *ngFor='let map of mapList' class='slide' (click)="mapClicked(map)">
             <div class='relative'>
                 <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.imgs[0]" [scrollObservable]="loadAndScroll" offset="2000" />
-                <ion-icon *ngIf="map.imgs.length > 1" class='abs-icon' name="images"></ion-icon>
+                <div class='img-icons'>
+                    <ion-icon *ngIf="map.video" class='yt-icon' name="logo-youtube"></ion-icon>
+                    <ion-icon *ngIf="map.imgs.length > 1" name="images"></ion-icon>
+                </div>
             </div>
             <div class="name" text-wrap>{{map.name}}</div>
             <div class='creator'>{{map.creator}}</div>

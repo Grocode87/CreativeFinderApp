@@ -66,6 +66,12 @@
             <a class='code-link' href="https://epicgames.com/fn/{{ map.code }}">(Press to visit official site)</a>
         </ion-card>
 
+        <!-- video -->
+        <ion-card class='extra-maps-card' *ngIf='!errorLoading && map.video?.type=="youtube"'>
+            <div class='other-maps-header custom-padding'>Video</div>
+            <iframe width="100%" height="200px" *ngIf="videoUrl" [src]="videoUrl" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+        </ion-card>
+
         <!-- other creations by creator -->
         <ion-card class='extra-maps-card' *ngIf='!errorLoading && otherMaps?.length > 0'>
             <div class='other-maps-header custom-padding'>Other Creations by <b>{{ map.creator.toUpperCase()}}</b></div>
@@ -77,6 +83,7 @@
             <div class='other-maps-header custom-padding'>Similar Maps</div>
             <map-carousel [maps]='relatedMaps'></map-carousel>
         </ion-card>
+
     </div>
 
 

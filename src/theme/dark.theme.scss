@@ -96,7 +96,7 @@
     }
     .main-details {
         background-color: $fg-color;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2) !important;
     }
     map-carousel .wrapper {
         background-color: $fg-color !important;
@@ -107,6 +107,9 @@
     .code-card {
         background-color: map-get($colors, primary) !important;
     }
+    .extra-maps-card {
+        box-shadow: 2px 2px 10px 0px rgb(0, 0, 0) !important;
+    }
     ion-item,
     ion-card,
     .s-item {
@@ -114,7 +117,8 @@
         background-color: $fg-color !important;
     }
     .type {
-        background-color: $accent-color !important;
+        border: 1px solid #5f5f5f !important;
+        color: #cecece!important;
     }
     .maps-list {
         .item-inner {
@@ -123,6 +127,9 @@
         .code {
             color: map-get($colors, primary) !important;
         }
+    }
+    .big-item {
+        border-bottom: 1px solid $accent-color;
     }
     .other-creations {
         border-bottom: 1px solid $accent-color;

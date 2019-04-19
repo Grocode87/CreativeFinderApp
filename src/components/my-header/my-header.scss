@@ -10,6 +10,7 @@ my-header {
     .search-suggestions {
         animation-name: slideIn;
         animation-duration: 0.3s;
+        transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
         padding-bottom: 1000px;
         font-family: Monserrat Bold;
     }
@@ -22,5 +23,10 @@ my-header {
     }
     ion-item.suggestion {
         background-color: transparent !important;
+    }
+    input.searchbar-input {
+        box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        background-color: rgb(250, 250, 250) !important;
     }
 }

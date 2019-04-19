@@ -12,6 +12,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/merge';
 import { Subject } from 'rxjs/Subject';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 /**
@@ -45,8 +46,7 @@ export class MapDetailsPage {
 
     showingAlert = false;
 
-    relatedMapsHeader = "Other Maps by CREATOR"
-    similarMapsHeader = "Related Maps"
+    videoUrl: any;
 
   constructor(public popoverController: PopoverController,
               public ga: GoogleAnalytics,
@@ -62,7 +62,8 @@ export class MapDetailsPage {
               private socialSharing: SocialSharing,
               public storage: Storage,
               private toastCtrl: ToastController,
-              public platform: Platform) {
+              public platform: Platform,
+              public sanitizer: DomSanitizer) {
 
         this.map = navParams.get('map_data')
         let addToViews = navParams.get('add_to_views')
@@ -140,9 +141,16 @@ export class MapDetailsPage {
     ionViewWillEnter() {
         console.log("will enter")
         this.showBanner()
+         if(this.map.video ) {
+            if(this.map.video.type == 'youtube') {
+                this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/" + this.map.video.id);
+            }
+        }
     }
     ionViewWillLeave() {
         this.hideBanner()
+        this.events.publish('map:clicked');
+        this.videoUrl=null;
     }
     ionViewDidLeave() {
         this.events.unsubscribe('popover:report');
@@ -342,5 +350,4 @@ export class MapDetailsPage {
         this.errorLoading = false;
         this.getExtraMaps("false")
     }
-
 }

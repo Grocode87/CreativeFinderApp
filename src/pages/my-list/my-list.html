@@ -32,7 +32,10 @@
                             <ion-col col-5>
                                 <div class='relative'>
                                     <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="content.onScroll" offset="2000" />
-                                    <ion-icon *ngIf="map.imgs?.length > 1" class='abs-icon' name="images"></ion-icon>
+                                    <div class='img-icons'>
+                                        <ion-icon *ngIf="map.video" class='yt-icon' name="logo-youtube"></ion-icon>
+                                        <ion-icon *ngIf="map.imgs.length > 1" name="images"></ion-icon>
+                                    </div>
                                 </div>
                             </ion-col>
                             <ion-col col-7>

@@ -34,7 +34,7 @@ export class ExplorePage {
     typeFilters: any = ['1', '2'];
 
     @ViewChild(Content) content: Content;
-    @ViewChild(VirtualScroll) virtualScroll: VirtualScroll
+    //@ViewChild(VirtualScroll, { read: VirtualScroll }) virtualScroll: VirtualScroll;
 
     errorLoading = false;
 
@@ -46,7 +46,7 @@ export class ExplorePage {
     }
     ngAfterViewInit() {
         this.content.ionScrollEnd.subscribe((event)=>{
-            this.virtualScroll.scrollUpdate(event)
+            //this.virtualScroll.scrollUpdate(event)
         });
     }
 
@@ -100,8 +100,10 @@ export class ExplorePage {
                 this.maps = data['results']
                 this.total_pages = data['total_pages']
                 
-                this.showLoading = false;
-                this.errorLoading = false;
+                setTimeout(() => {
+                    this.showLoading = false;
+                    this.errorLoading = false;
+                }, 500);
 
                 // Go through the maps and change the only tag to the filter item
                 if(typeFilter != "All") {

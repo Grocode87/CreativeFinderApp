@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { ExplorePage } from './explore';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ComponentsModule } from '../../components/components.module' 
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
  
 @NgModule({
 declarations: [
@@ -11,7 +12,8 @@ declarations: [
 imports: [
     IonicPageModule.forChild(ExplorePage),
     LazyLoadImageModule,
-    ComponentsModule
+    ComponentsModule,
+    VirtualScrollerModule
 ],
 exports: [
     ExplorePage

@@ -24,6 +24,13 @@
                 <p>Enable an app-wide dark theme</p>
             </ion-label>
         </ion-item>
+        <ion-item class='s-item'>
+            <ion-toggle checked="false" [(ngModel)]='layoutToggle' (ionChange)="toggleLayout($event)"></ion-toggle>
+            <ion-label>
+                <h3>Compact Layout</h3>
+                <p>Only allow smaller images in map lists</p>
+            </ion-label>
+        </ion-item>
     </ion-item-group>
 
     <ion-item-group>
@@ -44,7 +51,7 @@
         <ion-item-divider class='divider'>About</ion-item-divider>
         <ion-item class='s-item'>
             <h3>App Version</h3>
-            <p>1.5.3</p>
+            <p>1.6.3</p>
         </ion-item>
         <ion-item class='s-item' (click)='openPP()'>
             <h3>Privacy Policy</h3>
