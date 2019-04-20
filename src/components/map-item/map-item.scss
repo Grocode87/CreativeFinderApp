@@ -25,6 +25,15 @@ map-item {
             border-radius: 8px;
             width: 100%;
         }
+        .img-icons {
+            color: #ffffff;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            .yt-icon {
+                color: #df1414;
+            }
+        }
         .title {
             padding-top: 5px;
             margin-bottom: -3px;

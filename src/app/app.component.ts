@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer } from '@angular/core';
 import { Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -23,6 +23,7 @@ export class MyApp {
               public global: AppState, 
               public ga: GoogleAnalytics, 
               public admob: AdMobFree,
+              renderer: Renderer,
               platform: Platform, 
               statusBar: StatusBar, 
               splashScreen: SplashScreen) {
@@ -57,18 +58,40 @@ export class MyApp {
         }
     });
 
+    // Show interstital ad after every 6 clicks
+    // Not using this method because I found a better way
+    /**
     events.subscribe('map:clicked', () => {
         this.pagesClicked += 1;
         console.log("Pages Pressed: " + this.pagesClicked)
 
         if(this.pagesClicked >= 6) {
             this.pagesClicked = 0;
+            console.log("showing ad")
             this.showInterstitialAd() 
         }
     });
-    }
+     */
+    
 
-    async showInterstitialAd() {
+    // Show interstitial ad after 2.5 minutes of the app being open
+    // 2.5 minutes in MS = 150000
+    setTimeout( () => {
+      this.showInterstitialAd()
+    }, 10000);
+
+    // Listens for the interstitial ad close event
+    renderer.listenGlobal('document', 'admob.interstitial.events.CLOSE', (event) => {
+        // Start a new 2.5 minute timer for an ad
+        setTimeout( () => {
+            this.showInterstitialAd()
+        }, 10000);
+    });
+  }
+
+
+  async showInterstitialAd() {
+      /** Function to show interstitial ad */
     try {
       const interstitialConfig: AdMobFreeInterstitialConfig = {
         id: 'ca-app-pub-6794112313190428/2474984639',

@@ -36,7 +36,7 @@ export class SearchResultsPage {
   
 
   constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public nav: Nav, public serverProvider: ServerProvider, public events: Events) {
-    this.query = navParams.get('query')
+    this.query = navParams.get('query').toLowerCase()
     this.ga.trackEvent('Search', "Query", this.query);
 
     this.searchTerm = this.query;
@@ -83,11 +83,14 @@ export class SearchResultsPage {
     }
 
     viewCategory(category) {
+        this.ga.trackEvent('Category', "Search", category);
         this.events.publish('view:category', category);
         this.navCtrl.pop()
     }
 
     viewCreator(creator) {
+        this.ga.trackEvent('Creator', "Search", creator.name);
+
         this.navCtrl.push('CreatorDetailsPage', {
             'creator':  creator
         })
@@ -121,14 +124,13 @@ export class SearchResultsPage {
       if (val && val.trim() != '') {
         this.navCtrl.push('SearchResultsPage', {
             query: val
-          }).then(() =>{
-        this.searchTerm = ""
-        this.toggled = false
-        console.log(val)
-        let index = this.navCtrl.length()-2;
-  this.navCtrl.remove(index); 
+        }).then(() =>{
+          this.searchTerm = ""
+          this.toggled = false
 
-          })
+          let index = this.navCtrl.length()-2;
+          this.navCtrl.remove(index); 
+        })
       }
     }
 

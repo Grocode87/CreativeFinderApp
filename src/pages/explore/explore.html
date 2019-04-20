@@ -36,15 +36,16 @@
     <ion-spinner name="crescent" *ngIf="showLoading && !errorLoading"></ion-spinner>
 
     <virtual-scroller class='maps-list' *ngIf='!showLoading' #scroll [items]="maps" [enableUnequalChildrenSizes]="true" [bufferAmount]="10">
-        <map-item *ngFor="let item of scroll.viewPortItems" [map]='item' [content]='content' [doShowDesc]='true' [aSource]='Explore'></map-item>
+        <map-item *ngFor="let item of scroll.viewPortItems" [map]='item' [content]='content' [doShowDesc]='true' aSource='Explore'></map-item>
     </virtual-scroller>
+
     <!--
     <ion-list class='maps-list' [hidden]="showLoading" [approxItemHeight]="'100px'" [virtualScroll]="maps">
         <div *virtualItem="let map">
             <map-item [map]='map' [content]='content' [doShowDesc]='true' [aSource]='Explore'></map-item>
         </div>
     </ion-list>
--->
+  -->
     <ion-infinite-scroll threshold="1500px" (ionInfinite)="getMoreMaps($event)" *ngIf='page < total_pages'>
         <ion-infinite-scroll-content loading-spinner="bubbles">
         </ion-infinite-scroll-content>

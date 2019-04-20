@@ -26,18 +26,20 @@
         <div class='error-text'>Could not load, check your connection and try again</div>
         <button ion-button round outline (click)='tryAgain()'>Try Again</button>
     </div>
-    <!-- Loading Indicator -->
-    <ion-item padding class='searching-indicator' no-lines *ngIf="!maps && !errorLoading">
-        <h4>Searching</h4>
-        <ion-spinner item-right name="crescent"></ion-spinner>
-    </ion-item>
+
+    <div class='no-results' *ngIf='!errorLoading && maps && maps?.length == 0'>
+        <ion-icon name='search'></ion-icon>
+        <h1>No Results Found</h1>
+    </div>
+
+    <ion-spinner name="crescent" *ngIf="!maps && !errorLoading"></ion-spinner>
 
     <!-- Categories list (horizontal)-->
-    <div *ngIf="categories?.length > 0">
-        <div class='result-type'>
+    <div *ngIf="categories?.length > 0" class="animated">
+        <div class='result-type light-dark-bg'>
             <div class='type-text'>Categories</div>
         </div>
-        <div class='category-list'>
+        <div class='category-list light-dark-bg'>
             <div class='category' *ngFor='let category of categories' (click)='viewCategory(category.name)'>
                 <img src="{{category.img_url}}">
                 <div class='label'>{{category.name}}</div>
@@ -48,11 +50,11 @@
     </div>
 
     <!-- Creators list (horizontal)-->
-    <div *ngIf='creators?.length > 0'>
-        <div class='result-type'>
+    <div *ngIf='creators?.length > 0' class='animated'>
+        <div class='result-type light-dark-bg'>
             <div class='type-text'>Creators</div>
         </div>
-        <div class='creators-list'>
+        <div class='creators-list light-dark-bg'>
             <div class='creator' *ngFor='let creator of creators' (click)="viewCreator(creator)">
                 <img src='{{creator.img_url}}'>
                 <div class='creator-text'>
@@ -63,13 +65,20 @@
         <div class='spacing'></div>
     </div>
     <!-- Maps header and # of results-->
-    <div class='result-type' *ngIf='maps?.length > 0'>
+    <div class='result-type light-dark-bg animated' *ngIf='maps?.length > 0'>
         <div class='type-text'>Maps</div>
         <div class='right-text'>{{maps.length}} Results</div>
     </div>
     <!-- Maps list -->
-    <virtual-scroller #scroll [items]="maps" [enableUnequalChildrenSizes]="true" [bufferAmount]="10" *ngIf='maps?.length > 0'>
-        <map-item *ngFor="let item of scroll.viewPortItems" [map]='item' [content]='content' [doShowDesc]='true' [aSource]='Search'></map-item>
+    <!--
+    <ion-list class='maps-list' [hidden]="showLoading" [approxItemHeight]="'50px'" [virtualScroll]="maps">
+        <div *virtualItem="let map">
+            <map-item [map]='map' [content]='content' [doShowDesc]='true' [aSource]='Search'></map-item>
+        </div>
+    </ion-list>
+    -->
+    <virtual-scroller class='maps-list animated' #scroll [items]="maps" [enableUnequalChildrenSizes]="true" [bufferAmount]="10" *ngIf='maps?.length > 0'>
+        <map-item *ngFor="let item of scroll.viewPortItems" [map]='item' [content]='content' [doShowDesc]='true' aSource='Search'></map-item>
     </virtual-scroller>
 
 </ion-content>

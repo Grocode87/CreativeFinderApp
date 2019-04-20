@@ -111,13 +111,14 @@ export class ExplorePage {
 
         this.serverProvider.getFiltered(pubFilter, typeFilter, new Date().getTime(), page)
             .then(data => {
+                this.ga.trackEvent("Explore", "Filter", typeFilter)
+                
                 this.maps = data['results']
                 this.total_pages = data['total_pages']
-                
-                setTimeout(() => {
-                    this.showLoading = false;
-                    this.errorLoading = false;
-                }, 500);
+                console.log(this.maps)
+
+                this.showLoading = false;
+                this.errorLoading = false;
 
                 // Go through the maps and change the only tag to the filter item
                 if(typeFilter != "All") {

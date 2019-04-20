@@ -47,6 +47,7 @@ export class MapDetailsPage {
     showingAlert = false;
 
     videoUrl: any;
+    fromCreatorPage: any = false;
 
   constructor(public popoverController: PopoverController,
               public ga: GoogleAnalytics,
@@ -65,6 +66,7 @@ export class MapDetailsPage {
               public platform: Platform,
               public sanitizer: DomSanitizer) {
 
+        this.fromCreatorPage = navParams.get('from_creator_page')
         this.map = navParams.get('map_data')
         let addToViews = navParams.get('add_to_views')
 
@@ -349,5 +351,17 @@ export class MapDetailsPage {
     tryAgain() {
         this.errorLoading = false;
         this.getExtraMaps("false")
+    }
+
+    openCreator(creator) {
+        this.ga.trackEvent('Creator', "Map Details", creator);
+
+        if(this.fromCreatorPage) {
+            this.navCtrl.pop()
+        } else {
+            this.navCtrl.push('CreatorDetailsPage', {
+                'creator':  creator
+            })
+        }
     }
 }

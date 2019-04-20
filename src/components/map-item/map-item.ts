@@ -20,6 +20,7 @@ export class MapItemComponent {
   @Input('doShowDesc') includeDesc: any = false;
   @Input('content') content: any;
   @Input('aSource') source: any = "Other";
+  @Input('fromCreatorPage') fromCreatorPage: any = false;
   
   allowLargeItems: any = true;
 
@@ -45,16 +46,18 @@ export class MapItemComponent {
 
   mapClicked() {
     this.ga.trackEvent('Engagements', this.source, this.map.name);
-
+    console.log("SOURCE: " + this.source)
     if(this.navCtrl.parent) {
         this.navCtrl.parent.parent.push('MapDetailsPage', {
             'map_data': this.map,
-            'add_to_views': true
+            'add_to_views': true,
+            'from_creator_page': this.fromCreatorPage
         })
     } else {
         this.navCtrl.push('MapDetailsPage', {
             'map_data':  this.map,
-            'add_to_views': true
+            'add_to_views': true,
+            'from_creator_page': this.fromCreatorPage
         })
     }
   }

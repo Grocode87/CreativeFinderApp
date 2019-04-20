@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
+import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 
 /**
  * Generated class for the CreatorDetailsPage page.
@@ -20,26 +21,47 @@ export class CreatorDetailsPage {
 
   img: any;
   name: any;
-  maps: any = []
-  numMaps = 0;
-  totalViews = 0;
+  maps: any;
+  numMaps;
+  totalViews;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider) {
+  errorLoading = false;
+
+  constructor(public navCtrl: NavController, public ga: GoogleAnalytics, public navParams: NavParams, public serverProvider: ServerProvider) {
         var creatorData = navParams.get('creator')
-        this.img = creatorData['img_url']
-        this.name = creatorData['name']
 
-        this.serverProvider.getCreator(this.name).then(data => {
-            var results = data['results']
+        console.log(creatorData)
+        if(typeof creatorData === 'string') {
+            this.name = creatorData;
+        } else {
+            this.name = creatorData['name']
+        }
 
-            this.maps = results['maps']
-            this.numMaps = results['num_maps']
-            this.totalViews = results['total_map_views']
-        })
+        this.getCreator()
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CreatorDetailsPage');
+  getCreator() {
+    this.serverProvider.getCreator(this.name).then(data => {
+        this.errorLoading = false;
+        var results = data['results']
+
+        this.img = results['img_url']
+        this.maps = results['maps']
+        this.numMaps = results['num_maps']
+        this.totalViews = results['total_map_views']
+    }).catch(error => { 
+        this.errorLoading = true;
+    });
+  }
+
+  ionViewDidLoad() {}
+
+  ionViewDidEnter() {
+    this.ga.trackView('Creator Details');
+  }
+
+  tryAgain() {
+      this.getCreator()
   }
 
 }

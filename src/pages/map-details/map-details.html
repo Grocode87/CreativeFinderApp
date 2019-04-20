@@ -50,7 +50,7 @@
             <img *ngIf="map.imgs == undefined" class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="loadAndScroll" offset="2000" />
             <div class='custom-padding'>
                 <div class='name'>{{ map.name }}</div>
-                <div class='creator'>By {{ map.creator }}</div>
+                <div class='creator'>By <span class='creator-name' (click)='openCreator(map.creator)'>{{ map.creator }}</span></div>
                 <div class='desc'>{{ map.desc }}</div>
                 <div class='type-wrapper'>
                     <div class="type" *ngFor='let type of map.types'> {{ type }}</div>
@@ -75,15 +75,14 @@
         <!-- other creations by creator -->
         <ion-card class='extra-maps-card' *ngIf='!errorLoading && otherMaps?.length > 0'>
             <div class='other-maps-header custom-padding'>Other Creations by <b>{{ map.creator.toUpperCase()}}</b></div>
-            <map-carousel [maps]='otherMaps'></map-carousel>
+            <map-carousel [maps]='otherMaps' [fromCreatorPage]='fromCreatorPage'></map-carousel>
         </ion-card>
 
         <!-- maps related to map -->
         <ion-card class='extra-maps-card' *ngIf='!errorLoading && relatedMaps?.length > 0'>
             <div class='other-maps-header custom-padding'>Similar Maps</div>
-            <map-carousel [maps]='relatedMaps'></map-carousel>
+            <map-carousel [maps]='relatedMaps' [fromCreatorPage]='fromCreatorPage'></map-carousel>
         </ion-card>
-
     </div>
 
 
@@ -91,5 +90,4 @@
         <div class='error-text'>Could not load, check your connection and try again</div>
         <button ion-button round outline (click)='tryAgain()'>Try Again</button>
     </div>
-    <br>
 </ion-content>

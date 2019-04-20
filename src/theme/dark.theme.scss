@@ -72,7 +72,10 @@
             border-bottom: 1px solid $accent-color !important;
         }
     }
-    // Explore page specific
+    // Creator Details Specific
+    .desc-wrapper {
+        border-bottom: 1px solid $accent-color;
+    }
     // Settings Page Specific
     .divider {
         transition: all 1.1s ease;
@@ -86,6 +89,12 @@
         p {
             color: #8b8b8b !important;
         }
+    }
+    // Search Results Specific
+    .spacing {
+        background-color: $bg-color;
+        border-top: none;
+        border-bottom: none;
     }
     // Map Details Specific
     .spinner-md-crescent circle {

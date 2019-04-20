@@ -1,9 +1,42 @@
 page-creator-details {
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    .animated {
+        animation-name: fadeIn;
+        animation-duration: 0.5s;
+    }
+    .error-loading {
+        padding-top: 50%;
+        text-align: center;
+        .error-text {
+            font-size: 17px;
+            padding-bottom: 8px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
     .desc-wrapper {
         text-align: center;
+        padding: 15px;
+        padding-top: 22px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid map-get($colors, accent-color);
         img {
             width: 100px;
             border-radius: 13px;
+        }
+        .placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 13px;
+            background-color: #a3a3a3;
+            display: inline-block;
         }
         .name {
             padding-top: 6px;
@@ -12,17 +45,23 @@ page-creator-details {
             text-transform: uppercase;
         }
         .stats-row {
-            padding-top: 10px;
+            padding-top: 15px;
             display: flex;
             justify-content: space-evenly;
         }
-        .num_maps {
-            font-size: 28px;
-            font-family: Fortnite;
+        .detail {
+            .number {
+                font-size: 28px;
+                font-family: Fortnite;
+            }
+            .label {
+                font-size: 16px;
+                margin-top: -3px;
+            }
         }
-        .total_views {
-            font-size: 28px;
-            font-family: Fortnite;
-        }
+    }
+    .maps-title {
+        padding: 15px;
+        font-size: 20px;
     }
 }

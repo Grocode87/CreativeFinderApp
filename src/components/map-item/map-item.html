@@ -50,8 +50,13 @@
 -->
 
 <div *ngIf="map.type == 'map' && (map.video && allowLargeItems)" (click)="mapClicked()" class='light-dark-bg big-item'>
-    <img class='big-img' defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
-
+    <div class='relative'>
+        <img class='big-img' defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="map.img" [scrollObservable]="content.ionScroll" offset="1000" />
+        <div class='img-icons'>
+            <ion-icon *ngIf="map.video" class='yt-icon' name="logo-youtube"></ion-icon>
+            <ion-icon *ngIf="map.imgs.length > 1" name="images"></ion-icon>
+        </div>
+    </div>
     <div class='text-wrapper'>
         <div class='title'>{{ map.name }}</div>
         <div class="creator">{{ map.creator }}</div>

@@ -10,21 +10,31 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    <div class='desc-wrapper'>
-        <img src='{{img}}'>
+<ion-content class='dark-bg'>
+    <div class='error-loading' *ngIf='errorLoading'>
+        <div class='error-text'>Could not load, check your connection and try again</div>
+        <button ion-button round outline (click)='tryAgain()'>Try Again</button>
+    </div>
+
+    <div class='desc-wrapper light-dark-bg animated' *ngIf='!errorLoading'>
+        <img *ngIf='img' src='{{img}}' class=''>
+        <div *ngIf='!img' class='placeholder'></div>
+
         <div class='name'>{{name}}</div>
         <div class='stats-row'>
-            <div class='num_maps'>
-                {{numMaps}}
+            <div class='detail'>
+                <div class='number animated' *ngIf='maps'>{{numMaps}}</div>
+                <div class='number' *ngIf='!maps'>-</div>
+                <div class='label'>Maps</div>
             </div>
-            <div class='total_views'>
-                {{totalViews}}
+            <div class='detail'>
+                <div class='number animated' *ngIf='maps'>{{totalViews}}</div>
+                <div class='number' *ngIf='!maps'>-</div>
+                <div class='label'>Total Views</div>
             </div>
         </div>
     </div>
-
-    <ion-list>
-        <map-item [map]="map" [content]='content' [aSource]="Creator" *ngFor="let map of maps"></map-item>
-    </ion-list>
+    <div class='maps-list animated' *ngIf='maps && !errorLoading'>
+        <map-item [map]="map" [content]='content' aSource="Creator" [fromCreatorPage]="true" *ngFor="let map of maps"></map-item>
+    </div>
 </ion-content>

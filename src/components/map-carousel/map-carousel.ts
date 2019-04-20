@@ -16,6 +16,7 @@ export class MapCarouselComponent {
 
   @Input('title') title: string;
   @Input('maps') mapList: any;
+  @Input('fromCreatorPage') fromCreatorPage: any = false;
 
   constructor(public navCtrl: NavController, public ga: GoogleAnalytics) {}
 
@@ -25,12 +26,14 @@ export class MapCarouselComponent {
     if(this.navCtrl.parent) {
         this.navCtrl.parent.parent.push('MapDetailsPage', {
             'map_data': map,
-            'add_to_views': true
+            'add_to_views': true,
+            'from_creator_page': this.fromCreatorPage
         })
     } else {
         this.navCtrl.push('MapDetailsPage', {
             'map_data': map,
-            'add_to_views': true
+            'add_to_views': true,
+            'from_creator_page': this.fromCreatorPage
         })
     }
   }

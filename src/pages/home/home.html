@@ -46,7 +46,7 @@
 
         <!-- app list-->
         <div class='maps-list-home dark-bg' *ngIf='isApp && !errorLoading'>
-            <map-item [map]="map" [content]='content' [aSource]="Home" *ngFor="let map of recommended"></map-item>
+            <map-item [map]="map" [content]='content' aSource="Home" *ngFor="let map of recommended"></map-item>
         </div>
     </div>
 

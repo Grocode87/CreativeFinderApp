@@ -50,7 +50,7 @@ page-map-details {
         }
         .name {
             padding-top: 5px;
-            font-size: 38px;
+            font-size: 39px;
             font-weight: bold;
             font-family: Fortnite;
             text-transform: uppercase;
@@ -65,9 +65,12 @@ page-map-details {
         .creator {
             padding-top: 0px;
             font-size: 16px;
-            color: darkgray;
+            color: rgb(29, 29, 29);
             font-family: Monserrat Bold;
             text-transform: uppercase;
+            .creator-name {
+                color: map-get($colors, primary)
+            }
         }
         .type-wrapper {
             display: flex;
