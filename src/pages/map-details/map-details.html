@@ -73,13 +73,13 @@
         </ion-card>
 
         <!-- other creations by creator -->
-        <ion-card class='extra-maps-card' *ngIf='!errorLoading && otherMaps?.length > 0'>
-            <div class='other-maps-header custom-padding'>Other Creations by <b>{{ map.creator.toUpperCase()}}</b></div>
+        <ion-card class='extra-maps-card' *ngIf='!errorLoading && otherMaps?.length > 0 && !fromCreatorPage'>
+            <div class='other-maps-header custom-padding' (click)='openCreator(map.creator)'>Other Creations by <b>{{ map.creator.toUpperCase()}}</b></div>
             <map-carousel [maps]='otherMaps' [fromCreatorPage]='fromCreatorPage'></map-carousel>
         </ion-card>
 
         <!-- maps related to map -->
-        <ion-card class='extra-maps-card' *ngIf='!errorLoading && relatedMaps?.length > 0'>
+        <ion-card class='extra-maps-card' *ngIf='!errorLoading && relatedMaps?.length > 0 && !fromCreatorPage'>
             <div class='other-maps-header custom-padding'>Similar Maps</div>
             <map-carousel [maps]='relatedMaps' [fromCreatorPage]='fromCreatorPage'></map-carousel>
         </ion-card>

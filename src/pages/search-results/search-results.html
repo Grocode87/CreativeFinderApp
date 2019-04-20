@@ -41,7 +41,7 @@
         </div>
         <div class='category-list light-dark-bg'>
             <div class='category' *ngFor='let category of categories' (click)='viewCategory(category.name)'>
-                <img src="{{category.img_url}}">
+                <img defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="category.img_url" [scrollObservable]="content.ionScroll" />
                 <div class='label'>{{category.name}}</div>
             </div>
             <div class='e-slide'></div>

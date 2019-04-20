@@ -36,7 +36,8 @@ export class SearchResultsPage {
   
 
   constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public nav: Nav, public serverProvider: ServerProvider, public events: Events) {
-    this.query = navParams.get('query').toLowerCase()
+    this.query = navParams.get('query')
+    this.query = this.query.toLowerCase()
     this.ga.trackEvent('Search', "Query", this.query);
 
     this.searchTerm = this.query;
