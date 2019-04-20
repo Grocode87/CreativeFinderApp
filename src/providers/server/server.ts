@@ -83,4 +83,14 @@ export class ServerProvider {
       });
     });
   }
+
+  getCreator(name) {
+      return new Promise((resolve, reject) => {
+      this.http.get(this.apiUrl+'/get/creator/'+name).subscribe(data => {
+        resolve(data); 
+      }, err => {
+        reject(err)
+      });
+    });
+  }
 }

@@ -1,5 +1,5 @@
 import { ViewChild, Component } from '@angular/core';
-import { IonicPage, VirtualScroll, Content, Searchbar, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, VirtualScroll, Content, Searchbar, NavController, NavParams, Events } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 
@@ -41,30 +41,43 @@ export class ExplorePage {
     page = 0
     total_pages = 0
 
-    constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider ) {
+    do_set_maps = true;
+
+    constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider, public events: Events) {
         this.getFilterTypes(null)
+
+        this.events.subscribe('set:filters', (category) => {
+            this.do_set_maps = false;
+            this.pop = 'Newest'
+            this.type = category
+            this.getMaps("Newest", category, 0, 0)
+        });
+        console.log("ready for loaded")
     }
     ngAfterViewInit() {
+        this.events.publish('explore:loaded');
         this.content.ionScrollEnd.subscribe((event)=>{
             //this.virtualScroll.scrollUpdate(event)
         });
     }
-
+ 
     getFilterTypes(refresher) {
         /** Get the possible selection values from the server and set them */
         this.serverProvider.getFilterTypes()
         .then(data => {
-            console.log(data)
             this.errorLoading = false;
             this.pubFilters = data['publishedFilters'];
             this.typeFilters = data['typeFilters'];
 
-            if(!refresher) {
-                this.pop = this.pubFilters[0]
-                this.type = this.typeFilters[0]
+            if(this.do_set_maps) {
+                if(!refresher) {
+                    this.pop = this.pubFilters[0]
+                    this.type = this.typeFilters[0]
+                }
+                this.getMaps(this.pop, this.type, refresher, 0)
+            } else {
+                this.do_set_maps = true;
             }
-
-            this.getMaps(this.pop, this.type, refresher, 0)
 
         }).catch(error => {
             console.log("Unable to load content")
@@ -87,6 +100,7 @@ export class ExplorePage {
         this.getMaps(this.pop, this.type, refresher, 0)
     }
     getMaps(pubFilter, typeFilter, refresher, page) {
+        console.log('getting maps with data: ' + pubFilter + " - " + typeFilter)
         this.page = page;
         this.content.scrollTo(0, 0, 0)
 

@@ -1,0 +1,28 @@
+page-creator-details {
+    .desc-wrapper {
+        text-align: center;
+        img {
+            width: 100px;
+            border-radius: 13px;
+        }
+        .name {
+            padding-top: 6px;
+            font-family: Fortnite;
+            font-size: 35px;
+            text-transform: uppercase;
+        }
+        .stats-row {
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .num_maps {
+            font-size: 28px;
+            font-family: Fortnite;
+        }
+        .total_views {
+            font-size: 28px;
+            font-family: Fortnite;
+        }
+    }
+}

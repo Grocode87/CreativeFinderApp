@@ -32,45 +32,43 @@
         <ion-spinner item-right name="crescent"></ion-spinner>
     </ion-item>
 
-    <!-- Creators list (horizontal)-->
-    <div class='result-type'>
-        <div class='type-text'>Creators & Categories</div>
+    <!-- Categories list (horizontal)-->
+    <div *ngIf="categories?.length > 0">
+        <div class='result-type'>
+            <div class='type-text'>Categories</div>
+        </div>
+        <div class='category-list'>
+            <div class='category' *ngFor='let category of categories' (click)='viewCategory(category.name)'>
+                <img src="{{category.img_url}}">
+                <div class='label'>{{category.name}}</div>
+            </div>
+            <div class='e-slide'></div>
+        </div>
+        <div class='spacing'></div>
     </div>
-    <div class='creators-list'>
-        <div class='creator'>
-            <img src='/assets/imgs/creator-default-img.jpg'>
-            <div class='creator-text'>
-                Cizzors
+
+    <!-- Creators list (horizontal)-->
+    <div *ngIf='creators?.length > 0'>
+        <div class='result-type'>
+            <div class='type-text'>Creators</div>
+        </div>
+        <div class='creators-list'>
+            <div class='creator' *ngFor='let creator of creators' (click)="viewCreator(creator)">
+                <img src='{{creator.img_url}}'>
+                <div class='creator-text'>
+                    {{creator.name}}
+                </div>
             </div>
         </div>
-        <div class='category'>
-            <img src="http://cgrob10.pythonanywhere.com/static/jpg/8573-4987-0748.jpg">
-            <div class='label'>Obstacle Course</div>
-        </div>
+        <div class='spacing'></div>
     </div>
-
-    <div class='spacing'></div>
-
-    <!-- Categories list (horizontal)-->
-    <div class='result-type'>
-        <div class='type-text'>Categories</div>
-    </div>
-    <div class='category-list'>
-        <div class='category'>
-            <img src="http://cgrob10.pythonanywhere.com/static/jpg/8573-4987-0748.jpg">
-            <div class='label'>Hide-N-Seek</div>
-        </div>
-    </div>
-
-    <div class='spacing'></div>
-
     <!-- Maps header and # of results-->
-    <div class='result-type'>
+    <div class='result-type' *ngIf='maps?.length > 0'>
         <div class='type-text'>Maps</div>
-        <div class='right-text'>43 Results</div>
+        <div class='right-text'>{{maps.length}} Results</div>
     </div>
     <!-- Maps list -->
-    <virtual-scroller #scroll [items]="maps" [enableUnequalChildrenSizes]="true" [bufferAmount]="10">
+    <virtual-scroller #scroll [items]="maps" [enableUnequalChildrenSizes]="true" [bufferAmount]="10" *ngIf='maps?.length > 0'>
         <map-item *ngFor="let item of scroll.viewPortItems" [map]='item' [content]='content' [doShowDesc]='true' [aSource]='Search'></map-item>
     </virtual-scroller>
 

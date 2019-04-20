@@ -3,6 +3,7 @@ import { Searchbar, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { ServerProvider } from '../../providers/server/server';
+import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 
 /**
  * Generated class for the MyHeaderComponent component.
@@ -22,10 +23,11 @@ export class MyHeaderComponent {
 
   suggestions = []
   history = []
+  mapSuggestions = []
   
   @ViewChild('searchbar') searchbar:Searchbar;
 
-  constructor(public navCtrl: NavController, public storage: Storage, public serverProvider: ServerProvider) {
+  constructor(public navCtrl: NavController, public storage: Storage, public serverProvider: ServerProvider, public ga: GoogleAnalytics) {
       this.toggled = false; 
   }
   openSettings() {
@@ -48,6 +50,7 @@ export class MyHeaderComponent {
             
             this.searchTerm = ""
             this.suggestions = []
+            this.mapSuggestions = []
         }, 150);
     }
 
@@ -83,6 +86,7 @@ export class MyHeaderComponent {
     getHistory() {
         this.storage.get('recent_searches').then((val) => {
             this.suggestions = []
+            this.mapSuggestions = []
             this.history = JSON.parse(val).searches
             console.log(this.history)
         });
@@ -90,6 +94,7 @@ export class MyHeaderComponent {
     getSuggestions(query) {
         this.serverProvider.getAutocomplete(query).then(data => {
              this.suggestions = data['results']
+             this.mapSuggestions = data['maps']
              this.history = []
         }).catch(error => { return []});
     }
@@ -97,6 +102,14 @@ export class MyHeaderComponent {
         this.searchTerm = suggestion
 
         this.searchQuery()
+    }
+    mapClicked(map) {
+        this.ga.trackEvent('Engagements', "Autocomplete", map.name);
+
+         this.navCtrl.push('MapDetailsPage', {
+            'map_data':  map,
+            'add_to_views': true
+        })
     }
 
 }

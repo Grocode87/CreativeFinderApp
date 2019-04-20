@@ -1,5 +1,5 @@
 import { ViewChild, Component } from '@angular/core';
-import { IonicPage, Content, Searchbar, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Content, Searchbar, NavController, NavParams, Nav, Events } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server'
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 import { Storage } from '@ionic/storage';
@@ -20,6 +20,8 @@ export class SearchResultsPage {
     query: any = "Val"
     searchTerm: any;
     maps: any;
+    creators: any;
+    categories: any;
     showResults; any;
 
     @ViewChild(Content) content: Content;
@@ -33,7 +35,7 @@ export class SearchResultsPage {
     showX: any = true;
   
 
-  constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public serverProvider: ServerProvider) {
+  constructor(public storage: Storage, public ga: GoogleAnalytics, public navCtrl: NavController, public navParams: NavParams, public nav: Nav, public serverProvider: ServerProvider, public events: Events) {
     this.query = navParams.get('query')
     this.ga.trackEvent('Search', "Query", this.query);
 
@@ -66,6 +68,9 @@ export class SearchResultsPage {
         this.serverProvider.getSearch(this.query)
         .then(data => {
           this.maps = data['results'];
+          this.creators = data['creators'];
+          console.log(data)
+          this.categories = data['categories'];
         }).catch(error => { 
             this.errorLoading = true;
         });
@@ -76,6 +81,18 @@ export class SearchResultsPage {
         this.errorLoading = false;
         this.search()
     }
+
+    viewCategory(category) {
+        this.events.publish('view:category', category);
+        this.navCtrl.pop()
+    }
+
+    viewCreator(creator) {
+        this.navCtrl.push('CreatorDetailsPage', {
+            'creator':  creator
+        })
+    }
+
     onFocus() {
         this.showX = false;
     }

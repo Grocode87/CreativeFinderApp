@@ -14,6 +14,13 @@
 </ion-navbar>
 <ion-toolbar *ngIf='toggled' class='search-suggestions'>
     <div>
+        <ion-item no-lines (click)='mapClicked(map)' class='map-suggestion' *ngFor='let map of mapSuggestions'>
+            <img class='img' src="{{map.img}}">
+            <div class='text-wrapper'>
+                <div class='name'>{{map.name}}</div>
+                <div class='desc-text'>Relevent map</div>
+            </div>
+        </ion-item>
         <ion-item no-lines (click)="suggestionClicked(item)" class='suggestion' *ngFor='let item of suggestions'>
             <ion-icon class='suggestion-icon' item-start name='search'></ion-icon>
             {{ item }}

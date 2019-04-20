@@ -26,7 +26,6 @@ page-search-results {
         padding-bottom: 1000px;
         font-family: Monserrat Bold;
     }
-    #searchbar {}
     ion-item.history {
         background-color: transparent !important;
     }
@@ -38,49 +37,48 @@ page-search-results {
     }
     .result-type {
         background-color: white;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        padding-left: 15px;
+        padding-bottom: 4px;
         .type-text {
-            padding: 20px;
-            padding-left: 15px;
-            padding-bottom: 4px;
+            //padding: 20px;
+            //padding-left: 15px;
+            //padding-bottom: 4px;
             font-size: 20px;
             font-weight: 450;
+            display: inline-block;
         }
         .right-text {
-            padding-left: 15px;
+            padding-top: 1px;
+            display: inline-block;
         }
     }
     .creators-list {
         background-color: white;
         padding: 10px;
-        padding-left: 25px;
+        padding-left: 15px;
         display: flex;
         overflow-x: auto;
         .creator {
             padding: 10px;
             padding-top: 5px;
             padding-left: 0px;
+            padding-right: 15px;
             flex-shrink: 0;
+            text-align: center;
             img {
                 width: 65px;
                 height: 65px;
                 border-radius: 7px;
             }
             .creator-text {
-                font-size: 16px;
+                padding-top: 5px;
+                font-size: 21px;
                 text-align: center;
-            }
-        }
-        .category {
-            padding-top: 5px;
-            padding-left: 10px;
-            flex-shrink: 0;
-            img {
-                width: 120px;
-                border-radius: 12px;
-            }
-            .label {
-                font-size: 16px;
-                text-align: center;
+                font-family: Fortnite;
+                text-transform: uppercase;
             }
         }
     }
@@ -88,30 +86,38 @@ page-search-results {
         background-color: white;
         display: flex;
         overflow-x: auto;
-        padding-left: 25px;
+        padding-left: 15px;
         padding-top: 10px;
         padding-bottom: 20px;
         .category {
             padding-top: 5px;
+            margin-right: 10px;
             position: relative;
             flex-shrink: 0;
+            text-align: center;
             img {
-                width: 150px;
-                border-radius: 12px;
+                width: 165px;
+                border-radius: 4px;
+                filter: brightness(60%);
             }
             .label {
-                font-size: 28px;
+                font-size: 26px;
                 font-family: Fortnite;
                 text-transform: uppercase;
                 color: white;
                 position: absolute;
-                left: 17%;
-                top: 37%;
+                top: 42px;
+                left: 0;
+                right: 0;
             }
+        }
+        .e-slide {
+            flex-shrink: 0;
+            width: 10px;
         }
     }
     .spacing {
-        height: 13px;
+        height: 7px;
         border-top: 1px solid rgb(224, 224, 224);
         border-bottom: 1px solid rgb(224, 224, 224);
     }
@@ -125,9 +131,5 @@ page-search-results {
         box-shadow: none !important;
         -webkit-box-shadow: none !important;
         background-color: rgb(248, 248, 248) !important;
-    }
-    .line-bottom {
-        //border-bottom: 1px solid rgb(224, 224, 224) !important;
-        //margin-right: 10px;
     }
 }
