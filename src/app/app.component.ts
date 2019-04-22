@@ -78,14 +78,14 @@ export class MyApp {
     // 2.5 minutes in MS = 150000
     setTimeout( () => {
       this.showInterstitialAd()
-    }, 10000);
+    }, 150000);
 
     // Listens for the interstitial ad close event
     renderer.listenGlobal('document', 'admob.interstitial.events.CLOSE', (event) => {
         // Start a new 2.5 minute timer for an ad
         setTimeout( () => {
             this.showInterstitialAd()
-        }, 10000);
+        }, 150000);
     });
   }
 

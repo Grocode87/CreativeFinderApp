@@ -27,7 +27,7 @@
         <button ion-button round outline (click)='tryAgain()'>Try Again</button>
     </div>
 
-    <div class='no-results' *ngIf='!errorLoading && maps && maps?.length == 0'>
+    <div class='no-results' *ngIf='!errorLoading && (maps && maps?.length == 0) && creators?.length == 0 && categories?.length == 0'>
         <ion-icon name='search'></ion-icon>
         <h1>No Results Found</h1>
     </div>

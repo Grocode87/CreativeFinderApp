@@ -70,7 +70,6 @@ export class SearchResultsPage {
         .then(data => {
           this.maps = data['results'];
           this.creators = data['creators'];
-          console.log(data)
           this.categories = data['categories'];
         }).catch(error => { 
             this.errorLoading = true;
