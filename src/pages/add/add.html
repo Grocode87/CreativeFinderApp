@@ -1,0 +1,95 @@
+<!--
+  Generated template for the AddPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button navPop ion-button icon-only>
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Submit a Map</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class='content'>
+    <ion-list>
+
+        <ion-card class='card'>
+            <div class='card-header'>Map Info</div>
+            <ion-item>
+                <ion-label stacked>Code</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+            <div class='card-input'>
+                <div class='card-input-header'>
+                    <ion-item>
+                        <ion-label>Category</ion-label>
+                        <ion-select [(ngModel)]="category">
+                            <ion-option value="default">Other</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </div>
+            </div>
+        </ion-card>
+
+        <ion-card class='card'>
+            <div class='card-header'>Contact</div>
+            <ion-item>
+                <ion-label stacked>Email</ion-label>
+                <ion-input type="text"></ion-input>
+                The email will only be used to send updates on the status of the map.
+            </ion-item>
+
+        </ion-card>
+
+        <ion-card class='card'>
+            <div class='card-header'>Media</div>
+            <div class='media-wrapper'>
+                <div class='images-title'>
+                    Images (Minimum 1)
+                </div>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col class='image-wrapper' col-4>
+                            <div class='image'>
+                                <ion-icon name='add'></ion-icon>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+            <ion-item>
+                <ion-label stacked>Youtube Video Url (Optional)</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+
+        </ion-card>
+
+    </ion-list>
+    <!--
+    What I need
+    Contact
+    Email Address
+    * The email is only used to send updates on the status of your map
+
+    Map Code
+    (Make sure it is valid)
+
+    Category
+    (Dropdown list)
+
+    Media
+    - Images (1 required) (Upload image directly or link)
+    - Youtube video link (optional)
+
+
+    POST REQUEST - send data to api
+    FROM API - add info directly to database
+    find a way to download data from api, upload it back w a yes or no and send email to user, never allow the email to get out of the database
+
+-->
+</ion-content>

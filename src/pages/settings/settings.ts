@@ -69,6 +69,12 @@ export class SettingsPage {
   openFeedback() {
     this.iab.create('https://creativefinder.wufoo.com/forms/zzwizl801wddz3/');
   }
+
+  openAdd() {
+     //this.navCtrl.push('AddPage')
+    const modal = this.modalCtrl.create('AddPage');
+    modal.present();
+  }
   /*share() {
     this.socialSharing.share("Creative Finder - The best place to find Fortnite Creative Codes", null, null, "https://bit.ly/2BieoNv").then(() => {
       this.presentToast("Shared succesfully")

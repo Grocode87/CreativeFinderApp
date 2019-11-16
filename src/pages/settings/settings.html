@@ -16,7 +16,13 @@
 <ion-content class='content dark-bg'>
     <ion-item-group>
         <ion-item-divider class='divider'>General</ion-item-divider>
-
+        <ion-item class='s-item' (click)='openAdd()'>
+            <ion-label>
+                <h3>Submit a Map</h3>
+                <p>Have a map? Submit it here</p>
+            </ion-label>
+            <ion-icon name="add" item-end></ion-icon>
+        </ion-item>
         <ion-item class='s-item'>
             <ion-toggle checked="false" [(ngModel)]='darkToggle' (ionChange)="toggleDark($event)"></ion-toggle>
             <ion-label>
