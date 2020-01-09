@@ -120,6 +120,23 @@ page-map-details {
             padding-right: 8px;
             padding-bottom: 8px;
         }
+        .video-container {
+            position: relative;
+            .video-thumbnail {
+                filter: brightness(79%);
+            }
+            .play_button {
+                position: absolute;
+                width: 80px;
+                height: 80px;
+                left: 50%;
+                top: 50%;
+                margin-left: -40px;
+                /*half of the width */
+                margin-top: -40px;
+                /*half of the height */
+            }
+        }
     }
     .other-maps-header {
         animation-name: fadeIn;

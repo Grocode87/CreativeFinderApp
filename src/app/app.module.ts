@@ -21,6 +21,7 @@ import { AdMobFree } from '@ionic-native/admob-free';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { BannerProvider } from '../providers/banner/banner';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { VirtualScrollerModule } from 'ngx-virtual-scroller';
     AppState,
     AdMobFree,
     SocialSharing,
-    BannerProvider
+    BannerProvider,
+    YoutubeVideoPlayer
   ],
   exports: [
   ]

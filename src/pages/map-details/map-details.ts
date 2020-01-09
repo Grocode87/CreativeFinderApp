@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/';
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -64,7 +65,8 @@ export class MapDetailsPage {
               public storage: Storage,
               private toastCtrl: ToastController,
               public platform: Platform,
-              public sanitizer: DomSanitizer) {
+              public sanitizer: DomSanitizer,
+              public videoPlayer: YoutubeVideoPlayer) {
 
         this.fromCreatorPage = navParams.get('from_creator_page')
         this.map = navParams.get('map_data')
@@ -363,5 +365,9 @@ export class MapDetailsPage {
                 'creator':  creator
             })
         }
+    }
+
+    openYTVideo(id) {
+        this.videoPlayer.openVideo(id);
     }
 }

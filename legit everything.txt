@@ -1,0 +1,90 @@
+TODO
+- Server side handling of multiple words (needs both in desc/name)
+
+Backend
+- Implement trending algorithm
+	https://www.quora.com/What-	algorithm-is-used-to-find-	trending-topics-on-Twitter
+	* Every x amount of times, recalculate this, use the maps history of clicks to detect which one is trending in the most irregular way.
+
+- Implement Hot option for maps
+Use same algorithm as 
+
+1. ionic cordova build android --prod --release
+2. "C:\Program Files\Java\jdk1.8.0_111\bin\jarsigner" -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.jks app-release-unsigned.apk my-alias
+3. "C:\Users\Colin Grob\android-sdks\build-tools\28.0.3\zipalign" -v 4 app-release-unsigned.apk CreativeFinderV0.0.4.apk
+
+ab94itsColinLOL!
+
+v1.5.1
+
+9206-5102-2709
+
+
+Maps with the new baller
+
+
+---- BALLER MAPS ------------
+NEON BALLER
+BALLER LEAGUE
+BALLER MINI GOLF
+SNIPERS VS BALLERS
+HOO BALLER PINBALL
+THE BALLER RESEARCH LAB
+SUPER BALLER COURSE
+
+
+------- SCRIM PRACTICE -------
+DONNYSC'S MOVING ZONE TERRAIN V4.1
+SELAGE'S AUTOMATIC ZONE WARS
+BFC LATE GAME SIMULATOR
+BFC LATE GAME TRAINING
+WITLE'S ZONE WARS
+DONNYSC'S BOUNCING ZONE V1.4
+ULTIMATE ZONE WARS 2.01C
+DONNYSC'S MOVING ZONE GRASSY MOUNTAIN
+SCRIMS WITH STORM V3
+MOVING STORM SCRIMS 
+
+
+6011-7025-2564
+
+--------RPG TYPE GAMES--------
+THE GREAT - A STRANGE ISLAND
+
+
+
+TRASH COMPACTOR
+JOJO's DROPPER
+THE BIG COUP
+ANGRY BOMBERS
+SHARK ATTACK
+CANNONBALL DARTS
+MOVE!
+RAILROAD RUNNERS
+CONTROL THE CART
+
+
+0031-1061-9297
+
+
+PARKOUR
+DONNYSC'S ZONE WARS
+THE BLOCK
+MINIGAMES
+WARMUP AND TRAINING
+
+
+
+{
+        "title": "Escape Collection",
+        "desc": "The hardest and best designed escape maps",
+        "map_ids": [672, 679, 802, 574, 671, 657, 548]
+    },
+    {
+        "title": "Warmup and Training",
+        "desc": "Great maps for improving your skill or warming up before playing!",
+        "map_ids": [696, 693, 673, 562, 686, 415]
+    }
+
+
+
