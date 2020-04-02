@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { Searchbar, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
@@ -26,10 +26,13 @@ export class MyHeaderComponent {
   mapSuggestions = []
   
   @ViewChild('searchbar') searchbar:Searchbar;
+  @Input('title') titleText:any = "Default";
 
   constructor(public navCtrl: NavController, public storage: Storage, public serverProvider: ServerProvider, public ga: GoogleAnalytics) {
       this.toggled = false; 
   }
+
+  
   openSettings() {
         this.navCtrl.push('SettingsPage', {})
     }

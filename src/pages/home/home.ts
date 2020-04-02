@@ -16,6 +16,7 @@ export class HomePage {
     recommended: any;
 
     errorLoading: any = false;
+    errorText: any = "";
 
     isApp: any = true
 
@@ -51,6 +52,7 @@ export class HomePage {
                 this.recommended = data['recommended'];
             }
         }).catch(error => {
+            this.errorText = error;
             console.log("Unable to load content")
             this.errorLoading = true;
 

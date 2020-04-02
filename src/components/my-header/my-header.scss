@@ -41,6 +41,19 @@ my-header {
             }
         }
     }
+    .title-text {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        padding-top: 18px;
+        padding-right: 10px;
+        text-align: center;
+        font-size: 27px !important;
+        font-family: Fortnite;
+        letter-spacing: 1px !important;
+    }
     ion-item.history {
         background-color: transparent !important;
     }

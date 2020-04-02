@@ -15,11 +15,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AddPage {
 
+  currPage:any = 0
+  categories:any = []
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddPage');
+  }
+
+  nextPage() {
+      this.currPage += 1;
   }
 
 }

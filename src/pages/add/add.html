@@ -16,8 +16,103 @@
 </ion-header>
 
 <ion-content class='content'>
-    <ion-list>
+    <div class='page-1' *ngIf='currPage == 0'>
+        <div class='info-container'>
+            <div class='info-1'>
+                Have a map to add?
+            </div>
+            <div class='info-2'>
+                Enter the code below to begin
+            </div>
+        </div>
+        <ion-item>
+            <ion-input class='code-input' type="text" placeholder="0000-0000-0000"></ion-input>
+        </ion-item>
+        <div class='centered'>
+            <button ion-button round block (click)="nextPage()">Next</button>
+        </div>
+    </div>
 
+    <div class='page-2' *ngIf='currPage == 1'>
+        <div class='map-info'>
+            <div class='name'>Map Name</div>
+            <div class='creator'>By <span class='creator-name' (click)='openCreator(map.creator)'>Creator</span></div>
+            <div class='desc'>And here is the description of the map</div>
+        </div>
+
+        <div class='category-selector card'>
+            <div class='title'>Categories</div>
+            <div class='types-container'>
+                <div class="type" *ngFor='let category of categories'> {{ category }}</div>
+                <div class='type add-type'>
+                    Add
+                    <ion-icon name='add'></ion-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class='email card'>
+            <div class='title'>Contact (Optional)</div>
+            <ion-item>
+                <ion-label>Email</ion-label>
+                <ion-input type="email"></ion-input>
+            </ion-item>
+            <div class='email-msg'>
+                This email will only be used to let you know when the map has been added
+            </div>
+        </div>
+
+        <div class='media card'>
+            <div class='title'>Media</div>
+            <div class='media-wrapper'>
+                <div class='images-title'>
+                    Images (Minimum 1)
+                </div>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col class='image-wrapper' col-4>
+                            <div class='image'>
+                                <ion-icon name='add'></ion-icon>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+            <ion-item>
+                <ion-label stacked>Youtube Video Url (Optional)</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+        </div>
+
+        <button ion-button round block (click)="nextPage()">Next</button>
+    </div>
+
+    <div class='page-3' *ngIf='currPage == 2'>
+        <div class='title'>
+            Preview
+        </div>
+
+        <div class='preview-card'>
+            <img class="img" src="https://picsum.photos/400/230" />
+            <div class='custom-padding'>
+                <div class='name'>Fortnite Map Name</div>
+                <div class='creator'>By <span class='creator-name' (click)='openCreator(map.creator)'>Creator</span></div>
+                <div class='desc'>This is the description of the map</div>
+                <div class='type-wrapper'>
+                    <div class="type" *ngFor='let type of ["PVP", "Obstacle Course"]'> {{ type }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class='submit-text'>
+            Maps are manually reviewed before being added, this may take up to 2 days
+        </div>
+        <button ion-button round block (click)="nextPage()">Submit</button>
+
+    </div>
+
+    <!--
+    <ion-list>
         <ion-card class='card'>
             <div class='card-header'>Map Info</div>
             <ion-item>
@@ -70,6 +165,9 @@
         </ion-card>
 
     </ion-list>
+    -->
+
+
     <!--
     What I need
     Contact
