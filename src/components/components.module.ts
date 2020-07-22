@@ -5,14 +5,22 @@ import { MyHeaderComponent } from './my-header/my-header';
 import { MapItemComponent } from './map-item/map-item';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MapCarouselComponent } from './map-carousel/map-carousel';
+import { CropModalComponent } from './crop-modal/crop-modal';
 
 @NgModule({
 	declarations: [MyHeaderComponent,
     MapItemComponent,
-    MapCarouselComponent],
+    MapCarouselComponent,
+    CropModalComponent,
+    ],
 	imports: [IonicModule,LazyLoadImageModule],
+    entryComponents: [
+        
+    ],
 	exports: [MyHeaderComponent,
     MapItemComponent,
-    MapCarouselComponent]
+    MapCarouselComponent,
+    CropModalComponent,
+    ]
 })
 export class ComponentsModule {}

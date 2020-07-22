@@ -8,7 +8,7 @@ $font-path: "../assets/fonts";
 // http://ionicframework.com/docs/theming/rtl-support/
 $app-direction: ltr;
 @import "ionic.globals";
-$colors: ( primary: #bf360c, secondary: #d4c21e, danger: #f53d3d, light: #fafafa, dark: #222, bg-color: #f3f3f3, fg-color: #ffffff, accent-color: lightgrey, text-color: #000000, error-color: #aaaaaa);
+$colors: ( primary: #bf360c, secondary: #d4c21e, danger: #f53d3d, confirm: #149119, light: #fafafa, dark: #222, bg-color: #f3f3f3, fg-color: #ffffff, accent-color: lightgrey, text-color: #000000, error-color: #aaaaaa);
 //$toolbar-background: $fg-color;
 //$tabs-background: $fg-color;
 //$list-md-border-color: $accent-color;
@@ -32,6 +32,7 @@ $searchbar-md-input-search-icon-size: 0px;
     src: url('../assets/fonts/luckiestguy/luckiest.guy-regular.ttf');
 }
 
+$text-input-md-show-focus-highlight: false;
 // Material Design only Sass variables can go here
 // App Windows Variables
 // --------------------------------------------------

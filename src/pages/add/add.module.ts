@@ -3,18 +3,21 @@ import { IonicPageModule } from 'ionic-angular';
 import { AddPage } from './add';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ComponentsModule } from '../../components/components.module';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 @NgModule({
   declarations: [
-    AddPage,
+    AddPage
   ],
   imports: [
     IonicPageModule.forChild(AddPage),
     LazyLoadImageModule,
-    ComponentsModule
+    ComponentsModule,
+    IonicImageViewerModule
   ],
-exports: [
-    AddPage
-]
+  entryComponents: [AddPage],
+  exports: [
+    AddPage,
+  ]
 })
 export class AddPageModule {}

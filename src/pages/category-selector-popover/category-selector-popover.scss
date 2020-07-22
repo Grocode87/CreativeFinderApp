@@ -1,0 +1,14 @@
+page-category-selector-popover {
+    .popover-content {
+        width: 500px;
+    }
+    .list-wrapper {
+        padding-left: 10px;
+        padding-right: 10px;
+        .category {
+            font-size: 18px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    }
+}

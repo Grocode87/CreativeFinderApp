@@ -42,6 +42,22 @@ export class MyApp {
         }
       });
 
+      try {
+        //configure interstitial ad and prepare it
+        const interstitialConfig: AdMobFreeInterstitialConfig = {
+            id: 'ca-app-pub-6794112313190428/2474984639',
+            isTesting: false,
+            autoShow: false
+        }
+        this.admob.interstitial.config(interstitialConfig);
+
+        this.admob.interstitial.prepare()
+        .then(() => { }).catch(e => console.log(e));
+
+      } catch (e) {
+        console.error(e)
+      }
+
       this.ga.startTrackerWithId('UA-132784338-1')
         .then(() => {console.log('Google analytics started');})
         .catch(e => console.log('Error starting GoogleAnalytics', e));
@@ -80,32 +96,29 @@ export class MyApp {
       this.showInterstitialAd()
     }, 150000);
 
-    // Listens for the interstitial ad close event
-    renderer.listenGlobal('document', 'admob.interstitial.events.CLOSE', (event) => {
-        // Start a new 2.5 minute timer for an ad
-        setTimeout( () => {
-            this.showInterstitialAd()
-        }, 150000);
+    
+    // When the ad is closed, que another ad to open
+    this.admob.on('admob.interstitial.events.CLOSE').subscribe(() => {
+      this.admob.interstitial.prepare()
+        .then(() => {
+            setTimeout( () => {
+                this.showInterstitialAd()
+            }, 150000);
+        }).catch(e => console.log(e));
     });
+
   }
 
 
-  async showInterstitialAd() {
-      /** Function to show interstitial ad */
-    try {
-      const interstitialConfig: AdMobFreeInterstitialConfig = {
-        id: 'ca-app-pub-6794112313190428/2474984639',
-        isTesting: false,
-        autoShow: true
-      }
-
-      this.admob.interstitial.config(interstitialConfig);
-
-      const result = await this.admob.interstitial.prepare();
-      console.log(result);
-    }
-    catch (e) {
-      console.error(e)
+    showInterstitialAd() {
+        /** Function to show interstitial ad */
+        //Check if Ad is loaded
+        this.admob.interstitial.isReady().then(() => {
+            //Will show prepared Ad
+            this.admob.interstitial.show().then(() => {
+            }).catch(e =>console.log(e));
+        })
+        .catch(e =>console.log(e));
     }
   }
-}
+

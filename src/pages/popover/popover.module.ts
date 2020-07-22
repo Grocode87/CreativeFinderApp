@@ -8,9 +8,6 @@ declarations: [
 ],
 imports: [
     IonicPageModule.forChild(PopoverPage),
-],
-exports: [
-    PopoverPage
 ]
 })
 export class PopoverPageModule {}

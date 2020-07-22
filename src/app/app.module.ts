@@ -22,18 +22,29 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { BannerProvider } from '../providers/banner/banner';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { AngularCropperjsModule } from 'angular-cropperjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     LazyLoadImageModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpClientModule,
-    VirtualScrollerModule
+    VirtualScrollerModule,
+    IonicImageViewerModule,
+    AngularCropperjsModule
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,7 +61,11 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
     AdMobFree,
     SocialSharing,
     BannerProvider,
-    YoutubeVideoPlayer
+    YoutubeVideoPlayer,
+    FileTransfer,
+    FileTransferObject,
+    File,
+    Camera
   ],
   exports: [
   ]

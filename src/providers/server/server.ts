@@ -10,8 +10,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ServerProvider {
 
-  apiUrl = 'http://cgrob10.pythonanywhere.com'
-  //apiUrl = 'http://localhost:5000'
+  //apiUrl = 'http://cgrob10.pythonanywhere.com'
+  apiUrl = 'http://localhost:5000'
 
   constructor(public http: HttpClient) {}
 
@@ -87,6 +87,26 @@ export class ServerProvider {
   getCreator(name) {
       return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl+'/get/creator/'+name).subscribe(data => {
+        resolve(data); 
+      }, err => {
+        reject(err)
+      });
+    });
+  }
+
+  getCodeData(code) {
+      return new Promise((resolve, reject) => {
+      this.http.get(this.apiUrl+'/get/data/'+code).subscribe(data => {
+        resolve(data); 
+      }, err => {
+        reject(err)
+      });
+    });
+  }
+
+  uploadMap(map_data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + '/post/map', map_data).subscribe(data => {
         resolve(data); 
       }, err => {
         reject(err)

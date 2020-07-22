@@ -13,6 +13,9 @@
         </ion-buttons>
         <ion-title>Submit a Map</ion-title>
     </ion-navbar>
+    <div class='error-toolbar' *ngIf='showErrorHeader' [@slideInOut]>
+        <div class='error-text'>{{ errorHeaderText }}</div>
+    </div>
 </ion-header>
 
 <ion-content class='content'>
@@ -25,32 +28,40 @@
                 Enter the code below to begin
             </div>
         </div>
-        <ion-item>
-            <ion-input class='code-input' type="text" placeholder="0000-0000-0000"></ion-input>
+        <div class='code-invalid-text' *ngIf="codeSubmitAttempted">{{ errorCode }}</div>
+        <ion-item class='code-item'>
+            <ion-input [(ngModel)]='code' (ionChange)='updatedCode($event)' [formControl]="codeFormControl" class='code-input' type="tel" maxlength="14" placeholder="0000-0000-0000" [class.invalid]="codeSubmitAttempted"></ion-input>
         </ion-item>
         <div class='centered'>
-            <button ion-button round block (click)="nextPage()">Next</button>
+            <button ion-button round block (click)="submitCode()">Next</button>
         </div>
     </div>
 
     <div class='page-2' *ngIf='currPage == 1'>
         <div class='map-info'>
-            <div class='name'>Map Name</div>
-            <div class='creator'>By <span class='creator-name' (click)='openCreator(map.creator)'>Creator</span></div>
-            <div class='desc'>And here is the description of the map</div>
+            <div class='name'>{{ mapData.title }}</div>
+            <div class='creator'>By <span class='creator-name'>{{ mapData.creator }}</span></div>
+            <div class='desc'>{{ mapData.desc }}</div>
         </div>
 
         <div class='category-selector card'>
             <div class='title'>Categories</div>
-            <div class='types-container'>
-                <div class="type" *ngFor='let category of categories'> {{ category }}</div>
-                <div class='type add-type'>
-                    Add
+            <div class="type-wrapper">
+                <div class='type-list' *ngIf="addedTypes.length > 0">
+                    <div class='type' *ngFor='let type of addedTypes'>
+                        {{type}}
+                        <ion-icon name='close' (click)='removeType(type)'></ion-icon>
+                    </div>
+
+                </div>
+                <div class='add-type' (click)="presentPopover()">
+                    Add Category
                     <ion-icon name='add'></ion-icon>
                 </div>
             </div>
-        </div>
 
+        </div>
+        <!---
         <div class='email card'>
             <div class='title'>Contact (Optional)</div>
             <ion-item>
@@ -58,33 +69,58 @@
                 <ion-input type="email"></ion-input>
             </ion-item>
             <div class='email-msg'>
-                This email will only be used to let you know when the map has been added
+                Get a notification when the map is added
             </div>
         </div>
-
+        -->
         <div class='media card'>
-            <div class='title'>Media</div>
-            <div class='media-wrapper'>
-                <div class='images-title'>
-                    Images (Minimum 1)
+            <div class='title images-title-wrapper'>
+                <div class='images-title'>Images</div>
+                <div class='images-reorder' (click)='startImageReorder()' *ngIf='!imageReorder'>
+                    <ion-icon name='shuffle'></ion-icon>
+                    <span>Reorder</span>
                 </div>
+                <div class='images-reorder done' (click)='startImageReorder()' *ngIf='imageReorder'>
+                    <ion-icon name='checkmark'></ion-icon>
+                    <span>Done</span>
+                </div>
+            </div>
+            <div class='media-wrapper'>
                 <ion-grid>
                     <ion-row>
-                        <ion-col class='image-wrapper' col-4>
-                            <div class='image'>
+                        <ion-col *ngFor='let img of images; let i = index' class='image-wrapper' col-6>
+                            <div class='image-container'>
+                                <div class='image-cover' *ngIf='imageReorder' (click)='editImageOrder(i)'></div>
+                                <img class="img" defaultImage="assets/imgs/default-image.png" errorImage="assets/imgs/error-image.png" [lazyLoad]="img.url" [scrollObservable]="content.ionScroll" offset="1000" imageViewer/>
+                            </div>
+                            <div class='delete' *ngIf='!imageReorder'>
+                                <ion-icon name="close" (click)='removeImage(img.url)'></ion-icon>
+                            </div>
+                            <div class='order' *ngIf='!imageReorder'>
+                                <div class='number'>{{ img.order + 1 }}</div>
+                            </div>
+                            <div class='order-temp empty' *ngIf='imageReorder && newImageOrder[i] == -1' (click)='editImageOrder(i)'>
+                            </div>
+                            <div class='order-temp full' *ngIf='imageReorder && newImageOrder[i] != -1' (click)='editImageOrder(i)'>
+                                <div class='number'>{{ newImageOrder[i] + 1}}</div>
+                            </div>
+                        </ion-col>
+                        <ion-col class='image-wrapper' col-6>
+                            <div class='image' (click)="chooseImageAction()" *ngIf='!imageReorder'>
                                 <ion-icon name='add'></ion-icon>
                             </div>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
             </div>
-            <ion-item>
-                <ion-label stacked>Youtube Video Url (Optional)</ion-label>
-                <ion-input type="text"></ion-input>
-            </ion-item>
         </div>
-
-        <button ion-button round block (click)="nextPage()">Next</button>
+        <!--
+        <div class='video card'>
+            <div class='title'>Video</div>
+            <span>NOT YET IMPLEMENTED</span>
+        </div>
+        -->
+        <button ion-button round block (click)="submitMapData()">Next</button>
     </div>
 
     <div class='page-3' *ngIf='currPage == 2'>
@@ -93,13 +129,19 @@
         </div>
 
         <div class='preview-card'>
-            <img class="img" src="https://picsum.photos/400/230" />
+            <div class='img'>
+                <img [src]="finalImageUrls[0]" />
+                <div class='img-icons'>
+                    <!--<ion-icon *ngIf="" class='yt-icon' name="logo-youtube"></ion-icon>-->
+                    <ion-icon *ngIf="finalImageUrls.length > 1" name="images"></ion-icon>
+                </div>
+            </div>
             <div class='custom-padding'>
-                <div class='name'>Fortnite Map Name</div>
-                <div class='creator'>By <span class='creator-name' (click)='openCreator(map.creator)'>Creator</span></div>
-                <div class='desc'>This is the description of the map</div>
+                <div class='name'>{{ mapData.title }}</div>
+                <div class='creator'>By <span class='creator-name'>{{ mapData.creator }}</span></div>
+                <div class='desc'>{{ mapData.desc }}</div>
                 <div class='type-wrapper'>
-                    <div class="type" *ngFor='let type of ["PVP", "Obstacle Course"]'> {{ type }}</div>
+                    <div class="type" *ngFor='let type of addedTypes'> {{ type }}</div>
                 </div>
             </div>
         </div>
@@ -107,87 +149,16 @@
         <div class='submit-text'>
             Maps are manually reviewed before being added, this may take up to 2 days
         </div>
-        <button ion-button round block (click)="nextPage()">Submit</button>
+        <ion-grid class='button-grid'>
+            <ion-row>
+                <ion-col col-6>
+                    <button color='fg-color' ion-button round block (click)="lastPage()">Back</button>
+                </ion-col>
+                <ion-col col-6>
+                    <button ion-button round block (click)="sendMap()">Submit</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 
     </div>
-
-    <!--
-    <ion-list>
-        <ion-card class='card'>
-            <div class='card-header'>Map Info</div>
-            <ion-item>
-                <ion-label stacked>Code</ion-label>
-                <ion-input type="text"></ion-input>
-            </ion-item>
-            <div class='card-input'>
-                <div class='card-input-header'>
-                    <ion-item>
-                        <ion-label>Category</ion-label>
-                        <ion-select [(ngModel)]="category">
-                            <ion-option value="default">Other</ion-option>
-                        </ion-select>
-                    </ion-item>
-                </div>
-            </div>
-        </ion-card>
-
-        <ion-card class='card'>
-            <div class='card-header'>Contact</div>
-            <ion-item>
-                <ion-label stacked>Email</ion-label>
-                <ion-input type="text"></ion-input>
-                The email will only be used to send updates on the status of the map.
-            </ion-item>
-
-        </ion-card>
-
-        <ion-card class='card'>
-            <div class='card-header'>Media</div>
-            <div class='media-wrapper'>
-                <div class='images-title'>
-                    Images (Minimum 1)
-                </div>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col class='image-wrapper' col-4>
-                            <div class='image'>
-                                <ion-icon name='add'></ion-icon>
-                            </div>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </div>
-            <ion-item>
-                <ion-label stacked>Youtube Video Url (Optional)</ion-label>
-                <ion-input type="text"></ion-input>
-            </ion-item>
-
-        </ion-card>
-
-    </ion-list>
-    -->
-
-
-    <!--
-    What I need
-    Contact
-    Email Address
-    * The email is only used to send updates on the status of your map
-
-    Map Code
-    (Make sure it is valid)
-
-    Category
-    (Dropdown list)
-
-    Media
-    - Images (1 required) (Upload image directly or link)
-    - Youtube video link (optional)
-
-
-    POST REQUEST - send data to api
-    FROM API - add info directly to database
-    find a way to download data from api, upload it back w a yes or no and send email to user, never allow the email to get out of the database
-
--->
 </ion-content>
