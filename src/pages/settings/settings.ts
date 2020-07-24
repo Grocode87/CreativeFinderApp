@@ -72,7 +72,9 @@ export class SettingsPage {
 
   openAdd() {
      //this.navCtrl.push('AddPage')
-    const modal = this.modalCtrl.create('AddPage');
+    const modal = this.modalCtrl.create('AddPage', {param: 'test'}, {
+      cssClass: this.global.state['theme']
+    });
     modal.present();
   }
   /*share() {

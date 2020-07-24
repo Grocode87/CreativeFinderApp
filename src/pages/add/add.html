@@ -18,7 +18,7 @@
     </div>
 </ion-header>
 
-<ion-content class='content'>
+<ion-content class='content dark-bg'>
     <div class='page-1' *ngIf='currPage == 0'>
         <div class='info-container'>
             <div class='info-1'>
@@ -38,13 +38,13 @@
     </div>
 
     <div class='page-2' *ngIf='currPage == 1'>
-        <div class='map-info'>
+        <div class='map-info light-dark-bg'>
             <div class='name'>{{ mapData.title }}</div>
             <div class='creator'>By <span class='creator-name'>{{ mapData.creator }}</span></div>
             <div class='desc'>{{ mapData.desc }}</div>
         </div>
 
-        <div class='category-selector card'>
+        <div class='category-selector card light-dark-bg'>
             <div class='title'>Categories</div>
             <div class="type-wrapper">
                 <div class='type-list' *ngIf="addedTypes.length > 0">
@@ -73,7 +73,7 @@
             </div>
         </div>
         -->
-        <div class='media card'>
+        <div class='media card light-dark-bg'>
             <div class='title images-title-wrapper'>
                 <div class='images-title'>Images</div>
                 <div class='images-reorder' (click)='startImageReorder()' *ngIf='!imageReorder'>
@@ -129,14 +129,14 @@
         </div>
 
         <div class='preview-card'>
-            <div class='img'>
+            <div class='img light-dark-bg'>
                 <img [src]="finalImageUrls[0]" />
                 <div class='img-icons'>
                     <!--<ion-icon *ngIf="" class='yt-icon' name="logo-youtube"></ion-icon>-->
                     <ion-icon *ngIf="finalImageUrls.length > 1" name="images"></ion-icon>
                 </div>
             </div>
-            <div class='custom-padding'>
+            <div class='custom-padding light-dark-bg'>
                 <div class='name'>{{ mapData.title }}</div>
                 <div class='creator'>By <span class='creator-name'>{{ mapData.creator }}</span></div>
                 <div class='desc'>{{ mapData.desc }}</div>

@@ -152,6 +152,40 @@
     ion-item.suggestion {
         background-color: transparent !important;
     }
+    // Add map specific
+    .page-1 {
+        .code-invalid-text {
+            color: map-get($colors, danger) !important;
+        }
+        .item-inner {
+            border-bottom: 2px solid $accent-color !important;
+        }
+    }
+    .page-2 {
+        .map-info {
+            background-color: $fg-color !important;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2) !important;
+        }
+        .category-selector,
+        .media {
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2) !important;
+        }
+        .title {
+            border-bottom: 1px solid $accent-color;
+        }
+        .done {
+            background-color: $fg-color !important;
+            border: 1px solid white !important;
+        }
+        .type {
+            border: 0px solid white !important;
+        }
+    }
+    .page-3 {
+        .preview-card {
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2) !important;
+        }
+    }
     //.input-wrapper,
     /*  .item-inner,
   .item,

@@ -10,8 +10,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ServerProvider {
 
-  //apiUrl = 'http://cgrob10.pythonanywhere.com'
-  apiUrl = 'http://localhost:5000'
+  apiUrl = 'http://cgrob10.pythonanywhere.com'
+  //apiUrl = 'http://localhost:5000'
 
   constructor(public http: HttpClient) {}
 
